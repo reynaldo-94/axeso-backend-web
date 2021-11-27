@@ -31,5 +31,4 @@ const Menu = sequelize.define('menu', {
 
 
 Menu.hasMany(Menu, { as: 'submenu', foreignKey: 'parentid' });
-
 export default Menu;
