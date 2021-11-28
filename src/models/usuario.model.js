@@ -80,6 +80,9 @@ const Usuario = sequelize.define('usuario', {
     idsesion: {
         type: Sequelize.INTEGER
     },
+    avatarurl: {
+        type: Sequelize.STRING
+    },
     menu: [
 
     ]

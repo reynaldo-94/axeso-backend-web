@@ -17,6 +17,7 @@ const productoRoutes = require('./routes/producto.routes');
 const menuRoutes = require('./routes/menu.routes');
 const periodoRoutes = require('./routes/periodo.routes');
 const divisionRoutes = require('./routes/division.routes');
+const unidadnegocioRoutes = require('./routes/unidadnegocio.routes');
 
 const app = express();
 app.use(morgan('dev'));
@@ -37,5 +38,6 @@ app.use('/productos', productoRoutes);
 app.use('/menus', menuRoutes);
 app.use('/periodos', periodoRoutes);
 app.use('/divisiones', divisionRoutes);
+app.use('/unidadnegocios', unidadnegocioRoutes);
 
 module.exports = app;

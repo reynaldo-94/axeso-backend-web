@@ -122,6 +122,8 @@ export async function getUsuario(req, res) {
     }
 };
 export async function loginUsuario(req, res) {
+    let urlavatarstring = String.raw `..\imagenes\usuarios\usr_usuarioid.png`;
+    console.log("urlavatarstring: ", urlavatarstring)
     let idusuario = 0;
     let usuariosmenus;
     let menus;
@@ -182,13 +184,15 @@ export async function loginUsuario(req, res) {
             idusuario = entidades.usuarioid;
             usuariosmenus = await getUsuariomenus(idusuario);
             if (usuariosmenus) {
-                var idmenus = usuariosmenus.map(function (item) {
+                var idmenus = usuariosmenus.map(function(item) {
                     return item['menuid'];
                 });
             }
-            console.log('idmenus: ', idmenus);
+            //console.log('idmenus: ', idmenus);
             let usumenu = JSON.parse(JSON.stringify(usuariosmenus));
-            console.log("usumenu cont: ", Object.keys(usumenu).length)
+            console.log("usumenu cont: ", Object.keys(usumenu).length);
+            urlavatarstring = urlavatarstring.replace("usuarioid", entidades.usuarioid);
+            console.log("urlavatarstring: ", urlavatarstring)
             menus = await getMenus();
             if (menus) {
                 menus.forEach(async menus => {
@@ -205,7 +209,7 @@ export async function loginUsuario(req, res) {
                                 //console.log("no esta");
                             }
                         });
-                        console.log("estainsertado: ", estainsertado);
+                        //console.log("estainsertado: ", estainsertado);
                         if (estainsertado > 0) {
                             let fnuevomenu = {
                                 "menuid": objecto.menuid,
@@ -255,6 +259,7 @@ export async function loginUsuario(req, res) {
                 entidades.idsesion = newsesion.sesionid;
                 entidades.ingresos = newingresos;
                 entidades.menu = nuevomenu;
+                entidades.avatarurl = String.raw `${urlavatarstring}`;
                 //entidades.usuariosmenus = usuariosmenus;
                 //console.log("newsesion: " + newsesion)
 
@@ -699,7 +704,7 @@ export async function updateClaveEmail(req, res) {
             subject: 'Servicio de recuperacion de contraseña',
             html: 'La contraseña para el usuario con correo: <b>' + correo + '</b> ha sido modificada por <b>' + password + '</b>'
         };
-        mail.sendMail(mailOptions, function (error, info) {
+        mail.sendMail(mailOptions, function(error, info) {
             if (error) {
                 console.log(error);
             } else {
