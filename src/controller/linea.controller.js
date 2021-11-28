@@ -48,7 +48,7 @@ export async function getLineasSelect(req, res) {
     }
 };
 export async function getLineasProveedorSelect(req, res) {
-    const { id } = req.query;
+    const { id } = req.body;
     try {
         let lineas = await Linea.findAll({
             attributes: [

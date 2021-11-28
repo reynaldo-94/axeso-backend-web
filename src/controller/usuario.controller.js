@@ -725,11 +725,11 @@ export async function getLineasusuario(req, res) {
         let entidades = await Linea.findAll({
             attributes: ['id', 'lineaid', 'proveedorid', 'nombre'],
             include: [{
-                attributes: ['id', 'usuarioid', 'lineaid'],
+                attributes: [],
                 where: {
                     usuarioid: usuarioid
                 },
-                model: Usuariolinea,
+                model: Usuariolinea.scope(null),
                 as: 'usuariolinea',
                 required: true,
             }]
@@ -745,6 +745,77 @@ export async function getLineasusuario(req, res) {
             });
         }
     } catch (e) {
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+};
+
+export async function insertLineaUsuario(req, res) {
+    const {
+        usuarioid,
+        lineaid
+    } = req.body;
+    try {
+        let newentidad = await Usuariolinea.create({
+            usuarioid: usuarioid,
+            lineaid: lineaid
+        });
+        if (newentidad) {
+            return res.status(200).json({
+                data: newentidad,
+            });
+        } else {
+            return res.status(200).json({
+                message: 'No se pudo insertar',
+                data: {}
+            });
+        }
+    } catch (e) {
+        console.log('insert: ' + e.message)
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+};
+export async function deleteLineaUsuario(req, res) {
+    const {
+        id
+    } = req.body;
+    try {
+        let newentidad = await Usuariolinea.findOne({
+            attributes: ['id', 'usuarioid', 'lineaid'],
+            where: {
+                id: id
+            }
+        });
+        if (newentidad) {
+            let deleted = await Usuariolinea.destroy({
+                where: {
+                    id: id
+                }
+            });
+            if (deleted === 1) {
+                res.status(200).json({
+                    message: "Registro eliminado",
+                    data: {}
+                });
+            } else {
+                res.status(200).json({
+                    message: "Registro no encontrado",
+                    data: {}
+                });
+            }
+        } else {
+            return res.status(200).json({
+                message: 'No se pudo eliminar',
+                data: {}
+            });
+        }
+    } catch (e) {
+        console.log('insert: ' + e.message)
         return res.status(500).json({
             message: 'Algo salio mal',
             data: {}
