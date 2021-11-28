@@ -1,6 +1,7 @@
 import Sequelize from 'sequelize';
 import { sequelize } from '../database/database';
 import Sublinea from './sublinea.model';
+import Usuariolinea from './usuariolinea.model';
 const Linea = sequelize.define('linea', {
     id: {
         type: Sequelize.INTEGER,
@@ -30,4 +31,7 @@ const Linea = sequelize.define('linea', {
 Linea.hasMany(Sublinea, { foreignKey: 'lineaid' });
 Sublinea.belongsTo(Linea, { foreignKey: 'lineaid' });
 
+// Linea.hasMany(Usuariolinea, { foreignKey: 'lineaid' });
+// Usuariolinea.belongsTo(Linea, { foreignKey: 'lineaid' });
+Linea.hasMany(Usuariolinea, { as: 'usuariolinea', foreignKey: 'lineaid' });
 export default Linea;

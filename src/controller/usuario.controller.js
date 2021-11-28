@@ -14,6 +14,8 @@ import Usuariomenu from '../models/usuariomenu.model';
 import Menu from '../models/menu.model';
 import Rolmenusubmenu from '../models/rolmenusubmenu.model';
 import Submenu from '../models/submenu.model';
+import Usuariolinea from '../models/usuariolinea.model';
+import Linea from '../models/linea.model';
 var jwt = require('jsonwebtoken');
 var mail = nodemailer.createTransport({
     service: 'gmail',
@@ -715,7 +717,40 @@ export async function updateClaveEmail(req, res) {
     }
 };
 
-
+export async function getLineasusuario(req, res) {
+    const {
+        usuarioid
+    } = req.body;
+    try {
+        let entidades = await Linea.findAll({
+            attributes: ['id', 'lineaid', 'proveedorid', 'nombre'],
+            include: [{
+                attributes: ['id', 'usuarioid', 'lineaid'],
+                where: {
+                    usuarioid: usuarioid
+                },
+                model: Usuariolinea,
+                as: 'usuariolinea',
+                required: true,
+            }]
+        });
+        //console.log(entidades)
+        if (entidades) {
+            return res.status(200).json({
+                data: entidades,
+            });
+        } else {
+            return res.status(200).json({
+                data: {},
+            });
+        }
+    } catch (e) {
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+};
 /******************************* funciones *********************************/
 
 
