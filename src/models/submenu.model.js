@@ -1,14 +1,19 @@
 import Sequelize from 'sequelize';
 import { sequelize } from '../database/database';
-
-import Submenu from './submenu.model';
-require('sequelize-hierarchy')(Sequelize);
-//menuid, titulo, descripcion, icono, ruta, orden
-const Menu = sequelize.define('menu', {
-    menuid: {
+//submenuid, menuid, titulo, descripcion, icono, ruta, orden
+const Submenu = sequelize.define('submenu', {
+    submenuid: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true
+    },
+    menuid: {
+        type: Sequelize.INTEGER,
+        foreingKey: true,
+        references: {
+            model: 'Menu',
+            key: 'menuid'
+        }
     },
     titulo: {
         type: Sequelize.STRING
@@ -29,7 +34,4 @@ const Menu = sequelize.define('menu', {
     freezeTableName: true,
     timestamps: false
 });
-
-
-Menu.hasMany(Submenu, { as: 'submenu', foreignKey: 'menuid' });
-export default Menu;
+export default Submenu;

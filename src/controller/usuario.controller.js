@@ -12,6 +12,8 @@ import Motivobloqueo from '../models/motivobloqueo.model';
 import Sesion from '../models/sesion.model';
 import Usuariomenu from '../models/usuariomenu.model';
 import Menu from '../models/menu.model';
+import Rolmenusubmenu from '../models/rolmenusubmenu.model';
+import Submenu from '../models/submenu.model';
 var jwt = require('jsonwebtoken');
 var mail = nodemailer.createTransport({
     service: 'gmail',
@@ -123,8 +125,9 @@ export async function getUsuario(req, res) {
 };
 export async function loginUsuario(req, res) {
     let urlavatarstring = String.raw `..\imagenes\usuarios\usr_usuarioid.png`;
-    console.log("urlavatarstring: ", urlavatarstring)
+    //console.log("urlavatarstring: ", urlavatarstring)
     let idusuario = 0;
+    let rolidusuario = 0;
     let usuariosmenus;
     let menus;
     let nuevomenu = [];
@@ -167,12 +170,6 @@ export async function loginUsuario(req, res) {
                     as: 'motivobloqueo',
                     required: false,
                 },
-                // {
-                //     attributes: ['id', 'usuarioid', 'menuid'],
-                //     model: Usuariomenu,
-                //     as: 'usuariomenu',
-                //     required: true,
-                // }
             ],
             where: {
                 usuario: usuario,
@@ -182,17 +179,20 @@ export async function loginUsuario(req, res) {
 
         if (entidades) {
             idusuario = entidades.usuarioid;
-            usuariosmenus = await getUsuariomenus(idusuario);
+            rolidusuario = entidades.rolid;
+            usuariosmenus = await getRolmenus(rolidusuario);
+
             if (usuariosmenus) {
-                var idmenus = usuariosmenus.map(function(item) {
-                    return item['menuid'];
-                });
+                var idmenus = [...new Set(usuariosmenus.map(item => item.menuid))];
+                // var idmenus = usuariosmenus.map(function(item) {
+                //     return item['menuid'];
+                // });
             }
-            //console.log('idmenus: ', idmenus);
+            console.log('idmenus: ', idmenus);
             let usumenu = JSON.parse(JSON.stringify(usuariosmenus));
             console.log("usumenu cont: ", Object.keys(usumenu).length);
             urlavatarstring = urlavatarstring.replace("usuarioid", entidades.usuarioid);
-            console.log("urlavatarstring: ", urlavatarstring)
+            //console.log("urlavatarstring: ", urlavatarstring)
             menus = await getMenus();
             if (menus) {
                 menus.forEach(async menus => {
@@ -260,12 +260,6 @@ export async function loginUsuario(req, res) {
                 entidades.ingresos = newingresos;
                 entidades.menu = nuevomenu;
                 entidades.avatarurl = String.raw `${urlavatarstring}`;
-                //entidades.usuariosmenus = usuariosmenus;
-                //console.log("newsesion: " + newsesion)
-
-
-
-
                 return res.status(200).json({
                     data: entidades,
                     // submenus: nuevomenu
@@ -740,23 +734,43 @@ async function getUsuariomenus(req) {
             return '';
         }
     } catch (e) {
-        //console.log(e.message)
+        console.log(e.message)
         return '';
     }
 };
-
+async function getRolmenus(req) {
+    const id = req;
+    try {
+        let entidades = await Rolmenusubmenu.sequelize.query(
+            "SELECT rolid, nombre, submenuid, menuid from public.fn_get_rolsubmenu_rolid(" + id + ")", {
+                type: Rolmenusubmenu.sequelize.QueryTypes.SELECT
+            });
+        if (entidades) {
+            return entidades;
+        } else {
+            return '';
+        }
+    } catch (e) {
+        console.log(e.message)
+        return '';
+    }
+};
 async function getMenus(req) {
     try {
         let entidad = await Menu.findAll({
-            attributes: ['menuid', 'titulo', 'descripcion', 'icono', 'ruta', 'parentid'],
+            attributes: ['menuid', 'titulo', 'descripcion', 'icono', 'ruta', 'orden'],
             include: [{
-                all: true,
-                nested: true
+                attributes: ['submenuid', 'menuid', 'titulo', 'descripcion', 'icono', 'ruta', 'orden'],
+                model: Submenu,
+                as: 'submenu',
+                required: true,
             }]
         });
-        //console.log(entidad)
+        console.log(entidad)
         if (entidad) {
             return entidad;
+        } else {
+            return '';
         }
     } catch (e) {
         console.log(e.message);
