@@ -16,6 +16,9 @@ import Rolmenusubmenu from '../models/rolmenusubmenu.model';
 import Submenu from '../models/submenu.model';
 import Usuariolinea from '../models/usuariolinea.model';
 import Linea from '../models/linea.model';
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 var jwt = require('jsonwebtoken');
 var mail = nodemailer.createTransport({
     service: 'gmail',
@@ -53,6 +56,18 @@ export async function getUsuarios(req, res) {
                     model: Motivobloqueo,
                     as: 'motivobloqueo',
                     required: false,
+                },
+                {
+                    attributes: ['id', 'usuarioid', 'lineaid'],
+                    model: Usuariolinea,
+                    as: 'usuariolinea',
+                    required: false,
+                    include: [{
+                        attributes: ['id', 'lineaid', 'proveedorid', 'nombre'],
+                        model: Linea,
+                        as: 'linea',
+                        required: true
+                    }]
                 }
             ]
         });
@@ -63,6 +78,7 @@ export async function getUsuarios(req, res) {
             });
         }
     } catch (e) {
+        console.log(e.message)
         return res.status(500).json({
             message: 'Algo salio mal',
             data: {}
@@ -72,7 +88,7 @@ export async function getUsuarios(req, res) {
 export async function getUsuario(req, res) {
     const {
         id
-    } = req.query;
+    } = req.body;
     try {
         let entidades = await Usuario.findOne({
             attributes: ['usuarioid', 'usuario', 'descripcion', 'correo', 'proveedorid', 'tipousuarioid', 'rolid', 'estado', 'bloqueado', 'motivobloqueoid',
@@ -101,6 +117,18 @@ export async function getUsuario(req, res) {
                     model: Motivobloqueo,
                     as: 'motivobloqueo',
                     required: false,
+                },
+                {
+                    attributes: ['id', 'usuarioid', 'lineaid'],
+                    model: Usuariolinea,
+                    as: 'usuariolinea',
+                    required: false,
+                    include: [{
+                        attributes: ['id', 'lineaid', 'proveedorid', 'nombre'],
+                        model: Linea,
+                        as: 'linea',
+                        required: true
+                    }]
                 }
             ],
             where: {
@@ -118,7 +146,7 @@ export async function getUsuario(req, res) {
             });
         }
     } catch (e) {
-        //console.log(e.message)
+        console.log(e.message)
         return res.status(500).json({
             message: 'Algo salio mal',
             data: {}
@@ -271,7 +299,7 @@ export async function loginUsuario(req, res) {
             }
 
         } else {
-            res.status(200).json('Usuario o contraseña incorrectos')
+            res.status(200).json('Usuario o contraseña incorrectos');
         }
     } catch (e) {
         console.log('error: ' + e.message)
@@ -337,9 +365,24 @@ export async function createUsuario(req, res) {
         proveedorid,
         tipousuarioid,
         rolid,
-        password,
-        telefono
+        telefono,
+        lineasid
     } = req.body;
+    console.log("lineasid: ", lineasid);
+    let spassword = randomString(10);
+
+    const salt = bcrypt.genSaltSync(saltRounds);
+    const password = bcrypt.hashSync(spassword, salt);
+
+    console.log("hash: ", password);
+    let existeemail = await checkEmail2(correo);
+    if (existeemail == '1') {
+        return res.status(200).json({
+            message: 'El correo electronico ya existe',
+            data: {}
+        });
+    }
+
     //console.log('values: ', usuario, descripcion, correo, proveedorid, tipousuarioid, rolid, motivobloqueoid, password, telefono);
     try {
         let newentidad = await Usuario.create({
@@ -359,6 +402,28 @@ export async function createUsuario(req, res) {
             actualizado: sequelize.literal('CURRENT_TIMESTAMP')
         });
         if (newentidad) {
+            let valuesToInsert = {
+                usuario: usuario,
+                correo: correo,
+                password: spassword,
+                passwordencrip: password
+            };
+            var correoenviado = await updateClaveEmailCreate(valuesToInsert);
+            if (lineasid != '') {
+                try {
+                    lineasid.forEach(async element => {
+                        let nuevalinea = element;
+                        console.log("nuevalinea: ", nuevalinea);
+                        let req = {
+                            usuarioid: newentidad.usuarioid,
+                            lineaid: nuevalinea
+                        };
+                        var xinsert = await insertLineaUsuarioM(req)
+                    });
+                } catch (error) {
+
+                }
+            }
             return res.status(200).json({
                 message: 'Usuario creado',
                 data: newentidad
@@ -383,9 +448,11 @@ export async function updateUsuario(req, res) {
         tipousuarioid,
         rolid,
         telefono,
-        estado
+        estado,
+        lineasid
     } = req.body;
     console.log(usuarioid);
+    console.log("lineasid: ", lineasid)
     try {
         const found = await Usuario.findAll({
             attributes: ['usuarioid'],
@@ -411,6 +478,23 @@ export async function updateUsuario(req, res) {
                 }
             });
         });
+        var eliminalineas = await deleteLineaUsuarioFk(usuarioid);
+        if (lineasid != '') {
+            console.log("dentro");
+            try {
+                lineasid.forEach(async element => {
+                    let nuevalinea = element;
+                    console.log("nuevalinea: ", nuevalinea);
+                    let req = {
+                        usuarioid: usuarioid,
+                        lineaid: nuevalinea
+                    };
+                    var xinsert = await insertLineaUsuarioM(req)
+                });
+            } catch (error) {
+
+            }
+        }
         return res.json({
             message: 'Usuario actualizado',
             data: found
@@ -605,6 +689,7 @@ export async function logoutUsuario(req, res) {
 export async function blockUsuario(req, res) {
     const {
         correo,
+        bloqueado,
         motivobloqueoid
     } = req.body;
     //console.log(usuarioid);
@@ -618,7 +703,7 @@ export async function blockUsuario(req, res) {
         console.log('found.lenght : ' + found);
         found.forEach(async found => {
             await Usuario.update({
-                bloqueado: '1',
+                bloqueado: bloqueado,
                 motivobloqueoid: motivobloqueoid
             }, {
                 where: {
@@ -626,7 +711,7 @@ export async function blockUsuario(req, res) {
                 }
             });
         });
-        return res.status(200).json('User bloqueado');
+        return res.status(200).json('Bloqueo modificado');
     } catch (e) {
         console.log(e.message)
         return res.status(500).json({
@@ -881,5 +966,125 @@ async function getMenus(req) {
     } catch (e) {
         console.log(e.message);
         return '';
+    }
+};
+async function updateClaveEmailCreate(valuesToInsert) {
+
+    const correo = valuesToInsert.correo;
+    const passwordencrip = valuesToInsert.passwordencrip;
+    const password = valuesToInsert.password;
+    const usuario = valuesToInsert.Usuario;
+    console.log('correo: ', correo);
+    console.log('passwordencrip: ', passwordencrip);
+    console.log('password: ', password);
+    try {
+        const found = await Usuario.findAll({
+            attributes: ['usuarioid'],
+            where: {
+                correo: correo
+            }
+        });
+        console.log('found.lenght : ' + found);
+        found.forEach(async found => {
+            await Usuario.update({
+                password: passwordencrip
+            }, {
+                where: {
+                    usuarioid: found.usuarioid
+                }
+            });
+        });
+        var mailOptions = {
+            from: 'soporte.dimexa@gmail.com',
+            to: correo,
+            subject: 'Servicio de creacion de contraseña',
+            html: 'La contraseña para el usuario con usuario: <b>' + usuario + '</b> ha sido creada por <b>' + password + '</b>'
+        };
+        mail.sendMail(mailOptions, function(error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+        return '1';
+    } catch (e) {
+        console.log(e.message)
+        return '';
+    }
+};
+async function checkEmail2(correox) {
+    const correo = correox;
+    try {
+        let entidades = await Usuario.findOne({
+            attributes: ['usuarioid', 'usuario', 'descripcion', 'correo', 'proveedorid', 'tipousuarioid', 'rolid', 'estado', 'bloqueado', 'motivobloqueoid',
+                'telefono', 'ingresos', 'creado', 'actualizado'
+            ],
+            where: {
+                correo: correo
+            }
+        });
+        if (entidades) {
+            return '1';
+        } else {
+            return '0';
+        }
+    } catch (e) {
+        console.log(e.message)
+        return '0';
+    }
+};
+
+function randomString(len) {
+    var p = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    return [...Array(len)].reduce(a => a + p[~~(Math.random() * p.length)], '');
+}
+
+async function insertLineaUsuarioM(req) {
+    const usuarioid = req.usuarioid;
+    const lineaid = req.lineaid;
+    try {
+        let newentidad = await Usuariolinea.create({
+            usuarioid: usuarioid,
+            lineaid: lineaid
+        });
+        if (newentidad) {
+            return '1';
+        } else {
+            return '0';
+        }
+    } catch (e) {
+        console.log('insert: ' + e.message)
+        return '0';
+    }
+};
+
+async function deleteLineaUsuarioFk(req) {
+    const id = req;
+    //console.log('destroy id: ' + id)
+    try {
+        let newentidad = await Usuariolinea.findOne({
+            attributes: ['id', 'usuarioid', 'lineaid'],
+            where: {
+                usuarioid: id
+            }
+        });
+        if (newentidad) {
+            let deleted = await Usuariolinea.destroy({
+                where: {
+                    usuarioid: id
+                }
+            });
+            if (deleted === 1) {
+                return '1';
+            } else {
+                return '0';
+            }
+        } else {
+            return '0';
+        }
+    } catch (e) {
+        console.log('destroy all: ' + e.message)
+        return '0';
     }
 };

@@ -26,7 +26,7 @@ router.post('/checkEmail/', checkEmail);
 router.post('/createUsuario/', createUsuario);
 router.put('/updateUsuario/', updateUsuario);
 router.put('/updateEstadoUsuario/', updateEstadoUsuario);
-router.put('/updateEstadoUsuario/', updateEstadoUsuario);
+// router.put('/updateEstadoUsuario/', updateEstadoUsuario);
 router.put('/logoutUsuario/', logoutUsuario);
 router.put('/blockUsuario/', blockUsuario);
 router.put('/updateClaveUsuario/', updateClaveUsuario);

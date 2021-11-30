@@ -1,5 +1,7 @@
 import Sequelize from 'sequelize';
 import { sequelize } from '../database/database';
+
+import Linea from './linea.model';
 //id, usuarioid, lineaid
 const Usuariolinea = sequelize.define('usuariolinea', {
     id: {
@@ -22,6 +24,8 @@ const Usuariolinea = sequelize.define('usuariolinea', {
     freezeTableName: true,
     timestamps: false
 });
+
+
 
 
 export default Usuariolinea;

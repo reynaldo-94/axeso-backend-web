@@ -5,6 +5,7 @@ import Usuariomenu from './usuariomenu.model';
 import Sesion from './sesion.model';
 import Usoaplicacion from './usoaplicacion.model';
 import Menu from './menu.model';
+import Usuariolinea from './usuariolinea.model';
 
 const Usuario = sequelize.define('usuario', {
     usuarioid: {
@@ -106,5 +107,8 @@ Usuario.belongsTo(Usoaplicacion, { foreignKey: 'usuarioid' });
 
 Sesion.belongsTo(Usuario, { foreignKey: 'usuarioid', as: 'usuario' });
 Usuario.belongsTo(Sesion, { foreignKey: 'usuarioid', as: 'sesion' });
+
+Usuariolinea.hasMany(Usuario, { foreignKey: 'usuarioid' });
+Usuario.belongsTo(Usuariolinea, { foreignKey: 'usuarioid' });
 
 export default Usuario;

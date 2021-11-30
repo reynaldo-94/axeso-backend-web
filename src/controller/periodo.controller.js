@@ -11,6 +11,9 @@ export async function getPeriodos(req, res) {
                 type: Periodo.sequelize.QueryTypes.SELECT,
                 attributes: [
                     ['periodoid', 'id']
+                ],
+                order: [
+                    ['id', 'DESC']
                 ]
             });
         //console.log(entidades)
@@ -35,6 +38,9 @@ export async function getAnios(req, res) {
                 type: Periodo.sequelize.QueryTypes.SELECT,
                 attributes: [
                     ['periodoid', 'id']
+                ],
+                order: [
+                    ['id', 'DESC']
                 ]
             });
         //console.log(entidades)

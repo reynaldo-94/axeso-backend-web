@@ -217,7 +217,8 @@ export async function getClientesSelect(req, res) {
 export async function getSelloutClientes(req, res) {
     const {
         p_proveedorid,
-        p_almacenid,
+        p_unidadnegocioid,
+        p_divisionid,
         p_lineaid,
         p_sublineaid,
         p_productoid,
@@ -230,9 +231,13 @@ export async function getSelloutClientes(req, res) {
         if ((p_proveedorid != null) || (p_proveedorid != undefined)) {
             xp_proveedorid = "'" + p_proveedorid + "'";
         }
-        let xp_almacenid = null;
-        if ((p_almacenid != null) || (p_almacenid != undefined)) {
-            xp_almacenid = "'" + p_almacenid + "'";
+        let xp_unidadnegocioid = null;
+        if ((p_unidadnegocioid != null) || (p_unidadnegocioid != undefined)) {
+            xp_unidadnegocioid = "'" + p_unidadnegocioid + "'";
+        }
+        let xp_divisionid = null;
+        if ((p_divisionid != null) || (p_divisionid != undefined)) {
+            xp_divisionid = "'" + p_divisionid + "'";
         }
         let xp_lineaid = null;
         if ((p_lineaid != null) || (p_lineaid != undefined)) {
@@ -259,7 +264,7 @@ export async function getSelloutClientes(req, res) {
             xp_periodoid = "'" + p_periodoid + "'";
         }
         let entidades = await Sellout.sequelize.query(
-            "SELECT * from fn_get_sellout_cliente(" + xp_proveedorid + "," + xp_almacenid + "," + xp_lineaid + "," + xp_sublineaid + "," + xp_productoid + "," +
+            "SELECT * from fn_get_sellout_cliente(" + xp_proveedorid + "," + xp_unidadnegocioid + "," + xp_divisionid + "," + xp_lineaid + "," + xp_sublineaid + "," + xp_productoid + "," +
             xp_periodoid + "," + xdesde + "," + xhasta + ")", {
                 type: Sellout.sequelize.QueryTypes.SELECT,
             });
@@ -267,6 +272,10 @@ export async function getSelloutClientes(req, res) {
         if (entidades) {
             return res.status(200).json({
                 data: entidades
+            });
+        } else {
+            return res.status(200).json({
+                data: {}
             });
         }
     } catch (e) {
@@ -281,23 +290,35 @@ export async function getSelloutClientes(req, res) {
 export async function getSelloutClientesmes(req, res) {
     const {
         p_proveedorid,
-        p_almacenid,
+        p_ano,
+        p_medida,
+        p_unidadnegocioid,
+        p_divisionid,
         p_lineaid,
         p_sublineaid,
         p_productoid,
-        p_anoid,
-        p_tipovalorid,
-        p_departamento,
-        p_clienteid
+        p_departamento
     } = req.body;
     try {
         let xp_proveedorid = null;
         if (p_proveedorid != null) {
             xp_proveedorid = "'" + p_proveedorid + "'";
         }
-        let xp_almacenid = null;
-        if (p_almacenid != null) {
-            xp_almacenid = "'" + p_almacenid + "'";
+        let xp_ano = null;
+        if (p_ano != null) {
+            xp_ano = "'" + p_ano + "'";
+        }
+        let xp_medida = null;
+        if (p_medida != null) {
+            xp_medida = "'" + p_medida + "'";
+        }
+        let xp_unidadnegocioid = null;
+        if (p_unidadnegocioid != null) {
+            xp_unidadnegocioid = "'" + p_unidadnegocioid + "'";
+        }
+        let xp_divisionid = null;
+        if (p_divisionid != null) {
+            xp_divisionid = "'" + p_divisionid + "'";
         }
         let xp_lineaid = null;
         if (p_lineaid != null) {
@@ -311,31 +332,23 @@ export async function getSelloutClientesmes(req, res) {
         if (p_productoid != null) {
             xp_productoid = "'" + p_productoid + "'";
         }
-        let xp_anoid = null;
-        if (p_anoid != null) {
-            xp_anoid = "'" + p_anoid + "'";
-        }
-        let xp_tipovalorid = null;
-        if (p_tipovalorid != null) {
-            xp_tipovalorid = "'" + p_tipovalorid + "'";
-        }
         let xp_departamento = null;
         if (p_departamento != null) {
             xp_departamento = "'" + p_departamento + "'";
         }
-        let xp_clienteid = null;
-        if (p_clienteid != null) {
-            xp_clienteid = "'" + p_clienteid + "'";
-        }
         let entidades = await Selloutmes.sequelize.query(
-            "SELECT * from fn_get_sellout_cliente_mes(" + xp_proveedorid + "," + xp_almacenid + "," + xp_lineaid + "," + xp_sublineaid + "," + xp_productoid + "," +
-            xp_anoid + "," + xp_tipovalorid + "," + xp_departamento + "," + xp_clienteid + ")", {
+            "SELECT * from fn_get_sellout_cliente_mes(" + xp_proveedorid + "," + xp_ano + "," + xp_medida + "," + xp_unidadnegocioid + "," + xp_divisionid + "," +
+            xp_lineaid + "," + xp_sublineaid + "," + xp_productoid + "," + xp_departamento + ")", {
                 type: Selloutmes.sequelize.QueryTypes.SELECT,
             });
         console.log(entidades)
         if (entidades) {
             return res.status(200).json({
                 data: entidades
+            });
+        } else {
+            return res.status(200).json({
+                data: {}
             });
         }
     } catch (e) {
