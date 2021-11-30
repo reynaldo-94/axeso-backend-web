@@ -86,6 +86,9 @@ const Usuario = sequelize.define('usuario', {
     },
     menu: [
 
+    ],
+    linea: [
+
     ]
 }, {
     freezeTableName: true,
@@ -108,7 +111,7 @@ Usuario.belongsTo(Usoaplicacion, { foreignKey: 'usuarioid' });
 Sesion.belongsTo(Usuario, { foreignKey: 'usuarioid', as: 'usuario' });
 Usuario.belongsTo(Sesion, { foreignKey: 'usuarioid', as: 'sesion' });
 
-Usuariolinea.hasMany(Usuario, { foreignKey: 'usuarioid' });
-Usuario.belongsTo(Usuariolinea, { foreignKey: 'usuarioid' });
+Usuariolinea.belongsTo(Usuario, { foreignKey: 'usuarioid', as: 'usuario' });
+Usuario.hasMany(Usuariolinea, { foreignKey: 'usuarioid', as: 'usuariolinea' });
 
 export default Usuario;

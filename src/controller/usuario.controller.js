@@ -28,6 +28,8 @@ var mail = nodemailer.createTransport({
     }
 });
 export async function getUsuarios(req, res) {
+
+    var nuevoentidad = [];
     try {
         let entidades = await Usuario.findAll({
             attributes: ['usuarioid', 'usuario', 'descripcion', 'correo', 'proveedorid', 'tipousuarioid', 'rolid', 'estado', 'bloqueado', 'motivobloqueoid',
@@ -57,24 +59,35 @@ export async function getUsuarios(req, res) {
                     as: 'motivobloqueo',
                     required: false,
                 },
-                {
-                    attributes: ['id', 'usuarioid', 'lineaid'],
-                    model: Usuariolinea,
-                    as: 'usuariolinea',
-                    required: false,
-                    include: [{
-                        attributes: ['id', 'lineaid', 'proveedorid', 'nombre'],
-                        model: Linea,
-                        as: 'linea',
-                        required: true
-                    }]
-                }
+                // {
+                //     attributes: ['id', 'usuarioid', 'lineaid'],
+                //     model: Usuariolinea,
+                //     as: 'usuariolinea',
+                //     required: false,
+                //     include: [{
+                //         attributes: ['id', 'lineaid', 'proveedorid', 'nombre'],
+                //         model: Linea,
+                //         as: 'linea',
+                //         required: true
+                //     }]
+                // }
             ]
         });
         //console.log(entidades)
+        nuevoentidad = [];
         if (entidades) {
+            for (const element of entidades) {
+                let lineast = await getLineasUsuarioSelect(element.usuarioid);
+                //console.log("lineast: ", lineast);
+                element.linea = lineast;
+
+                nuevoentidad.push(element);
+                console.log("dentro: ");
+
+            }
+            console.log("element: ", JSON.stringify(nuevoentidad));
             return res.status(200).json({
-                data: entidades
+                data: nuevoentidad
             });
         }
     } catch (e) {
@@ -118,18 +131,18 @@ export async function getUsuario(req, res) {
                     as: 'motivobloqueo',
                     required: false,
                 },
-                {
-                    attributes: ['id', 'usuarioid', 'lineaid'],
-                    model: Usuariolinea,
-                    as: 'usuariolinea',
-                    required: false,
-                    include: [{
-                        attributes: ['id', 'lineaid', 'proveedorid', 'nombre'],
-                        model: Linea,
-                        as: 'linea',
-                        required: true
-                    }]
-                }
+                // {
+                //     attributes: ['id', 'usuarioid', 'lineaid'],
+                //     model: Usuariolinea,
+                //     as: 'usuariolinea',
+                //     required: false,
+                //     include: [{
+                //         attributes: ['id', 'lineaid', 'proveedorid', 'nombre'],
+                //         model: Linea,
+                //         as: 'linea',
+                //         required: true
+                //     }]
+                // }
             ],
             where: {
                 usuarioid: id
@@ -137,6 +150,8 @@ export async function getUsuario(req, res) {
         });
         //console.log(entidades)
         if (entidades) {
+            let lineast = await getLineasUsuarioSelect(id);
+            entidades.linea = lineast;
             return res.status(200).json({
                 data: entidades
             });
@@ -836,7 +851,43 @@ export async function getLineasusuario(req, res) {
         });
     }
 };
-
+export async function getLineasusuarioSelect(req, res) {
+    const {
+        usuarioid
+    } = req.body;
+    try {
+        let entidades = await Linea.findAll({
+            attributes: [
+                ['lineaid', 'id'],
+                ['nombre', 'descripcion']
+            ],
+            include: [{
+                attributes: [],
+                where: {
+                    usuarioid: usuarioid
+                },
+                model: Usuariolinea.scope(null),
+                as: 'usuariolinea',
+                required: true,
+            }]
+        });
+        //console.log(entidades)
+        if (entidades) {
+            return res.status(200).json({
+                data: entidades,
+            });
+        } else {
+            return res.status(200).json({
+                data: {},
+            });
+        }
+    } catch (e) {
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+};
 export async function insertLineaUsuario(req, res) {
     const {
         usuarioid,
@@ -1086,5 +1137,34 @@ async function deleteLineaUsuarioFk(req) {
     } catch (e) {
         console.log('destroy all: ' + e.message)
         return '0';
+    }
+};
+
+async function getLineasUsuarioSelect(req) {
+    const usuarioid = req;
+    try {
+        let lineas = await Linea.findAll({
+            attributes: [
+                ['lineaid', 'id'],
+                ['nombre', 'descripcion']
+            ],
+            include: [{
+                attributes: [],
+                model: Usuariolinea.scope(null),
+                as: 'usuariolinea',
+                required: true,
+                where: {
+                    usuarioid: usuarioid
+                }
+            }],
+        });
+
+        if (lineas) {
+            return lineas;
+        } else {
+            return {};
+        }
+    } catch (e) {
+        return {};
     }
 };

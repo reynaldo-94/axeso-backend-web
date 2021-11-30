@@ -34,5 +34,5 @@ Sublinea.belongsTo(Linea, { foreignKey: 'lineaid' });
 // Linea.hasMany(Usuariolinea, { foreignKey: 'lineaid' });
 // Usuariolinea.belongsTo(Linea, { foreignKey: 'lineaid' });
 Linea.hasMany(Usuariolinea, { as: 'usuariolinea', foreignKey: 'lineaid' });
-Usuariolinea.belongsTo(Linea, { foreignKey: 'lineaid' });
+//Usuariolinea.hasMany(Linea, { as: 'linea', foreignKey: 'lineaid' });
 export default Linea;

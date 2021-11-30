@@ -1,6 +1,7 @@
 import { json, where } from 'sequelize';
 import Linea from '../models/linea.model';
 import Proveedor from '../models/proveedor.model';
+import Usuariolinea from '../models/usuariolinea.model';
 
 export async function getLineas(req, res) {
     try {
@@ -120,6 +121,38 @@ export async function getLineasProveedor(req, res) {
         if (linea) {
             return res.status(200).json({
                 data: linea
+            });
+        }
+    } catch (e) {
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+};
+
+export async function getLineasUsuarioSelect(req, res) {
+    const { usuarioid } = req.body;
+    try {
+        let lineas = await Linea.findAll({
+            attributes: [
+                ['lineaid', 'id'],
+                ['nombre', 'descripcion']
+            ],
+            include: [{
+                attributes: ['id', 'usuarioid', 'lineaid'],
+                model: Usuariolinea,
+                as: 'usuariolinea',
+                required: true,
+                where: {
+                    usuarioid: usuarioid
+                }
+            }],
+        });
+
+        if (lineas) {
+            return res.status(200).json({
+                data: lineas
             });
         }
     } catch (e) {

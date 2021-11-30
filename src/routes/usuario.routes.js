@@ -15,12 +15,15 @@ const {
     updateClaveEmail,
     getLineasusuario,
     insertLineaUsuario,
-    deleteLineaUsuario
+    deleteLineaUsuario,
+    getLineasusuarioSelect
 } = require('../controller/usuario.controller')
 router.get('/getUsuarios', getUsuarios);
 router.post('/getUsuario/', getUsuario);
 router.post('/loginUsuario/', loginUsuario);
 router.post('/getLineasusuario/', getLineasusuario);
+router.post('/getLineasusuarioSelect/', getLineasusuarioSelect);
+
 router.post('/checkUsuario/', checkUsuario);
 router.post('/checkEmail/', checkEmail);
 router.post('/createUsuario/', createUsuario);
