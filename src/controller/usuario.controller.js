@@ -16,6 +16,9 @@ import Rolmenusubmenu from '../models/rolmenusubmenu.model';
 import Submenu from '../models/submenu.model';
 import Usuariolinea from '../models/usuariolinea.model';
 import Linea from '../models/linea.model';
+//const CryptoJS = require("../utils/aes");
+var CryptoJS = require("crypto-js");
+//declare var CryptoJS: any;
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
@@ -27,7 +30,37 @@ var mail = nodemailer.createTransport({
         pass: 'S0p0rt3D1m3xa'
     }
 });
+
+
+function encryptData(data) {
+    const iv = '';
+    const hash = '';
+    const _iv = CryptoJS.enc.Base64.parse(iv); //dando vector de inicialización vacío
+    const _hash = CryptoJS.SHA256(hash); //hash de la clave usando SHA256 ("dimexa")
+    let encryptedString = '';
+    if (typeof data == 'string') {
+        data = data.slice();
+        encryptedString = CryptoJS.AES.encrypt(data, _hash, {
+            iv: _iv,
+            mode: CryptoJS.mode.CBC,
+            padding: CryptoJS.pad.Pkcs7,
+        });
+    } else {
+        encryptedString = CryptoJS.AES.encrypt(JSON.stringify(data), _hash, {
+            iv: _iv,
+            mode: CryptoJS.mode.CBC,
+            padding: CryptoJS.pad.Pkcs7,
+        });
+    }
+    return encryptedString.toString();
+}
+
 export async function getUsuarios(req, res) {
+    var myString = "https://www.titanesmedellin.com/";
+    var myPassword = "09876";
+
+
+    // PROCESS
 
     var nuevoentidad = [];
     try {
@@ -59,18 +92,6 @@ export async function getUsuarios(req, res) {
                     as: 'motivobloqueo',
                     required: false,
                 },
-                // {
-                //     attributes: ['id', 'usuarioid', 'lineaid'],
-                //     model: Usuariolinea,
-                //     as: 'usuariolinea',
-                //     required: false,
-                //     include: [{
-                //         attributes: ['id', 'lineaid', 'proveedorid', 'nombre'],
-                //         model: Linea,
-                //         as: 'linea',
-                //         required: true
-                //     }]
-                // }
             ]
         });
         //console.log(entidades)
@@ -314,7 +335,7 @@ export async function loginUsuario(req, res) {
             }
 
         } else {
-            res.status(200).json('Usuario o contraseña incorrectos');
+            res.status(200).json('Usuario o contrase�a incorrectos');
         }
     } catch (e) {
         console.log('error: ' + e.message)
@@ -384,12 +405,15 @@ export async function createUsuario(req, res) {
         lineasid
     } = req.body;
     console.log("lineasid: ", lineasid);
-    let spassword = randomString(10);
+    let spassword = randomString(8);
+    var password = encryptData(spassword);
+    console.log("encrypted: ", password);
 
-    const salt = bcrypt.genSaltSync(saltRounds);
-    const password = bcrypt.hashSync(spassword, salt);
 
-    console.log("hash: ", password);
+    // const salt = bcrypt.genSaltSync(saltRounds);
+    // const password = bcrypt.hashSync(spassword, salt);
+
+    // console.log("hash: ", password);
     let existeemail = await checkEmail2(correo);
     if (existeemail == '1') {
         return res.status(200).json({
@@ -807,7 +831,7 @@ export async function updateClaveEmail(req, res) {
                 console.log('Email sent: ' + info.response);
             }
         });
-        return res.status(200).json('Contraseña actualizada');
+        return res.status(200).json('Contrase�a actualizada');
     } catch (e) {
         console.log(e.message)
         return res.status(500).json({
@@ -1024,7 +1048,7 @@ async function updateClaveEmailCreate(valuesToInsert) {
     const correo = valuesToInsert.correo;
     const passwordencrip = valuesToInsert.passwordencrip;
     const password = valuesToInsert.password;
-    const usuario = valuesToInsert.Usuario;
+    const usuario = valuesToInsert.usuario;
     console.log('correo: ', correo);
     console.log('passwordencrip: ', passwordencrip);
     console.log('password: ', password);
@@ -1048,8 +1072,8 @@ async function updateClaveEmailCreate(valuesToInsert) {
         var mailOptions = {
             from: 'soporte.dimexa@gmail.com',
             to: correo,
-            subject: 'Servicio de creacion de contraseña',
-            html: 'La contraseña para el usuario con usuario: <b>' + usuario + '</b> ha sido creada por <b>' + password + '</b>'
+            subject: 'Servicio de creacion de contrase�a',
+            html: 'La contrase�a para el usuario con usuario: <b>' + usuario + '</b> ha sido creada por <b>' + password + '</b>'
         };
         mail.sendMail(mailOptions, function(error, info) {
             if (error) {

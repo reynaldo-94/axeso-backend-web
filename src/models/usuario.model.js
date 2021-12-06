@@ -1,5 +1,7 @@
 import Sequelize from 'sequelize';
 import { sequelize } from '../database/database';
+
+
 import Usuariomenu from './usuariomenu.model';
 
 import Sesion from './sesion.model';
