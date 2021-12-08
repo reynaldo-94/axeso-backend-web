@@ -9,6 +9,9 @@ import sequelize from 'sequelize';
 const Op = Sequelize.Op;
 import Sellout from '../models/sellout.model'
 import Selloutmes from '../models/selloutmes.model';
+import Vunidadnegocio from '../models/vunidadnegocio.model';
+import Vzona from '../models/vzona.model';
+
 export async function getClientes(req, res) {
     try {
         let entidades = await Cliente.findAll({
@@ -412,7 +415,7 @@ export async function getClienteRuc(req, res) {
     } = req.body;
     try {
 
-        let entidades = await Cliente.findOne({
+        let entidades = await Cliente.findAll({
             attributes: ['id', 'clienteid', 'unidadnegocioid', 'ruc', 'razonsocial', 'nombrecomercial', 'zonaid', 'ubigeoid', 'direccion'],
             where: {
                 ruc: ruc
@@ -480,6 +483,52 @@ export async function getClienteRucCodigo(req, res) {
 
     } catch (e) {
         console.log(e.message)
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+};
+
+export async function getCliente(req, res) {
+    const { clienteid } = req.body;
+    try {
+        let entidades = await Cliente.findOne({
+            attributes: ['id', 'clienteid', 'unidadnegocioid', 'ruc', 'razonsocial', 'nombrecomercial', 'zonaid', 'ubigeoid', 'direccion'],
+            include: [{
+                    attributes: ['id', 'ubigeoid', 'nombre', 'departamentoid', 'provinciaid', 'distritoid', 'departamento', 'provincia'],
+                    model: Ubigeo,
+                    as: 'ubigeo',
+                    required: true
+                },
+                {
+                    attributes: ['empresaid', 'unidadnegocioid', 'nombre', 'abreviatura', 'ciudad', 'activo'],
+                    model: Vunidadnegocio,
+                    as: 'vunidadnegocio',
+                    required: true
+                },
+                {
+                    attributes: ['zonaid', 'nombre', 'vendedorid', 'canalid', 'subcanalid', 'unidadnegocioid', 'activo'],
+                    model: Vzona,
+                    as: 'vzona',
+                    required: true
+                }
+            ],
+            where: {
+                clienteid: clienteid
+            }
+        });
+        //console.log(entidades)
+        if (entidades) {
+            return res.status(200).json({
+                data: entidades
+            });
+        } else {
+            return res.status(200).json({
+                data: {}
+            });
+        }
+    } catch (e) {
         return res.status(500).json({
             message: 'Algo salio mal',
             data: {}
