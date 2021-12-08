@@ -9,7 +9,8 @@ const {
     getClientesSelect,
     getSelloutClientes,
     getSelloutClientesmes,
-    getClientesProveedor
+    getClientesProveedor,
+    getClienteRuc
 } = require('../controller/cliente.controller')
 router.get('/getClientes', getClientes);
 router.get('/getClientesSelect', getClientesSelect);
@@ -20,4 +21,5 @@ router.post('/getClientesNombrePage', getClientesNombrePage);
 router.post('/getSelloutClientes', getSelloutClientes);
 router.post('/getSelloutClientesmes', getSelloutClientesmes);
 router.post('/getClientesProveedor', getClientesProveedor);
+router.post('/getClienteRuc', getClienteRuc);
 module.exports = router;

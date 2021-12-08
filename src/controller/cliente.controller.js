@@ -406,3 +406,33 @@ export async function getClientesProveedor(req, res) {
         });
     }
 };
+export async function getClienteRuc(req, res) {
+    const {
+        ruc
+    } = req.body;
+    try {
+
+        let entidades = await Cliente.findOne({
+            attributes: ['id', 'clienteid', 'unidadnegocioid', 'ruc', 'razonsocial', 'nombrecomercial', 'zonaid', 'ubigeoid', 'direccion'],
+            where: {
+                ruc: ruc
+            }
+        });
+        console.log(entidades)
+        if (entidades) {
+            return res.status(200).json({
+                data: entidades
+            });
+        } else {
+            return res.status(200).json({
+                data: {}
+            });
+        }
+    } catch (e) {
+        console.log(e.message)
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+};
