@@ -436,3 +436,53 @@ export async function getClienteRuc(req, res) {
         });
     }
 };
+
+export async function getClienteRucCodigo(req, res) {
+    const {
+        id
+    } = req.body;
+    try {
+        if (id.length == 11) {
+            let entidades = await Cliente.findAll({
+                attributes: ['id', 'clienteid', 'unidadnegocioid', 'ruc', 'razonsocial', 'nombrecomercial', 'zonaid', 'ubigeoid', 'direccion'],
+                where: {
+                    ruc: id
+                }
+            });
+            console.log(entidades)
+            if (entidades) {
+                return res.status(200).json({
+                    data: entidades
+                });
+            } else {
+                return res.status(200).json({
+                    data: {}
+                });
+            }
+        } else {
+            let entidades = await Cliente.findAll({
+                attributes: ['id', 'clienteid', 'unidadnegocioid', 'ruc', 'razonsocial', 'nombrecomercial', 'zonaid', 'ubigeoid', 'direccion'],
+                where: {
+                    clienteid: id
+                }
+            });
+            console.log(entidades)
+            if (entidades) {
+                return res.status(200).json({
+                    data: entidades
+                });
+            } else {
+                return res.status(200).json({
+                    data: {}
+                });
+            }
+        }
+
+    } catch (e) {
+        console.log(e.message)
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+};
