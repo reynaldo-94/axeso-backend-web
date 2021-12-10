@@ -517,32 +517,67 @@ export async function getCliente(req, res) {
                 type: Sellout.sequelize.QueryTypes.SELECT,
             });
 
-        // let entidades = await Cliente.findOne({
-        //     attributes: ['id', 'clienteid', 'unidadnegocioid', 'ruc', 'razonsocial', 'nombrecomercial', 'zonaid', 'ubigeoid', 'direccion'],
-        //     include: [{
-        //             attributes: ['id', 'ubigeoid', 'nombre', 'departamentoid', 'provinciaid', 'distritoid', 'departamento', 'provincia'],
-        //             model: Ubigeo,
-        //             as: 'ubigeo',
-        //             required: true
-        //         },
-        //         {
-        //             attributes: ['empresaid', 'unidadnegocioid', 'nombre', 'abreviatura', 'ciudad', 'activo'],
-        //             model: Vunidadnegocio,
-        //             as: 'vunidadnegocio',
-        //             required: true
-        //         },
-        //         {
-        //             attributes: ['zonaid', 'nombre', 'vendedorid', 'canalid', 'subcanalid', 'unidadnegocioid', 'activo'],
-        //             model: Vzona,
-        //             as: 'vzona',
-        //             required: true
-        //         }
-        //     ],
-        //     where: {
-        //         clienteid: clienteid
-        //     }
-        // });
-        //console.log(entidades)
+        if (entidades) {
+            return res.status(200).json({
+                data: entidades
+            });
+        } else {
+            return res.status(200).json({
+                data: {}
+            });
+        }
+    } catch (e) {
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+};
+export async function getClienteZonas(req, res) {
+    const { zonaid } = req.body;
+    let sid = "''";
+    try {
+        sid = zonaid.join(",");
+    } catch (error) {
+        console.log(error.message)
+        sid = "''";
+    }
+    try {
+        let entidades = await Sellout.sequelize.query(
+            "SELECT * from fn_get_cliente(null,null,'" + sid + "',null)", {
+                type: Sellout.sequelize.QueryTypes.SELECT,
+            });
+        if (entidades) {
+            return res.status(200).json({
+                data: entidades
+            });
+        } else {
+            return res.status(200).json({
+                data: {}
+            });
+        }
+    } catch (e) {
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+};
+
+export async function getClienteSedes(req, res) {
+    const { sedeid } = req.body;
+    let sid = "''";
+    try {
+        sid = sedeid.join(",");
+    } catch (error) {
+        console.log(error.message)
+        sid = "''";
+    }
+    try {
+        let entidades = await Sellout.sequelize.query(
+            "SELECT * from fn_get_cliente(null,null,null,'" + sid + "')", {
+                type: Sellout.sequelize.QueryTypes.SELECT,
+            });
         if (entidades) {
             return res.status(200).json({
                 data: entidades

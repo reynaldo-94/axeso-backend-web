@@ -12,7 +12,9 @@ const {
     getClientesProveedor,
     getClienteRuc,
     getClienteRucCodigo,
-    getCliente
+    getCliente,
+    getClienteZonas,
+    getClienteSedes
 } = require('../controller/cliente.controller')
 router.get('/getClientes', getClientes);
 router.get('/getClientesSelect', getClientesSelect);
@@ -26,4 +28,6 @@ router.post('/getClientesProveedor', getClientesProveedor);
 router.post('/getClienteRuc', getClienteRuc);
 router.post('/getClienteRucCodigo', getClienteRucCodigo);
 router.post('/getCliente', getCliente);
+router.post('/getClienteZonas', getClienteZonas);
+router.post('/getClienteSedes', getClienteSedes);
 module.exports = router;
