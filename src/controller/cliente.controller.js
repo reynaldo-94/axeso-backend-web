@@ -413,15 +413,19 @@ export async function getClienteRuc(req, res) {
     const {
         ruc
     } = req.body;
+    let sid = "''";
+    try {
+        sid = ruc.join(",");
+    } catch (error) {
+        console.log(error.message)
+        sid = "''";
+    }
     try {
 
-        let entidades = await Cliente.findAll({
-            attributes: ['id', 'clienteid', 'unidadnegocioid', 'ruc', 'razonsocial', 'nombrecomercial', 'zonaid', 'ubigeoid', 'direccion'],
-            where: {
-                ruc: ruc
-            }
-        });
-        console.log(entidades)
+        let entidades = await Sellout.sequelize.query(
+            "SELECT * from fn_get_cliente(null,'" + sid + "',null,null)", {
+                type: Sellout.sequelize.QueryTypes.SELECT,
+            });
         if (entidades) {
             return res.status(200).json({
                 data: entidades
@@ -444,14 +448,35 @@ export async function getClienteRucCodigo(req, res) {
     const {
         id
     } = req.body;
+    let sid = "''";
     try {
-        if (id.length == 11) {
-            let entidades = await Cliente.findAll({
-                attributes: ['id', 'clienteid', 'unidadnegocioid', 'ruc', 'razonsocial', 'nombrecomercial', 'zonaid', 'ubigeoid', 'direccion'],
-                where: {
-                    ruc: id
-                }
-            });
+        sid = id.join(",");
+    } catch (error) {
+        console.log(error.message)
+        sid = "''";
+    }
+    try {
+        console.log("id.length: ", id[0].length);
+        if (id[0].length == 11) {
+            let entidades = await Sellout.sequelize.query(
+                "SELECT * from fn_get_cliente(null," + sid + ",null,null)", {
+                    type: Sellout.sequelize.QueryTypes.SELECT,
+                });
+            console.log(entidades)
+            if (entidades) {
+                return res.status(200).json({
+                    data: entidades
+                });
+            } else {
+                return res.status(200).json({
+                    data: {}
+                });
+            }
+        } else if (id[0].length == 6) {
+            let entidades = await Sellout.sequelize.query(
+                "SELECT * from fn_get_cliente('" + sid + "',null,null,null)", {
+                    type: Sellout.sequelize.QueryTypes.SELECT,
+                });
             console.log(entidades)
             if (entidades) {
                 return res.status(200).json({
@@ -463,22 +488,9 @@ export async function getClienteRucCodigo(req, res) {
                 });
             }
         } else {
-            let entidades = await Cliente.findAll({
-                attributes: ['id', 'clienteid', 'unidadnegocioid', 'ruc', 'razonsocial', 'nombrecomercial', 'zonaid', 'ubigeoid', 'direccion'],
-                where: {
-                    clienteid: id
-                }
+            return res.status(200).json({
+                data: {}
             });
-            console.log(entidades)
-            if (entidades) {
-                return res.status(200).json({
-                    data: entidades
-                });
-            } else {
-                return res.status(200).json({
-                    data: {}
-                });
-            }
         }
 
     } catch (e) {
@@ -492,32 +504,44 @@ export async function getClienteRucCodigo(req, res) {
 
 export async function getCliente(req, res) {
     const { clienteid } = req.body;
+    let sid = "''";
     try {
-        let entidades = await Cliente.findOne({
-            attributes: ['id', 'clienteid', 'unidadnegocioid', 'ruc', 'razonsocial', 'nombrecomercial', 'zonaid', 'ubigeoid', 'direccion'],
-            include: [{
-                    attributes: ['id', 'ubigeoid', 'nombre', 'departamentoid', 'provinciaid', 'distritoid', 'departamento', 'provincia'],
-                    model: Ubigeo,
-                    as: 'ubigeo',
-                    required: true
-                },
-                {
-                    attributes: ['empresaid', 'unidadnegocioid', 'nombre', 'abreviatura', 'ciudad', 'activo'],
-                    model: Vunidadnegocio,
-                    as: 'vunidadnegocio',
-                    required: true
-                },
-                {
-                    attributes: ['zonaid', 'nombre', 'vendedorid', 'canalid', 'subcanalid', 'unidadnegocioid', 'activo'],
-                    model: Vzona,
-                    as: 'vzona',
-                    required: true
-                }
-            ],
-            where: {
-                clienteid: clienteid
-            }
-        });
+        sid = clienteid.join(",");
+    } catch (error) {
+        console.log(error.message)
+        sid = "''";
+    }
+    try {
+        let entidades = await Sellout.sequelize.query(
+            "SELECT * from fn_get_cliente('" + sid + "',null,null,null)", {
+                type: Sellout.sequelize.QueryTypes.SELECT,
+            });
+
+        // let entidades = await Cliente.findOne({
+        //     attributes: ['id', 'clienteid', 'unidadnegocioid', 'ruc', 'razonsocial', 'nombrecomercial', 'zonaid', 'ubigeoid', 'direccion'],
+        //     include: [{
+        //             attributes: ['id', 'ubigeoid', 'nombre', 'departamentoid', 'provinciaid', 'distritoid', 'departamento', 'provincia'],
+        //             model: Ubigeo,
+        //             as: 'ubigeo',
+        //             required: true
+        //         },
+        //         {
+        //             attributes: ['empresaid', 'unidadnegocioid', 'nombre', 'abreviatura', 'ciudad', 'activo'],
+        //             model: Vunidadnegocio,
+        //             as: 'vunidadnegocio',
+        //             required: true
+        //         },
+        //         {
+        //             attributes: ['zonaid', 'nombre', 'vendedorid', 'canalid', 'subcanalid', 'unidadnegocioid', 'activo'],
+        //             model: Vzona,
+        //             as: 'vzona',
+        //             required: true
+        //         }
+        //     ],
+        //     where: {
+        //         clienteid: clienteid
+        //     }
+        // });
         //console.log(entidades)
         if (entidades) {
             return res.status(200).json({
