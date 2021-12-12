@@ -12,6 +12,7 @@ import Selloutmes from '../models/selloutmes.model';
 import Vunidadnegocio from '../models/vunidadnegocio.model';
 import Vzona from '../models/vzona.model';
 import Selloutclienteproducto from "../models/selloutclienteproducto.model";
+import Selloutclientezona from "../models/selloutclientezona.model";
 
 export async function getClientes(req, res) {
     try {
@@ -608,14 +609,7 @@ export async function getClienteSelloutProducto(req, res) {
         p_hasta
     } = req.body;
 
-    console.log("body: ", p_proveedorid,
-        p_unidadnegocioid, ", ",
-        p_divisionid, ", ",
-        p_lineaid, ", ",
-        p_sublineaid, ", ",
-        p_ano, ", ",
-        p_desde, ", ",
-        p_hasta)
+
     if (p_proveedorid == null) {
         return res.status(200).json("Valor de proveedorid es obligatorio");
     }
@@ -659,6 +653,82 @@ export async function getClienteSelloutProducto(req, res) {
             xp_desde + "," +
             xp_hasta + ")", {
                 type: Selloutclienteproducto.sequelize.QueryTypes.SELECT,
+            });
+        if (entidades) {
+            return res.status(200).json({
+                data: entidades
+            });
+        } else {
+            return res.status(200).json({
+                data: {}
+            });
+        }
+    } catch (e) {
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+};
+
+export async function getClienteSelloutZona(req, res) {
+    const {
+        p_proveedorid,
+        p_unidadnegocioid,
+        p_divisionid,
+        p_lineaid,
+        p_sublineaid,
+        p_periodoid,
+        p_desde,
+        p_hasta
+    } = req.body;
+
+    if (p_proveedorid == null) {
+        return res.status(200).json("Valor de proveedorid es obligatorio");
+    }
+    if (p_unidadnegocioid == null) {
+        return res.status(200).json("Valor de p_unidadnegocioid es obligatorio");
+    }
+    let xp_unidadnegocioid = null;
+    if (p_unidadnegocioid != null) {
+        xp_unidadnegocioid = "'" + p_unidadnegocioid + "'";
+    }
+    let xp_divisionid = null;
+    if (p_divisionid != null) {
+        xp_divisionid = "'" + p_divisionid + "'";
+    }
+    let xp_lineaid = null;
+    if (p_lineaid != null) {
+        xp_lineaid = "'" + p_lineaid + "'";
+    }
+    let xp_sublineaid = null;
+    if (p_sublineaid != null) {
+        xp_sublineaid = "'" + p_sublineaid + "'";
+    }
+    let xp_periodoid = null;
+    if (p_periodoid != null) {
+        xp_periodoid = "'" + p_periodoid + "'";
+    }
+    let xp_desde = null;
+    if (p_desde != null) {
+        xp_desde = "'" + p_desde + "'";
+    }
+    let xp_hasta = null;
+    if (p_hasta != null) {
+        xp_hasta = "'" + p_hasta + "'";
+    }
+    try {
+        let entidades = await Selloutclientezona.sequelize.query(
+            "SELECT * from fn_get_sellout_zona('" +
+            p_proveedorid + "'," +
+            xp_unidadnegocioid + "," +
+            xp_divisionid + "," +
+            xp_lineaid + "," +
+            xp_sublineaid + "," +
+            xp_periodoid + "," +
+            xp_desde + "," +
+            xp_hasta + ")", {
+                type: Selloutclientezona.sequelize.QueryTypes.SELECT,
             });
         if (entidades) {
             return res.status(200).json({
