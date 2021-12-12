@@ -14,7 +14,8 @@ const {
     getClienteRucCodigo,
     getCliente,
     getClienteZonas,
-    getClienteSedes
+    getClienteSedes,
+    getClienteSelloutProducto
 } = require('../controller/cliente.controller')
 router.get('/getClientes', getClientes);
 router.get('/getClientesSelect', getClientesSelect);
@@ -30,4 +31,6 @@ router.post('/getClienteRucCodigo', getClienteRucCodigo);
 router.post('/getCliente', getCliente);
 router.post('/getClienteZonas', getClienteZonas);
 router.post('/getClienteSedes', getClienteSedes);
+router.post('/getClienteSelloutProducto', getClienteSelloutProducto);
+
 module.exports = router;
