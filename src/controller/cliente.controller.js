@@ -461,7 +461,7 @@ export async function getClienteRucCodigo(req, res) {
         console.log("id.length: ", id[0].length);
         if (id[0].length == 11) {
             let entidades = await Sellout.sequelize.query(
-                "SELECT * from fn_get_cliente(null," + sid + ",null,null)", {
+                "SELECT * from fn_get_cliente(null,'" + sid + "',null,null)", {
                     type: Sellout.sequelize.QueryTypes.SELECT,
                 });
             console.log(entidades)
@@ -686,9 +686,9 @@ export async function getClienteSelloutZona(req, res) {
     if (p_proveedorid == null) {
         return res.status(200).json("Valor de proveedorid es obligatorio");
     }
-    if (p_unidadnegocioid == null) {
-        return res.status(200).json("Valor de p_unidadnegocioid es obligatorio");
-    }
+    // if (p_unidadnegocioid == null) {
+    //     return res.status(200).json("Valor de p_unidadnegocioid es obligatorio");
+    // }
     let xp_unidadnegocioid = null;
     if (p_unidadnegocioid != null) {
         xp_unidadnegocioid = "'" + p_unidadnegocioid + "'";
