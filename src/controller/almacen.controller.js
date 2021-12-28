@@ -86,3 +86,29 @@ export async function getAlmacenUnidadNegocio(req, res) {
         });
     }
 };
+export async function getAlmacenUnidadNegocioSelect(req, res) {
+    try {
+        const { id } = req.query;
+        let almacen = await Almacen.findAll({
+            attributes: [
+                ['almacenid', 'id'],
+                ['nombre', 'descripcion']
+            ],
+            where: {
+                unidadnegocioid: id
+            }
+        });
+        console.log(almacen)
+        if (almacen) {
+            return res.status(200).json({
+                data: almacen
+            });
+        }
+    } catch (e) {
+        console.log(e.message);
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+};
