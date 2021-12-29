@@ -14,6 +14,7 @@ import Vzona from '../models/vzona.model';
 import Selloutclienteproducto from "../models/selloutclienteproducto.model";
 import Selloutclientezona from "../models/selloutclientezona.model";
 import Clientefull from "../models/clientefull.model";
+import Cartera from "../models/cartera.model";
 
 
 export async function getClientes(req, res) {
@@ -780,6 +781,43 @@ export async function getFnClientes(req, res) {
         let entidades = await Clientefull.sequelize.query(
             "SELECT * from fn_get_cliente(" + xp_clientes + " , " + xp_rucs + " , " + xp_zonas + " , " + xp_sedes + ")", {
                 type: Clientefull.sequelize.QueryTypes.SELECT,
+            });
+        if (entidades) {
+            return res.status(200).json({
+                data: entidades
+            });
+        } else {
+            return res.status(200).json({
+                data: {}
+            });
+        }
+    } catch (e) {
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+};
+
+export async function getFnClienteCarteras(req, res) {
+    const {
+        p_clientes,
+        p_zonas
+    } = req.body;
+
+
+    let xp_clientes = null;
+    if (p_clientes != null) {
+        xp_clientes = "'" + p_clientes.join(",") + "'";
+    }
+    let xp_zonas = null;
+    if (p_zonas != null) {
+        xp_zonas = "'" + p_zonas.join(",") + "'";
+    }
+    try {
+        let entidades = await Cartera.sequelize.query(
+            "SELECT * from fn_get_datacartera(" + xp_clientes + " , " + xp_zonas + ")", {
+                type: Cartera.sequelize.QueryTypes.SELECT,
             });
         if (entidades) {
             return res.status(200).json({
