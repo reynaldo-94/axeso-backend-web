@@ -13,6 +13,8 @@ import Vunidadnegocio from '../models/vunidadnegocio.model';
 import Vzona from '../models/vzona.model';
 import Selloutclienteproducto from "../models/selloutclienteproducto.model";
 import Selloutclientezona from "../models/selloutclientezona.model";
+import Clientefull from "../models/clientefull.model";
+
 
 export async function getClientes(req, res) {
     try {
@@ -729,6 +731,55 @@ export async function getClienteSelloutZona(req, res) {
             xp_desde + "," +
             xp_hasta + ")", {
                 type: Selloutclientezona.sequelize.QueryTypes.SELECT,
+            });
+        if (entidades) {
+            return res.status(200).json({
+                data: entidades
+            });
+        } else {
+            return res.status(200).json({
+                data: {}
+            });
+        }
+    } catch (e) {
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+};
+
+
+
+export async function getFnClientes(req, res) {
+    const {
+        p_clientes,
+        p_rucs,
+        p_zonas,
+        p_sedes
+    } = req.body;
+
+
+    let xp_clientes = null;
+    if (p_clientes != null) {
+        xp_clientes = "'" + p_clientes.join(",") + "'";
+    }
+    let xp_rucs = null;
+    if (p_rucs != null) {
+        xp_rucs = "'" + p_rucs.join(",") + "'";
+    }
+    let xp_zonas = null;
+    if (p_zonas != null) {
+        xp_zonas = "'" + p_zonas.join(",") + "'";
+    }
+    let xp_sedes = null;
+    if (p_sedes != null) {
+        xp_sedes = "'" + p_sedes.join(",") + "'";
+    }
+    try {
+        let entidades = await Clientefull.sequelize.query(
+            "SELECT * from fn_get_cliente(" + xp_clientes + " , " + xp_rucs + " , " + xp_zonas + " , " + xp_sedes + ")", {
+                type: Clientefull.sequelize.QueryTypes.SELECT,
             });
         if (entidades) {
             return res.status(200).json({
