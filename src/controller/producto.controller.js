@@ -5,6 +5,7 @@ import Proveedor from '../models/proveedor.model';
 import Sublinea from '../models/sublinea.model';
 import Linea from '../models/linea.model';
 import Sellout_producto from '../models/sellout_producto.model';
+import Stockproducto from '../models/stockproducto.model';
 
 export async function getProductosSelectProveedor(req, res) {
     const { id } = req.query;
@@ -105,6 +106,68 @@ export async function getSelloutProductoMes(req, res) {
             "SELECT * from fn_get_sellout_producto_mes(" + xp_proveedorid + "," + xp_ano + "," + xp_medida + "," + xp_unidadnegocioid + "," + xp_divisionid + "," + xp_lineaid + "," +
             xp_sublineaid + "," + xp_zonaid + "," + xp_ruc + "," + xp_clienteid + ")", {
                 type: Sellout_producto.sequelize.QueryTypes.SELECT,
+            });
+        if (entidades) {
+            return res.status(200).json({
+                data: entidades
+            });
+        } else {
+            return res.status(200).json({
+                data: {}
+            });
+        }
+    } catch (e) {
+        console.log(e.message)
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+};
+
+export async function getStockProducto(req, res) {
+    const {
+        p_proveedorid,
+        p_divisiones,
+        p_sedes,
+        p_almacenes,
+        p_lineas,
+        p_sublineas,
+        p_tipovalorid
+    } = req.body;
+    try {
+        let xp_proveedorid = null;
+        if ((p_proveedorid != null) || (p_proveedorid != undefined)) {
+            xp_proveedorid = "'" + p_proveedorid + "'";
+        }
+        let xp_divisiones = null;
+        if (p_divisiones != null) {
+            xp_divisiones = "'" + p_divisiones.join(",") + "'";
+        }
+        let xp_sedes = null;
+        if (p_sedes != null) {
+            xp_sedes = "'" + p_sedes.join(",") + "'";
+        }
+        let xp_almacenes = null;
+        if (p_almacenes != null) {
+            xp_almacenes = "'" + p_almacenes.join(",") + "'";
+        }
+        let xp_lineas = null;
+        if (p_lineas != null) {
+            xp_lineas = "'" + p_lineas.join(",") + "'";
+        }
+        let xp_sublineas = null;
+        if (p_sublineas != null) {
+            xp_sublineas = "'" + p_sublineas.join(",") + "'";
+        }
+        let xp_tipovalorid = null;
+        if (p_tipovalorid != null) {
+            xp_tipovalorid = "'" + p_tipovalorid.join(",") + "'";
+        }
+        let entidades = await Stockproducto.sequelize.query(
+            "SELECT * from fn_get_stock_producto(" + xp_proveedorid + "," + xp_divisiones + "," + xp_sedes + "," + xp_almacenes + "," + xp_lineas + "," + xp_sublineas + "," +
+            xp_tipovalorid + ")", {
+                type: Stockproducto.sequelize.QueryTypes.SELECT,
             });
         if (entidades) {
             return res.status(200).json({
