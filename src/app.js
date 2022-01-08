@@ -19,6 +19,8 @@ const periodoRoutes = require('./routes/periodo.routes');
 const divisionRoutes = require('./routes/division.routes');
 const unidadnegocioRoutes = require('./routes/unidadnegocio.routes');
 const zonaRoutes = require('./routes/zona.routes');
+const contactoproveedorRoutes = require('./routes/contacto_proveedor.routes');
+const contactodimexaRoutes = require('./routes/contacto_dimexa.routes');
 
 const app = express();
 app.use(morgan('dev'));
@@ -41,5 +43,7 @@ app.use('/periodos', periodoRoutes);
 app.use('/divisiones', divisionRoutes);
 app.use('/unidadnegocios', unidadnegocioRoutes);
 app.use('/zonas', zonaRoutes);
+app.use('/contactoproveedores', contactoproveedorRoutes);
+app.use('/contactosdimexa', contactodimexaRoutes);
 
 module.exports = app;
