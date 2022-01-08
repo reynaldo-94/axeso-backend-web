@@ -215,7 +215,7 @@ export async function getVvencimiento(req, res) {
     }
 };
 
-export async function getInventariovencimiento(req, res) {
+export async function getInventariovencimientoResumen(req, res) {
     const {
         p_proveedorid
     } = req.body;

@@ -5,11 +5,11 @@ const {
     getSelloutProductoMes,
     getStockProducto,
     getVvencimiento,
-    getInventariovencimiento
+    getInventariovencimientoResumen
 } = require('../controller/producto.controller')
 router.post('/getProductosSelectProveedor', getProductosSelectProveedor);
 router.post('/getSelloutProductoMes', getSelloutProductoMes);
 router.post('/getStockProducto', getStockProducto);
-router.post('/getInventariovencimiento', getInventariovencimiento);
+router.post('/getInventariovencimientoResumen', getInventariovencimientoResumen);
 router.get('/getVvencimiento', getVvencimiento);
 module.exports = router;
