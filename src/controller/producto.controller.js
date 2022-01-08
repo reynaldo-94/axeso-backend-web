@@ -6,6 +6,7 @@ import Sublinea from '../models/sublinea.model';
 import Linea from '../models/linea.model';
 import Sellout_producto from '../models/sellout_producto.model';
 import Stockproducto from '../models/stockproducto.model';
+import Vvencimiento from '../models/vvencimiento.model';
 
 export async function getProductosSelectProveedor(req, res) {
     const { id } = req.query;
@@ -170,6 +171,31 @@ export async function getStockProducto(req, res) {
             xp_tipovalorid + ")", {
                 type: Stockproducto.sequelize.QueryTypes.SELECT,
             });
+        if (entidades) {
+            return res.status(200).json({
+                data: entidades
+            });
+        } else {
+            return res.status(200).json({
+                data: {}
+            });
+        }
+    } catch (e) {
+        console.log(e.message)
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+};
+
+export async function getVvencimiento(req, res) {
+    try {
+        let entidades = await Vvencimiento.sequelize.query(
+            "SELECT vencimientoid, desde, hasta, nombre FROM axeso.vvencimiento", {
+                type: Vvencimiento.sequelize.QueryTypes.SELECT,
+            });
+        console.log(entidades)
         if (entidades) {
             return res.status(200).json({
                 data: entidades
