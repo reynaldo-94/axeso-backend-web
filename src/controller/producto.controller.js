@@ -160,9 +160,10 @@ export async function getStockProducto(req, res) {
         if (p_sublineas != null) {
             xp_sublineas = "'" + p_sublineas.join(",") + "'";
         }
+
         let xp_tipovalorid = null;
-        if (p_tipovalorid != null) {
-            xp_tipovalorid = "'" + p_tipovalorid.join(",") + "'";
+        if ((p_tipovalorid != null) || (p_tipovalorid != undefined)) {
+            xp_tipovalorid = "'" + p_tipovalorid + "'";
         }
         let entidades = await Stockproducto.sequelize.query(
             "SELECT * from fn_get_stock_producto(" + xp_proveedorid + "," + xp_divisiones + "," + xp_sedes + "," + xp_almacenes + "," + xp_lineas + "," + xp_sublineas + "," +
