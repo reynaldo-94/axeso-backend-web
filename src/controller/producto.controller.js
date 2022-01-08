@@ -7,6 +7,7 @@ import Linea from '../models/linea.model';
 import Sellout_producto from '../models/sellout_producto.model';
 import Stockproducto from '../models/stockproducto.model';
 import Vvencimiento from '../models/vvencimiento.model';
+import Inventariovencimiento from '../models/inventariovencimiento.model';
 
 export async function getProductosSelectProveedor(req, res) {
     const { id } = req.query;
@@ -196,6 +197,37 @@ export async function getVvencimiento(req, res) {
                 type: Vvencimiento.sequelize.QueryTypes.SELECT,
             });
         console.log(entidades)
+        if (entidades) {
+            return res.status(200).json({
+                data: entidades
+            });
+        } else {
+            return res.status(200).json({
+                data: {}
+            });
+        }
+    } catch (e) {
+        console.log(e.message)
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+};
+
+export async function getInventariovencimiento(req, res) {
+    const {
+        p_proveedorid
+    } = req.body;
+    try {
+        let xp_proveedorid = null;
+        if ((p_proveedorid != null) || (p_proveedorid != undefined)) {
+            xp_proveedorid = "'" + p_proveedorid + "'";
+        }
+        let entidades = await Inventariovencimiento.sequelize.query(
+            "SELECT * from fn_get_inventario_por_vencimiento_resumen(" + xp_proveedorid + ")", {
+                type: Inventariovencimiento.sequelize.QueryTypes.SELECT,
+            });
         if (entidades) {
             return res.status(200).json({
                 data: entidades
