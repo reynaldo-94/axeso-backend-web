@@ -1,4 +1,7 @@
 import { json, where } from 'sequelize';
+import Sequelize from 'sequelize';
+import sequelize from 'sequelize';
+const Op = Sequelize.Op;
 import Almacen from '../models/almacen.model';
 
 export async function getAlmacenes(req, res) {
@@ -96,6 +99,36 @@ export async function getAlmacenUnidadNegocioSelect(req, res) {
             ],
             where: {
                 unidadnegocioid: id
+            }
+        });
+        console.log(almacen)
+        if (almacen) {
+            return res.status(200).json({
+                data: almacen
+            });
+        }
+    } catch (e) {
+        console.log(e.message);
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+};
+
+export async function getAlmacenUnidadNegocioSelectList(req, res) {
+    try {
+        const { id } = req.body;
+        console.log("id: ", id)
+        let almacen = await Almacen.findAll({
+            attributes: [
+                ['almacenid', 'id'],
+                ['nombre', 'descripcion']
+            ],
+            where: {
+                unidadnegocioid: {
+                    [Op.in]: id,
+                },
             }
         });
         console.log(almacen)
