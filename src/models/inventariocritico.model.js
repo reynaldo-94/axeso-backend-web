@@ -1,24 +1,24 @@
 import Sequelize from 'sequelize';
 import { sequelize2 } from '../database/database';
-const Stock_producto_descarga = sequelize2.define('stock_producto_descarga', {
+const Inventariocritico = sequelize2.define('inventariocritico', {
     almacen: {
         type: Sequelize.STRING,
         primaryKey: true
     },
-    linea: {
+    productoid: {
         type: Sequelize.STRING,
     },
-    sublinea: {
-        type: Sequelize.STRING
-    },
-    productoid: {
+    producto: {
         type: Sequelize.STRING
     },
     productoid_prov: {
         type: Sequelize.STRING
     },
-    producto: {
+    sublinea: {
         type: Sequelize.STRING
+    },
+    ultima_fec_ing: {
+        type: Sequelize.DATE
     },
     estadoproducto: {
         type: Sequelize.STRING
@@ -26,27 +26,33 @@ const Stock_producto_descarga = sequelize2.define('stock_producto_descarga', {
     estadoexistencia: {
         type: Sequelize.STRING
     },
-    masterpack: {
-        type: Sequelize.INTEGER
+    costounitario: {
+        type: Sequelize.FLOAT
     },
-    lote: {
-        type: Sequelize.STRING
+    sellout_mes: {
+        type: Sequelize.FLOAT
     },
-    vencimiento: {
-        type: Sequelize.DATE
+    sellout_mes_ant: {
+        type: Sequelize.FLOAT
+    },
+    selloutpromedio: {
+        type: Sequelize.FLOAT
     },
     stock: {
         type: Sequelize.FLOAT
     },
-    stockvalorizado: {
+    diasstock: {
         type: Sequelize.FLOAT
     },
-    rangovencimiento: {
-        type: Sequelize.STRING
+    sobrestock_uni: {
+        type: Sequelize.FLOAT
+    },
+    sobrestock_val: {
+        type: Sequelize.FLOAT
     }
 }, {
     freezeTableName: true,
     timestamps: false
 });
 
-export default Stock_producto_descarga;
+export default Inventariocritico;
