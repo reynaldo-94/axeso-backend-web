@@ -15,6 +15,7 @@ import Selloutclienteproducto from "../models/selloutclienteproducto.model";
 import Selloutclientezona from "../models/selloutclientezona.model";
 import Clientefull from "../models/clientefull.model";
 import Cartera from "../models/cartera.model";
+import Getcliente from "../models/getcliente.model";
 
 
 export async function getClientes(req, res) {
@@ -463,9 +464,9 @@ export async function getClienteRucCodigo(req, res) {
     try {
         console.log("id.length: ", id[0].length);
         if (id[0].length == 11) {
-            let entidades = await Sellout.sequelize.query(
+            let entidades = await Getcliente.sequelize.query(
                 "SELECT * from fn_get_cliente(null,'" + sid + "',null,null)", {
-                    type: Sellout.sequelize.QueryTypes.SELECT,
+                    type: Getcliente.sequelize.QueryTypes.SELECT,
                 });
             console.log(entidades)
             if (entidades) {
