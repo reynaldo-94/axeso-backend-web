@@ -397,9 +397,9 @@ export async function getClientesProveedor(req, res) {
         if (p_provincia != null) {
             xp_provincia = "'" + p_provincia + "'";
         }
-        let entidades = await Cliente.sequelize.query(
+        let entidades = await Getcliente.sequelize.query(
             "SELECT * from fn_get_cliente('" + p_proveedorid + "'," + xp_zonaid + "," + xp_nombre + "," + xp_departamento + "," + xp_provincia + ")", {
-                type: Cliente.sequelize.QueryTypes.SELECT,
+                type: Getcliente.sequelize.QueryTypes.SELECT,
             });
         console.log(entidades)
         if (entidades) {
@@ -428,9 +428,9 @@ export async function getClienteRuc(req, res) {
     }
     try {
 
-        let entidades = await Sellout.sequelize.query(
+        let entidades = await Getcliente.sequelize.query(
             "SELECT * from fn_get_cliente(null,'" + sid + "',null,null)", {
-                type: Sellout.sequelize.QueryTypes.SELECT,
+                type: Getcliente.sequelize.QueryTypes.SELECT,
             });
         if (entidades) {
             return res.status(200).json({
@@ -478,10 +478,10 @@ export async function getClienteRucCodigo(req, res) {
                     data: {}
                 });
             }
-        } else if (id[0].length == 6) {
-            let entidades = await Sellout.sequelize.query(
+        } else if (id[0].length >= 5) {
+            let entidades = await Getcliente.sequelize.query(
                 "SELECT * from fn_get_cliente('" + sid + "',null,null,null)", {
-                    type: Sellout.sequelize.QueryTypes.SELECT,
+                    type: Getcliente.sequelize.QueryTypes.SELECT,
                 });
             console.log(entidades)
             if (entidades) {
@@ -518,9 +518,9 @@ export async function getCliente(req, res) {
         sid = "''";
     }
     try {
-        let entidades = await Sellout.sequelize.query(
+        let entidades = await Getcliente.sequelize.query(
             "SELECT * from fn_get_cliente('" + sid + "',null,null,null)", {
-                type: Sellout.sequelize.QueryTypes.SELECT,
+                type: Getcliente.sequelize.QueryTypes.SELECT,
             });
 
         if (entidades) {
@@ -549,9 +549,9 @@ export async function getClienteZonas(req, res) {
         sid = "''";
     }
     try {
-        let entidades = await Sellout.sequelize.query(
+        let entidades = await Getcliente.sequelize.query(
             "SELECT * from fn_get_cliente(null,null,'" + sid + "',null)", {
-                type: Sellout.sequelize.QueryTypes.SELECT,
+                type: Getcliente.sequelize.QueryTypes.SELECT,
             });
         if (entidades) {
             return res.status(200).json({
@@ -580,9 +580,9 @@ export async function getClienteSedes(req, res) {
         sid = "''";
     }
     try {
-        let entidades = await Sellout.sequelize.query(
+        let entidades = await Getcliente.sequelize.query(
             "SELECT * from fn_get_cliente(null,null,null,'" + sid + "')", {
-                type: Sellout.sequelize.QueryTypes.SELECT,
+                type: Getcliente.sequelize.QueryTypes.SELECT,
             });
         if (entidades) {
             return res.status(200).json({

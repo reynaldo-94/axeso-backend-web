@@ -126,6 +126,9 @@ const Cliente = sequelize.define("cliente", {
     contactos: {
         type: Sequelize.STRING
     },
+    plazo: {
+        type: Sequelize.INTEGER
+    },
 }, {
     timestamps: false,
     freezeTableName: true
