@@ -93,15 +93,19 @@ export async function getSublineasSelect(req, res) {
 export async function getSublineasSelectLinea(req, res) {
     try {
         const { id } = req.query;
-        let lineas = await Sublinea.findAll({
-            attributes: [
-                ['sublineaid', 'id'],
-                ['nombre', 'descripcion']
-            ],
-            where: {
-                lineaid: id
-            }
-        });
+        let lineas = await Sublinea.sequelize.query(
+            "SELECT sublineaid as id, nombre as descripcion FROM vsublinea WHERE lineaid = '" + id + "';", {
+                type: Sublinea.sequelize.QueryTypes.SELECT,
+            });
+        // let lineas = await Sublinea.findAll({
+        //     attributes: [
+        //         ['sublineaid', 'id'],
+        //         ['nombre', 'descripcion']
+        //     ],
+        //     where: {
+        //         lineaid: id
+        //     }
+        // });
 
         if (lineas) {
             return res.status(200).json({

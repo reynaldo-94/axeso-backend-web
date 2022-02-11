@@ -21,12 +21,17 @@ export async function getProveedores(req, res) {
 };
 export async function getProveedoresSelect(req, res) {
     try {
-        let entidades = await Proveedor.findAll({
-            attributes: [
-                ['proveedorid', 'id'],
-                ['nombre', 'descripcion']
-            ]
-        });
+        let entidades = await Proveedor.sequelize.query(
+            "SELECT proveedorid as id, nombre AS descripcion FROM vproveedor", {
+                type: Proveedor.sequelize.QueryTypes.SELECT,
+            });
+
+        // let entidades = await Proveedor.findAll({
+        //     attributes: [
+        //         ['proveedorid', 'id'],
+        //         ['nombre', 'descripcion']
+        //     ]
+        // });
         //console.log(entidades)
         if (entidades) {
             return res.status(200).json({

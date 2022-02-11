@@ -4,18 +4,20 @@ import {
 } from 'sequelize';
 var nodemailer = require('nodemailer');
 import sequelize from 'sequelize';
-import Usuario from '../models/usuario.model';
+import Usuario from '../models/usuario_web.model';
 import Proveedor from '../models/proveedor.model';
+import VProveedor from '../models/vproveedor.model';
 import Tipousuario from '../models/tipousuario.model';
-import Rol from '../models/rol.model';
+import Rol from '../models/rol_web.model';
 import Motivobloqueo from '../models/motivobloqueo.model';
 import Sesion from '../models/sesion.model';
 import Usuariomenu from '../models/usuariomenu.model';
 import Menu from '../models/menu.model';
 import Rolmenusubmenu from '../models/rolmenusubmenu.model';
 import Submenu from '../models/submenu.model';
-import Usuariolinea from '../models/usuariolinea.model';
-import Linea from '../models/linea.model';
+import Usuariolinea from '../models/usuario_weblinea.model';
+//import Linea from '../models/linea.model';
+import Linea from '../models/vlinea.model';
 //const CryptoJS = require("../utils/aes");
 var CryptoJS = require("crypto-js");
 //declare var CryptoJS: any;
@@ -69,9 +71,9 @@ export async function getUsuarios(req, res) {
                 'telefono', 'ingresos', 'creado', 'actualizado'
             ],
             include: [{
-                    attributes: ['id', 'proveedorid', 'ruc', 'nombre', 'razonsocial', 'direccion', 'telefono', 'fax', 'correo', 'estadoid'],
-                    model: Proveedor,
-                    as: 'proveedor',
+                    attributes: ['proveedorid', 'ruc', 'nombre', 'razonsocial', 'direccion', 'telefono', 'fax', 'correo', 'estadoid'],
+                    model: VProveedor,
+                    as: 'vproveedor',
                     required: true,
                 },
                 {
@@ -83,7 +85,7 @@ export async function getUsuarios(req, res) {
                 {
                     attributes: ['rolid', 'nombre'],
                     model: Rol,
-                    as: 'rol',
+                    as: 'rol_web',
                     required: true,
                 },
                 {
@@ -129,9 +131,9 @@ export async function getUsuario(req, res) {
                 'telefono', 'ingresos', 'creado', 'actualizado'
             ],
             include: [{
-                    attributes: ['id', 'proveedorid', 'ruc', 'nombre', 'razonsocial', 'direccion', 'telefono', 'fax', 'correo', 'estadoid'],
-                    model: Proveedor,
-                    as: 'proveedor',
+                    attributes: ['proveedorid', 'ruc', 'nombre', 'razonsocial', 'direccion', 'telefono', 'fax', 'correo', 'estadoid'],
+                    model: VProveedor,
+                    as: 'vproveedor',
                     required: true,
                 },
                 {
@@ -143,7 +145,7 @@ export async function getUsuario(req, res) {
                 {
                     attributes: ['rolid', 'nombre'],
                     model: Rol,
-                    as: 'rol',
+                    as: 'rol_web',
                     required: true,
                 },
                 {
@@ -213,9 +215,9 @@ export async function loginUsuario(req, res) {
                 'telefono', 'ingresos', 'creado', 'actualizado'
             ],
             include: [{
-                    attributes: ['id', 'proveedorid', 'ruc', 'nombre', 'razonsocial', 'direccion', 'telefono', 'fax', 'correo', 'estadoid'],
-                    model: Proveedor,
-                    as: 'proveedor',
+                    attributes: ['proveedorid', 'ruc', 'nombre', 'razonsocial', 'direccion', 'telefono', 'fax', 'correo', 'estadoid'],
+                    model: VProveedor,
+                    as: 'vproveedor',
                     required: true,
                 },
                 {
@@ -227,7 +229,7 @@ export async function loginUsuario(req, res) {
                 {
                     attributes: ['rolid', 'nombre'],
                     model: Rol,
-                    as: 'rol',
+                    as: 'rol_web',
                     required: true,
                 },
                 {
@@ -593,9 +595,9 @@ export async function checkUsuario(req, res) {
                 'telefono', 'ingresos', 'creado', 'actualizado'
             ],
             include: [{
-                    attributes: ['id', 'proveedorid', 'ruc', 'nombre', 'razonsocial', 'direccion', 'telefono', 'fax', 'correo', 'estadoid'],
-                    model: Proveedor,
-                    as: 'proveedor',
+                    attributes: ['proveedorid', 'ruc', 'nombre', 'razonsocial', 'direccion', 'telefono', 'fax', 'correo', 'estadoid'],
+                    model: VProveedor,
+                    as: 'vproveedor',
                     required: true,
                 },
                 {
@@ -607,7 +609,7 @@ export async function checkUsuario(req, res) {
                 {
                     attributes: ['rolid', 'nombre'],
                     model: Rol,
-                    as: 'rol',
+                    as: 'rol_web',
                     required: true,
                 },
                 {
@@ -648,9 +650,9 @@ export async function checkEmail(req, res) {
                 'telefono', 'ingresos', 'creado', 'actualizado'
             ],
             include: [{
-                    attributes: ['id', 'proveedorid', 'ruc', 'nombre', 'razonsocial', 'direccion', 'telefono', 'fax', 'correo', 'estadoid'],
-                    model: Proveedor,
-                    as: 'proveedor',
+                    attributes: ['proveedorid', 'ruc', 'nombre', 'razonsocial', 'direccion', 'telefono', 'fax', 'correo', 'estadoid'],
+                    model: VProveedor,
+                    as: 'vproveedor',
                     required: true,
                 },
                 {
@@ -662,7 +664,7 @@ export async function checkEmail(req, res) {
                 {
                     attributes: ['rolid', 'nombre'],
                     model: Rol,
-                    as: 'rol',
+                    as: 'rol_web',
                     required: true,
                 },
                 {
@@ -847,7 +849,7 @@ export async function getLineasusuario(req, res) {
     } = req.body;
     try {
         let entidades = await Linea.findAll({
-            attributes: ['id', 'lineaid', 'proveedorid', 'nombre'],
+            attributes: ['lineaid', 'proveedorid', 'nombre'],
             include: [{
                 attributes: [],
                 where: {

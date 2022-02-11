@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
-import { sequelize2 } from '../database/database';
-const Cartera = sequelize2.define('cartera', {
+import { sequelize } from '../database/database';
+const Cartera = sequelize.define('cartera', {
     clienteid: {
         type: Sequelize.STRING,
         primaryKey: true

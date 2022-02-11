@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
-import { sequelize2 } from '../database/database';
-const Inventarioporvencimiento = sequelize2.define('inventarioporvencimiento', {
+import { sequelize } from '../database/database';
+const Inventarioporvencimiento = sequelize.define('inventarioporvencimiento', {
     almacenid: {
         type: Sequelize.INTEGER,
         primaryKey: true

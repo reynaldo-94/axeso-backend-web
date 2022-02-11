@@ -198,12 +198,11 @@ export async function getClientesNombrePage(req, res) {
 
 export async function getClientesSelect(req, res) {
     try {
-        let entidades = await Cliente.findAll({
-            attributes: [
-                ['clienteid', 'id'],
-                [sequelize.fn('COALESCE', sequelize.col('nombrecomercial'), sequelize.col('razonsocial')), 'descripcion'],
-            ]
-        });
+        let entidades = await Cliente.sequelize.query(
+            "SELECT clienteid AS id, COALESCE(nombrecomercial, razonsocial) AS descripcion FROM vcliente ;", {
+                type: Cliente.sequelize.QueryTypes.SELECT,
+            });
+
         //console.log(entidades)
         if (entidades) {
             return res.status(200).json({
@@ -511,15 +510,21 @@ export async function getClienteRucCodigo(req, res) {
 export async function getCliente(req, res) {
     const { clienteid } = req.body;
     let sid = "''";
+    let xp_clientes = null;
     try {
-        sid = clienteid.join(",");
+        //sid = clienteid.join(",");
+
+        if (clienteid != null) {
+            xp_clientes = "'" + clienteid.join(",") + "'";
+        }
+        console.log(xp_clientes)
     } catch (error) {
         console.log(error.message)
         sid = "''";
     }
     try {
         let entidades = await Getcliente.sequelize.query(
-            "SELECT * from fn_get_cliente('" + sid + "',null,null,null)", {
+            "SELECT * from fn_get_cliente(" + xp_clientes + ", null, null, null)", {
                 type: Getcliente.sequelize.QueryTypes.SELECT,
             });
 

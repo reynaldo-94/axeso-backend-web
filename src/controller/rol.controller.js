@@ -1,5 +1,5 @@
 import { json, where } from 'sequelize';
-import Rol from '../models/rol.model';
+import Rol from '../models/rol_web.model';
 
 export async function getRoles(req, res) {
     try {

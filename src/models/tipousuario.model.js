@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
 import { sequelize } from '../database/database';
-import Usuario from './usuario.model';
+import Usuario from './usuario_web.model';
 const Tipousuario = sequelize.define('tipousuario', {
     tipousuarioid: {
         type: Sequelize.INTEGER,

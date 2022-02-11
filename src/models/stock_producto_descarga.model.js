@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
-import { sequelize2 } from '../database/database';
-const Stock_producto_descarga = sequelize2.define('stock_producto_descarga', {
+import { sequelize } from '../database/database';
+const Stock_producto_descarga = sequelize.define('stock_producto_descarga', {
     almacen: {
         type: Sequelize.STRING,
         primaryKey: true

@@ -1,6 +1,6 @@
 import { json, where } from 'sequelize';
 import Sesion from '../models/sesion.model';
-import Usuario from '../models/usuario.model';
+import Usuario from '../models/usuario_web.model';
 
 export async function getSesiones(req, res) {
     try {

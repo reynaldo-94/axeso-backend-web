@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
-import { sequelize2 } from '../database/database';
-const Contacto = sequelize2.define('contacto', {
+import { sequelize } from '../database/database';
+const Contacto = sequelize.define('contacto', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true

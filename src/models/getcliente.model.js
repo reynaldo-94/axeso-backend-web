@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize';
-import { sequelize2 } from '../database/database';
+import { sequelize } from '../database/database';
 
-const Getcliente = sequelize2.define('getcliente', {
+const Getcliente = sequelize.define('getcliente', {
     clienteid: {
         type: Sequelize.STRING
     },

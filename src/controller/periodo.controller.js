@@ -7,7 +7,7 @@ export async function getPeriodos(req, res) {
     const { id, anio } = req.query;
     try {
         let entidades = await Periodo.sequelize.query(
-            "SELECT periodoid as id, periodoid as descripcion FROM fn_get_periodo_anio('" + id + "', '" + anio + "')", {
+            "SELECT periodoid as id, periodo as descripcion FROM fn_get_periodo_anio('" + id + "', '" + anio + "')", {
                 type: Periodo.sequelize.QueryTypes.SELECT,
                 attributes: [
                     ['periodoid', 'id']

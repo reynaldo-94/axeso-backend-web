@@ -14,29 +14,39 @@ import Stock_producto_descarga from '../models/stock_producto_descarga.model';
 export async function getProductosSelectProveedor(req, res) {
     const { id } = req.query;
     try {
-        let entidades = await Producto.findAll({
-            attributes: ['id', [
-                sequelize.fn('CONCAT',
-                    sequelize.col('producto.productoid'), ' ',
-                    sequelize.col('producto.nombre')),
-                'descripcion'
-            ]],
-            include: [{
-                attributes: [],
-                model: Sublinea.scope(null),
-                as: 'sublinea',
-                required: true,
-                include: [{
-                    attributes: [],
-                    model: Linea.scope(null),
-                    as: 'linea',
-                    required: true,
-                    where: {
-                        proveedorid: id
-                    }
-                }]
-            }],
-        });
+        let entidades = await Producto.sequelize.query(
+            "SELECT producto.productoid, CONCAT(producto.productoid, ' ', producto.nombre) AS descripcion " +
+            "FROM vproducto AS producto " +
+            "INNER JOIN vsublinea AS sublinea ON producto.sublineaid = sublinea.sublineaid " +
+            "INNER JOIN vlinea AS linea ON sublinea.lineaid = linea.lineaid " +
+            "AND linea.proveedorid =  '" + id + "';", {
+                type: Producto.sequelize.QueryTypes.SELECT,
+            });
+
+
+        // let entidades = await Producto.findAll({
+        //     attributes: ['id', [
+        //         sequelize.fn('CONCAT',
+        //             sequelize.col('producto.productoid'), ' ',
+        //             sequelize.col('producto.nombre')),
+        //         'descripcion'
+        //     ]],
+        //     include: [{
+        //         attributes: [],
+        //         model: Sublinea.scope(null),
+        //         as: 'sublinea',
+        //         required: true,
+        //         include: [{
+        //             attributes: [],
+        //             model: Linea.scope(null),
+        //             as: 'linea',
+        //             required: true,
+        //             where: {
+        //                 proveedorid: id
+        //             }
+        //         }]
+        //     }],
+        // });
         //console.log(entidades)
         if (entidades) {
             return res.status(200).json({

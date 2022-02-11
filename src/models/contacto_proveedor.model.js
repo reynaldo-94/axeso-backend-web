@@ -1,7 +1,7 @@
 /* , , , , , , , ,  */
 import Sequelize from 'sequelize';
-import { sequelize2 } from '../database/database';
-const Contacto_proveedor = sequelize2.define('contacto_proveedor', {
+import { sequelize } from '../database/database';
+const Contacto_proveedor = sequelize.define('contacto_proveedor', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
