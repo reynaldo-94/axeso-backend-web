@@ -230,9 +230,11 @@ export async function getSelloutClientes(req, res) {
         p_lineaid,
         p_sublineaid,
         p_productoid,
-        p_periodoid,
-        p_desde,
-        p_hasta
+        p_anio,
+        p_periodoid
+        // ,
+        // p_desde,
+        // p_hasta
     } = req.body;
     try {
         let xp_proveedorid = null;
@@ -259,21 +261,28 @@ export async function getSelloutClientes(req, res) {
         if ((p_productoid != null) || (p_productoid != undefined)) {
             xp_productoid = "'" + p_productoid + "'";
         }
-        let xdesde = null;
-        if ((p_desde != null) || (p_desde != undefined)) {
-            xdesde = "'" + p_desde + "'";
+        let xp_anio = null;
+        if ((p_anio != null) || (p_anio != undefined)) {
+            xp_anio = "'" + p_anio + "'";
         }
-        let xhasta = null;
-        if ((p_hasta != null) || (p_hasta != undefined)) {
-            xhasta = "'" + p_hasta + "'";
-        }
+        // let xdesde = null;
+        // if ((p_desde != null) || (p_desde != undefined)) {
+        //     xdesde = "'" + p_desde + "'";
+        // }
+        // let xhasta = null;
+        // if ((p_hasta != null) || (p_hasta != undefined)) {
+        //     xhasta = "'" + p_hasta + "'";
+        // }
         let xp_periodoid = null;
         if ((p_periodoid != null) || (p_periodoid != undefined)) {
             xp_periodoid = "'" + p_periodoid + "'";
         }
         let entidades = await Sellout.sequelize.query(
             "SELECT * from fn_get_sellout_cliente(" + xp_proveedorid + "," + xp_unidadnegocioid + "," + xp_divisionid + "," + xp_lineaid + "," + xp_sublineaid + "," + xp_productoid + "," +
-            xp_periodoid + "," + xdesde + "," + xhasta + ")", {
+            xp_anio + "," + xp_periodoid
+            //+ "," + xdesde + "," + xhasta 
+            +
+            ")", {
                 type: Sellout.sequelize.QueryTypes.SELECT,
             });
         //console.log(entidades)
