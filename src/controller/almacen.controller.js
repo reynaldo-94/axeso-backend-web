@@ -7,7 +7,7 @@ import Almacen from '../models/almacen.model';
 export async function getAlmacenes(req, res) {
     try {
         let almacenes = await Almacen.sequelize.query(
-            "SELECT almacenid, unidadnegocioid, nombre, para_app, para_web FROM valmacen;", {
+            "SELECT almacenid, unidadnegocioid, nombre, para_app, para_web FROM valmacen WHERE para_web = true;", {
                 type: Almacen.sequelize.QueryTypes.SELECT,
             });
         //console.log(almacenes)
@@ -28,7 +28,7 @@ export async function getAlmacenesSelect(req, res) {
     try {
 
         let almacenes = await Almacen.sequelize.query(
-            "SELECT almacenid as id, nombre as descripcion FROM valmacen;", {
+            "SELECT almacenid as id, nombre as descripcion FROM valmacen WHERE para_web = true;", {
                 type: Almacen.sequelize.QueryTypes.SELECT,
             });
 
@@ -52,7 +52,7 @@ export async function getAlmacen(req, res) {
     try {
         const { id } = req.query;
         let almacen = await Almacen.sequelize.query(
-            "SELECT almacenid, unidadnegocioid, nombre, para_app, para_web FROM valmacen WHERE almacenid = " + id + ";", {
+            "SELECT almacenid, unidadnegocioid, nombre, para_app, para_web FROM valmacen WHERE para_web = true and almacenid = " + id + ";", {
                 type: Almacen.sequelize.QueryTypes.SELECT,
             });
 
@@ -75,7 +75,7 @@ export async function getAlmacenUnidadNegocio(req, res) {
     try {
         const { id } = req.query;
         let almacen = await Almacen.sequelize.query(
-            "SELECT almacenid, unidadnegocioid, nombre, para_app, para_web FROM valmacen WHERE unidadnegocioid = '" + id + "';", {
+            "SELECT almacenid, unidadnegocioid, nombre, para_app, para_web FROM valmacen WHERE  para_web = true and unidadnegocioid = '" + id + "';", {
                 type: Almacen.sequelize.QueryTypes.SELECT,
             });
         console.log(almacen)
@@ -96,7 +96,7 @@ export async function getAlmacenUnidadNegocioSelect(req, res) {
     try {
         const { id } = req.query;
         let almacen = await Almacen.sequelize.query(
-            "SELECT almacenid as id, nombre as descripcion FROM valmacen WHERE unidadnegocioid = '" + id + "';", {
+            "SELECT almacenid as id, nombre as descripcion FROM valmacen WHERE  para_web = true and unidadnegocioid = '" + id + "';", {
                 type: Almacen.sequelize.QueryTypes.SELECT,
             });
         console.log(almacen)
@@ -125,7 +125,7 @@ export async function getAlmacenUnidadNegocioSelectList(req, res) {
 
 
         let almacen = await Almacen.sequelize.query(
-            "SELECT almacenid as id, nombre as descripcion FROM valmacen WHERE unidadnegocioid in (" + xid + ");", {
+            "SELECT almacenid as id, nombre as descripcion FROM valmacen WHERE  para_web = true and unidadnegocioid in (" + xid + ");", {
                 type: Almacen.sequelize.QueryTypes.SELECT,
             });
 
