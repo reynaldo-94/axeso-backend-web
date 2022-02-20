@@ -696,9 +696,8 @@ export async function getClienteSelloutZona(req, res) {
         p_divisionid,
         p_lineaid,
         p_sublineaid,
-        p_periodoid,
-        p_desde,
-        p_hasta
+        p_anio,
+        p_periodoid
     } = req.body;
 
     if (p_proveedorid == null) {
@@ -727,13 +726,9 @@ export async function getClienteSelloutZona(req, res) {
     if (p_periodoid != null) {
         xp_periodoid = "'" + p_periodoid + "'";
     }
-    let xp_desde = null;
-    if (p_desde != null) {
-        xp_desde = "'" + p_desde + "'";
-    }
-    let xp_hasta = null;
-    if (p_hasta != null) {
-        xp_hasta = "'" + p_hasta + "'";
+    let xp_anio = null;
+    if (p_anio != null) {
+        xp_anio = "'" + p_anio + "'";
     }
     try {
         let entidades = await Selloutclientezona.sequelize.query(
@@ -743,9 +738,8 @@ export async function getClienteSelloutZona(req, res) {
             xp_divisionid + "," +
             xp_lineaid + "," +
             xp_sublineaid + "," +
-            xp_periodoid + "," +
-            xp_desde + "," +
-            xp_hasta + ")", {
+            xp_anio + "," +
+            xp_periodoid + ")", {
                 type: Selloutclientezona.sequelize.QueryTypes.SELECT,
             });
         if (entidades) {
