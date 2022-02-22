@@ -1,11 +1,7 @@
 import Sequelize from 'sequelize';
 import { sequelize } from '../database/database';
 import Cliente from './cliente.model';
-const Ubigeo = sequelize.define('ubigeo', {
-    id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true
-    },
+const Ubigeo = sequelize.define('vubigeo', {
     ubigeoid: {
         type: Sequelize.STRING,
         primaryKey: true

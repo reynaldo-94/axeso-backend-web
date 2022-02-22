@@ -3,7 +3,7 @@ import {
     where
 } from 'sequelize';
 import Cliente from '../models/cliente.model';
-import Ubigeo from '../models/ubigeo.model';
+import Ubigeo from '../models/vubigeo.model';
 import Sequelize from 'sequelize';
 import sequelize from 'sequelize';
 const Op = Sequelize.Op;
@@ -23,9 +23,9 @@ export async function getClientes(req, res) {
         let entidades = await Cliente.findAll({
             attributes: ['id', 'clienteid', 'unidadnegocioid', 'ruc', 'razonsocial', 'nombrecomercial', 'zonaid', 'ubigeoid', 'direccion'],
             include: [{
-                attributes: ['id', 'ubigeoid', 'nombre', 'departamentoid', 'provinciaid', 'distritoid', 'departamento', 'provincia'],
+                attributes: ['ubigeoid', 'nombre', 'departamentoid', 'provinciaid', 'distritoid', 'departamento', 'provincia'],
                 model: Ubigeo,
-                as: 'ubigeo',
+                as: 'vubigeo',
                 required: true
             }]
         });
@@ -55,9 +55,9 @@ export async function getClientesPage(req, res) {
         let entidades = await Cliente.findAll({
             attributes: ['id', 'clienteid', 'unidadnegocioid', 'ruc', 'razonsocial', 'nombrecomercial', 'zonaid', 'ubigeoid', 'direccion'],
             include: [{
-                attributes: ['id', 'ubigeoid', 'nombre', 'departamentoid', 'provinciaid', 'distritoid', 'departamento', 'provincia'],
+                attributes: ['ubigeoid', 'nombre', 'departamentoid', 'provinciaid', 'distritoid', 'departamento', 'provincia'],
                 model: Ubigeo,
-                as: 'ubigeo',
+                as: 'vubigeo',
                 required: true
             }],
             limit: limite,
@@ -91,9 +91,9 @@ export async function getClientesUbigeoPage(req, res) {
         let entidades = await Cliente.findAll({
             attributes: ['id', 'clienteid', 'unidadnegocioid', 'ruc', 'razonsocial', 'nombrecomercial', 'zonaid', 'ubigeoid', 'direccion'],
             include: [{
-                attributes: ['id', 'ubigeoid', 'nombre', 'departamentoid', 'provinciaid', 'distritoid', 'departamento', 'provincia'],
+                attributes: ['ubigeoid', 'nombre', 'departamentoid', 'provinciaid', 'distritoid', 'departamento', 'provincia'],
                 model: Ubigeo,
-                as: 'ubigeo',
+                as: 'vubigeo',
                 required: true
             }],
             where: {
@@ -129,9 +129,9 @@ export async function getClientesZonaPage(req, res) {
         let entidades = await Cliente.findAll({
             attributes: ['id', 'clienteid', 'unidadnegocioid', 'ruc', 'razonsocial', 'nombrecomercial', 'zonaid', 'ubigeoid', 'direccion'],
             include: [{
-                attributes: ['id', 'ubigeoid', 'nombre', 'departamentoid', 'provinciaid', 'distritoid', 'departamento', 'provincia'],
+                attributes: ['ubigeoid', 'nombre', 'departamentoid', 'provinciaid', 'distritoid', 'departamento', 'provincia'],
                 model: Ubigeo,
-                as: 'ubigeo',
+                as: 'vubigeo',
                 required: true
             }],
             where: {
