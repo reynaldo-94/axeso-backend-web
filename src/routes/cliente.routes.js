@@ -15,7 +15,7 @@ const {
     getCliente,
     getClienteZonas,
     getClienteSedes,
-    getClienteSelloutProducto,
+    getClienteSelloutDescarga,
     getClienteSelloutZona,
     getFnClientes,
     getFnClienteCarteras
@@ -34,7 +34,7 @@ router.post('/getClienteRucCodigo', getClienteRucCodigo);
 router.post('/getCliente', getCliente);
 router.post('/getClienteZonas', getClienteZonas);
 router.post('/getClienteSedes', getClienteSedes);
-router.post('/getClienteSelloutProducto', getClienteSelloutProducto);
+router.post('/getClienteSelloutDescarga', getClienteSelloutDescarga);
 router.post('/getClienteSelloutZona', getClienteSelloutZona);
 router.post('/getFnClientes', getFnClientes);
 router.post('/getFnClienteCarteras', getFnClienteCarteras);

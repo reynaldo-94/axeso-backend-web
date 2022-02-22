@@ -615,7 +615,7 @@ export async function getClienteSedes(req, res) {
     }
 };
 
-export async function getClienteSelloutProducto(req, res) {
+export async function getClienteSelloutDescarga(req, res) {
     const {
         p_proveedorid,
         p_unidadnegocioid,
@@ -623,8 +623,7 @@ export async function getClienteSelloutProducto(req, res) {
         p_lineaid,
         p_sublineaid,
         p_ano,
-        p_desde,
-        p_hasta
+        p_periodo
     } = req.body;
 
 
@@ -651,25 +650,20 @@ export async function getClienteSelloutProducto(req, res) {
     if (p_ano != null) {
         xp_ano = "'" + p_ano + "'";
     }
-    let xp_desde = null;
-    if (p_desde != null) {
-        xp_desde = "'" + p_desde + "'";
-    }
-    let xp_hasta = null;
-    if (p_hasta != null) {
-        xp_hasta = "'" + p_hasta + "'";
+    let xp_periodo = null;
+    if (p_periodo != null) {
+        xp_periodo = "'" + p_periodo + "'";
     }
     try {
         let entidades = await Selloutclienteproducto.sequelize.query(
-            "SELECT * from fn_get_sellout_cliente_producto('" +
+            "SELECT * from fn_get_sellout_descarga('" +
             p_proveedorid + "'," +
             xp_unidadnegocioid + "," +
             xp_divisionid + "," +
             xp_lineaid + "," +
             xp_sublineaid + "," +
             xp_ano + "," +
-            xp_desde + "," +
-            xp_hasta + ")", {
+            xp_periodo + ")", {
                 type: Selloutclienteproducto.sequelize.QueryTypes.SELECT,
             });
         if (entidades) {
