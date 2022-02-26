@@ -21,6 +21,7 @@ const unidadnegocioRoutes = require('./routes/unidadnegocio.routes');
 const zonaRoutes = require('./routes/zona.routes');
 const contactoproveedorRoutes = require('./routes/contacto_proveedor.routes');
 const contactodimexaRoutes = require('./routes/contacto_dimexa.routes');
+const estado_cuentaRoutes = require('./routes/estado_cuenta.routes');
 
 const app = express();
 app.use(morgan('dev'));
@@ -45,5 +46,6 @@ app.use('/unidadnegocios', unidadnegocioRoutes);
 app.use('/zonas', zonaRoutes);
 app.use('/contactoproveedores', contactoproveedorRoutes);
 app.use('/contactosdimexa', contactodimexaRoutes);
+app.use('/estado_cuenta', estado_cuentaRoutes);
 
 module.exports = app;

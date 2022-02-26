@@ -785,7 +785,7 @@ export async function updateClaveUsuario(req, res) {
                 }
             });
         });
-        return res.status(200).json('Contraseña actualizada');
+        return res.status(200).json('Contrasena actualizada');
     } catch (e) {
         console.log(e.message)
         return res.status(500).json({
@@ -823,8 +823,8 @@ export async function updateClaveEmail(req, res) {
         var mailOptions = {
             from: 'soporte.dimexa@gmail.com',
             to: correo,
-            subject: 'Servicio de recuperacion de contraseña',
-            html: 'La contraseña para el usuario con correo: <b>' + correo + '</b> ha sido modificada por <b>' + password + '</b>'
+            subject: 'Servicio de recuperacion de contrasena',
+            html: 'La contrasena para el usuario con correo: <b>' + correo + '</b> ha sido modificada por <b>' + password + '</b>'
         };
         mail.sendMail(mailOptions, function(error, info) {
             if (error) {

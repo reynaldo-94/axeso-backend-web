@@ -83,7 +83,7 @@ const loginUsuario = async(request, response) => {
         try {
             let resultado = usuario;
             if (resultado == '') {
-                response.status(200).json('Usuario o contraseña incorrectos')
+                response.status(200).json('Usuario o contrasena incorrectos')
             }
         } catch (e) {
 
@@ -317,8 +317,8 @@ const updateClaveEmail = (request, response) => {
             var mailOptions = {
                 from: 'soporte.dimexa@gmail.com',
                 to: correo,
-                subject: 'Servicio de recuperacion de contraseña',
-                html: 'La contraseña para el usuario con correo: <b>' + correo + '</b> ha sido modificada por <b>' + password + '</b>'
+                subject: 'Servicio de recuperacion de contrasena',
+                html: 'La contrasena para el usuario con correo: <b>' + correo + '</b> ha sido modificada por <b>' + password + '</b>'
             };
             mail.sendMail(mailOptions, function(error, info) {
                 if (error) {

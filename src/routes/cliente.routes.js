@@ -18,7 +18,8 @@ const {
     getClienteSelloutDescarga,
     getClienteSelloutZona,
     getFnClientes,
-    getFnClienteCarteras
+    getFnClienteCarteras,
+    getFacturas
 } = require('../controller/cliente.controller')
 router.get('/getClientes', getClientes);
 router.get('/getClientesSelect', getClientesSelect);
