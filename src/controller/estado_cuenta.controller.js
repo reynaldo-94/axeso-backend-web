@@ -9,6 +9,7 @@ import Factura from '../models/factura.model';
 import Documento from '../models/documento.model';
 import TipoDocumentoEstado from '../models/tipodocestado.model';
 import MotivoReclamo from '../models/vmotivo_reclamo.model';
+import RubroMotivoReclamo from '../models/vrubro_motivo_reclamo.model';
 export async function getFacturas(req, res) {
     const { p_proveedorid } = req.body;
     let sid = "''";
@@ -122,6 +123,31 @@ export async function getMotivoReclamos(req, res) {
         let entidades = await MotivoReclamo.sequelize.query(
             "SELECT * from axeso.vmotivo_reclamo;", {
                 type: MotivoReclamo.sequelize.QueryTypes.SELECT,
+            });
+        if (entidades) {
+            return res.status(200).json({
+                data: entidades
+            });
+        } else {
+            return res.status(200).json({
+                data: {}
+            });
+        }
+    } catch (e) {
+        console.log(e.message)
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+};
+
+export async function getRubroMotivoReclamos(req, res) {
+    try {
+
+        let entidades = await RubroMotivoReclamo.sequelize.query(
+            "SELECT * from axeso.vreclamo_motivo_rubro;", {
+                type: RubroMotivoReclamo.sequelize.QueryTypes.SELECT,
             });
         if (entidades) {
             return res.status(200).json({
