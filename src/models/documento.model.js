@@ -65,6 +65,9 @@ const Documento = sequelize.define('documento', {
     },
     sede: {
         type: Sequelize.STRING
+    },
+    documento: {
+        type: Sequelize.STRING
     }
 }, {
     freezeTableName: true,
