@@ -5,11 +5,13 @@ const {
     getDocumentos,
     getTipoDocumentos,
     getMotivoReclamos,
-    getRubroMotivoReclamos
+    getRubroMotivoReclamos,
+    getMonedas
 } = require('../controller/estado_cuenta.controller')
 router.post('/getFacturas', getFacturas);
 router.post('/getDocumentos', getDocumentos);
 router.get('/getTipoDocumentos', getTipoDocumentos);
 router.get('/getMotivoReclamos', getMotivoReclamos);
 router.get('/getRubroMotivoReclamos', getRubroMotivoReclamos);
+router.get('/getMonedas', getMonedas);
 module.exports = router;

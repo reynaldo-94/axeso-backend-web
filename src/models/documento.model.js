@@ -53,6 +53,18 @@ const Documento = sequelize.define('documento', {
     },
     idproveedor: {
         type: Sequelize.STRING
+    },
+    idmoneda: {
+        type: Sequelize.STRING
+    },
+    moneda: {
+        type: Sequelize.STRING
+    },
+    idunineg: {
+        type: Sequelize.STRING
+    },
+    sede: {
+        type: Sequelize.STRING
     }
 }, {
     freezeTableName: true,
