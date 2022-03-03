@@ -6,10 +6,16 @@ const {
     getTipoDocumentos,
     getMotivoReclamos,
     getRubroMotivoReclamos,
-    getMonedas
+    getMonedas,
+    getSerieDocumentos,
+    getNumeroDocumentos,
+    getAmortizacionCuentaPagar
 } = require('../controller/estado_cuenta.controller')
 router.post('/getFacturas', getFacturas);
 router.post('/getDocumentos', getDocumentos);
+router.post('/getSerieDocumentos', getSerieDocumentos);
+router.post('/getNumeroDocumentos', getNumeroDocumentos);
+router.post('/getAmortizacionCuentaPagar', getAmortizacionCuentaPagar);
 router.get('/getTipoDocumentos', getTipoDocumentos);
 router.get('/getMotivoReclamos', getMotivoReclamos);
 router.get('/getRubroMotivoReclamos', getRubroMotivoReclamos);
