@@ -14,6 +14,7 @@ import Moneda from '../models/vmoneda.model';
 import Serie from '../models/serie.model';
 import Numero from '../models/numero.model';
 import AmortizacionCuentasPagar from '../models/amortizacioncuentaspagar.model';
+import TipoDeuda from '../models/vtipodeuda.model';
 export async function getFacturas(req, res) {
     const { p_proveedorid } = req.body;
     let sid = "''";
@@ -58,6 +59,7 @@ export async function getDocumentos(req, res) {
     let xp_proveedorid = null;
     let xp_unidadnegocioid = null;
     let xp_lineaid = null;
+    let xp_tipo_documento = null;
     try {
         if (p_proveedorid != null) {
             xp_proveedorid = "'" + p_proveedorid.join(",") + "'";
@@ -68,14 +70,18 @@ export async function getDocumentos(req, res) {
         if (p_lineaid != null) {
             xp_lineaid = "'" + p_lineaid.join(",") + "'";
         }
-        console.log(xp_proveedorid)
+        if (p_tipo_documento != null) {
+            xp_tipo_documento = "'" + p_tipo_documento.join(",") + "'";
+        }
+        console.log(p_tipo_documento)
+        console.log(xp_tipo_documento)
     } catch (error) {
         console.log(error.message)
         sid = "''";
     }
     try {
         let entidades = await Documento.sequelize.query(
-            "SELECT * from fn_docs_tipo_documento(" + xp_proveedorid + ",'" + p_tipo_documento + "'," + xp_unidadnegocioid + "," + xp_lineaid + ")", {
+            "SELECT * from fn_docs_tipo_documento(" + xp_proveedorid + "," + xp_tipo_documento + "," + xp_unidadnegocioid + "," + xp_lineaid + ")", {
                 type: Documento.sequelize.QueryTypes.SELECT,
             });
 
@@ -252,7 +258,7 @@ export async function getNumeroDocumentos(req, res) {
 export async function getAmortizacionCuentaPagar(req, res) {
     const { p_tipo_documento, p_serie, p_numero } = req.body;
     let sid = "''";
-
+    console.log(p_tipo_documento);
     try {
         let entidades = await AmortizacionCuentasPagar.sequelize.query(
             "SELECT * from fn_amortizacion_cuentaspagar('" + p_tipo_documento + "','" + p_serie + "','" + p_numero + "')", {
@@ -269,6 +275,31 @@ export async function getAmortizacionCuentaPagar(req, res) {
             });
         }
     } catch (e) {
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+};
+
+export async function getTipoDeudas(req, res) {
+    try {
+
+        let entidades = await TipoDeuda.sequelize.query(
+            "SELECT * from axeso.vtipodeudas;", {
+                type: TipoDeuda.sequelize.QueryTypes.SELECT,
+            });
+        if (entidades) {
+            return res.status(200).json({
+                data: entidades
+            });
+        } else {
+            return res.status(200).json({
+                data: {}
+            });
+        }
+    } catch (e) {
+        console.log(e.message)
         return res.status(500).json({
             message: 'Algo salio mal',
             data: {}
