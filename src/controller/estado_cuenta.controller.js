@@ -407,7 +407,7 @@ export async function getDeudaPendienteList(req, res) {
         }
     } catch (error) {
         console.log(error.message)
-        sid = "''";
+
     }
     try {
         let entidades = await DeudaPendienteList.sequelize.query(
