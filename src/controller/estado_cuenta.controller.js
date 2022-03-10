@@ -389,9 +389,9 @@ export async function getDeudaPendienteList(req, res) {
     const { p_proveedorid, p_uninegid, p_tipodeudaid, p_rubroid } = req.body;
     let sid = "''";
     let xp_proveedorid = null;
-    let xp_unidadnegocioid = null;
-    let xp_lineaid = null;
-    let xp_tipo_documento = null;
+    let xp_uninegid = null;
+    let xp_tipodeudaid = null;
+    let xp_rubroid = null;
     try {
         if (p_proveedorid != null) {
             xp_proveedorid = "'" + p_proveedorid + "'";
