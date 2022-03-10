@@ -10,13 +10,19 @@ const {
     getSerieDocumentos,
     getNumeroDocumentos,
     getAmortizacionCuentaPagar,
-    getTipoDeudas
+    getTipoDeudas,
+    getDeudaPendienteResumen,
+    getDeudaPendienteRubro,
+    getDeudaPendienteList
 } = require('../controller/estado_cuenta.controller')
 router.post('/getFacturas', getFacturas);
 router.post('/getDocumentos', getDocumentos);
 router.post('/getSerieDocumentos', getSerieDocumentos);
 router.post('/getNumeroDocumentos', getNumeroDocumentos);
 router.post('/getAmortizacionCuentaPagar', getAmortizacionCuentaPagar);
+router.post('/getDeudaPendienteResumen', getDeudaPendienteResumen);
+router.post('/getDeudaPendienteList', getDeudaPendienteList);
+router.post('/getDeudaPendienteRubro', getDeudaPendienteRubro);
 router.get('/getTipoDocumentos', getTipoDocumentos);
 router.get('/getMotivoReclamos', getMotivoReclamos);
 router.get('/getRubroMotivoReclamos', getRubroMotivoReclamos);

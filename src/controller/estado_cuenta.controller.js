@@ -15,6 +15,9 @@ import Serie from '../models/serie.model';
 import Numero from '../models/numero.model';
 import AmortizacionCuentasPagar from '../models/amortizacioncuentaspagar.model';
 import TipoDeuda from '../models/vtipodeuda.model';
+import DeudaPendienteResumen from '../models/deuda_pendiente_resumen.model';
+import DeudaPendienteRubro from '../models/vdeuda_pendiente_rubro.model';
+import DeudaPendienteList from '../models/deuda_pendiente_list.model';
 export async function getFacturas(req, res) {
     const { p_proveedorid } = req.body;
     let sid = "''";
@@ -300,6 +303,128 @@ export async function getTipoDeudas(req, res) {
         }
     } catch (e) {
         console.log(e.message)
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+};
+
+export async function getDeudaPendienteResumen(req, res) {
+    const { p_proveedorid } = req.body;
+    let sid = "''";
+    let xp_proveedorid = null;
+
+    try {
+        if (p_proveedorid != null) {
+            xp_proveedorid = "'" + p_proveedorid.join(",") + "'";
+        }
+
+    } catch (error) {
+        console.log(error.message)
+        sid = "''";
+    }
+    try {
+        let entidades = await DeudaPendienteResumen.sequelize.query(
+            "SELECT * from fn_get_deuda_pendiente_resumen(" + xp_proveedorid + ")", {
+                type: DeudaPendienteResumen.sequelize.QueryTypes.SELECT,
+            });
+
+        if (entidades) {
+            return res.status(200).json({
+                data: entidades
+            });
+        } else {
+            return res.status(200).json({
+                data: {}
+            });
+        }
+    } catch (e) {
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+};
+
+
+export async function getDeudaPendienteRubro(req, res) {
+    const { p_tipodeudaid } = req.body;
+    let sid = "''";
+    let xp_tipodeudaid = null;
+
+    try {
+        if (p_tipodeudaid != null) {
+            xp_tipodeudaid = "'" + p_tipodeudaid + "'";
+        }
+
+    } catch (error) {
+        console.log(error.message)
+        sid = "''";
+    }
+    try {
+        let entidades = await DeudaPendienteRubro.sequelize.query(
+            "SELECT * from fn_get_deuda_pendiente_rubros(" + xp_tipodeudaid + ")", {
+                type: DeudaPendienteRubro.sequelize.QueryTypes.SELECT,
+            });
+
+        if (entidades) {
+            return res.status(200).json({
+                data: entidades
+            });
+        } else {
+            return res.status(200).json({
+                data: {}
+            });
+        }
+    } catch (e) {
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+};
+
+export async function getDeudaPendienteList(req, res) {
+    const { p_proveedorid, p_uninegid, p_tipodeudaid, p_rubroid } = req.body;
+    let sid = "''";
+    let xp_proveedorid = null;
+    let xp_unidadnegocioid = null;
+    let xp_lineaid = null;
+    let xp_tipo_documento = null;
+    try {
+        if (p_proveedorid != null) {
+            xp_proveedorid = "'" + p_proveedorid + "'";
+        }
+        if (p_uninegid != null) {
+            xp_uninegid = "'" + p_uninegid + "'";
+        }
+        if (p_tipodeudaid != null) {
+            xp_tipodeudaid = "'" + p_tipodeudaid + "'";
+        }
+        if (p_rubroid != null) {
+            xp_rubroid = "'" + p_rubroid + "'";
+        }
+    } catch (error) {
+        console.log(error.message)
+        sid = "''";
+    }
+    try {
+        let entidades = await DeudaPendienteList.sequelize.query(
+            "SELECT * from fn_get_deuda_pendiente_list(" + xp_proveedorid + "," + xp_uninegid + "," + xp_tipodeudaid + "," + xp_rubroid + ")", {
+                type: DeudaPendienteList.sequelize.QueryTypes.SELECT,
+            });
+
+        if (entidades) {
+            return res.status(200).json({
+                data: entidades
+            });
+        } else {
+            return res.status(200).json({
+                data: {}
+            });
+        }
+    } catch (e) {
         return res.status(500).json({
             message: 'Algo salio mal',
             data: {}
