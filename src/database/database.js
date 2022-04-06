@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
 export const sequelize = new Sequelize(
-    'gestion',
+    'gestionf',
     'axeso',
     'axeso@D593*', {
         host: '190.116.51.182',
