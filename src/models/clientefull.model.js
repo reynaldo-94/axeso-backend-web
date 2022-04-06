@@ -124,7 +124,19 @@ const Clientefull = sequelize.define('clientefull', {
     },
     deuda: {
         type: Sequelize.FLOAT
-    }
+    },
+    bfarma: {
+        type: Sequelize.BOOLEAN,
+      },
+      bprovincia: {
+        type: Sequelize.BOOLEAN,
+      },
+      divisionid: {
+        type: Sequelize.STRING,
+      },
+      division: {
+        type: Sequelize.STRING,
+      },
 }, {
     freezeTableName: true,
     timestamps: false
