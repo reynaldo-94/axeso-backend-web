@@ -1,5 +1,5 @@
 import { json, where } from 'sequelize';
-import Ubigeo from '../models/ubigeo.model';
+import Ubigeo from '../models/vubigeo.model';
 import Sequelize from 'sequelize';
 const Op = Sequelize.Op;
 export async function getUbigeos(req, res) {
@@ -21,7 +21,7 @@ export async function getUbigeos(req, res) {
 
 export async function getUbigeo(req, res) {
     try {
-        const { ubigeoid } = req.params;
+        const { ubigeoid } = req.body;
         let ubigeo = await Ubigeo.findOne({
             where: {
                 ubigeoid: ubigeoid

@@ -2,16 +2,19 @@ import { json, where } from 'sequelize';
 import Sequelize from 'sequelize';
 import sequelize from 'sequelize';
 import Periodo from '../models/periodo.model';
-
+const Op = Sequelize.Op;
 export async function getPeriodos(req, res) {
-    const { id } = req.query;
+    const { id, anio } = req.query;
     try {
         let entidades = await Periodo.sequelize.query(
-            "SELECT periodoid as id, periodoid as descripcion FROM fn_get_periodo('" + id + "')", {
+            "SELECT periodoid as id, periodo as descripcion FROM fn_get_periodo_anio('" + id + "', '" + anio + "')", {
                 type: Periodo.sequelize.QueryTypes.SELECT,
                 attributes: [
                     ['periodoid', 'id']
-                ]
+                ],
+                order: [
+                    ['id', 'DESC']
+                ],
             });
         //console.log(entidades)
         if (entidades) {
@@ -35,6 +38,9 @@ export async function getAnios(req, res) {
                 type: Periodo.sequelize.QueryTypes.SELECT,
                 attributes: [
                     ['periodoid', 'id']
+                ],
+                order: [
+                    ['id', 'DESC']
                 ]
             });
         //console.log(entidades)

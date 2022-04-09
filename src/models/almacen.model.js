@@ -1,13 +1,10 @@
 import Sequelize from 'sequelize';
 import { sequelize } from '../database/database';
-//import Usuario from './usuario.model';
+//import Usuario from './usuario_web.model';
 const Almacen = sequelize.define('almacen', {
-    id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true
-    },
+
     almacenid: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         primaryKey: true
     },
     unidadnegocioid: {
@@ -15,6 +12,12 @@ const Almacen = sequelize.define('almacen', {
     },
     nombre: {
         type: Sequelize.STRING
+    },
+    para_app: {
+        type: Sequelize.BOOLEAN
+    },
+    para_web: {
+        type: Sequelize.BOOLEAN
     }
 }, {
     freezeTableName: true,
