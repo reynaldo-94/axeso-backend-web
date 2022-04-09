@@ -11,15 +11,9 @@ const DeudaPendienteList = sequelize.define('deuda_pendiente_list', {
     idunineg: {
         type: Sequelize.STRING,
     },
-<<<<<<< HEAD
     // idproveedor: {
     //     type: Sequelize.STRING,
     // },
-=======
-    idproveedor: {
-        type: Sequelize.STRING,
-    },
->>>>>>> b66d3f4c019b7bf3c724332411f7314b86b05b4f
     idmotivo: {
         type: Sequelize.STRING,
     },
@@ -58,12 +52,9 @@ const DeudaPendienteList = sequelize.define('deuda_pendiente_list', {
     },
     mes: {
         type: Sequelize.STRING
-<<<<<<< HEAD
     },
     nomreclamo: {
         type: Sequelize.STRING
-=======
->>>>>>> b66d3f4c019b7bf3c724332411f7314b86b05b4f
     }
 }, {
     freezeTableName: true,

@@ -26,13 +26,8 @@ const zonaRoutes = require('./routes/zona.routes');
 const contactoproveedorRoutes = require('./routes/contacto_proveedor.routes');
 const contactodimexaRoutes = require('./routes/contacto_dimexa.routes');
 const estado_cuentaRoutes = require('./routes/estado_cuenta.routes');
-<<<<<<< HEAD
 const dashboardRoutes = require('./routes/dashboard.routes');
 const indicadoresservicioRoutes = require('./routes/indicadores_servicio.routes');
-=======
-
-
->>>>>>> b66d3f4c019b7bf3c724332411f7314b86b05b4f
 
 const app = express();
 app.use(morgan('dev'));
@@ -58,15 +53,12 @@ app.use('/zonas', zonaRoutes);
 app.use('/contactoproveedores', contactoproveedorRoutes);
 app.use('/contactosdimexa', contactodimexaRoutes);
 app.use('/estado_cuenta', estado_cuentaRoutes);
-<<<<<<< HEAD
 app.use('/dashboard', dashboardRoutes);
 app.use('/indicadoresservicio', indicadoresservicioRoutes);
 
 // Tareas Programadas
-cron.schedule("* * * * *", () => {
+// cron.schedule("* * * * *", () => {
     // console.log('Ejecutar Tarea') 
-})   
-=======
->>>>>>> b66d3f4c019b7bf3c724332411f7314b86b05b4f
+// })
 
 module.exports = app;

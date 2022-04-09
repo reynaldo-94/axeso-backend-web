@@ -15,18 +15,12 @@ import Serie from '../models/serie.model';
 import Numero from '../models/numero.model';
 import AmortizacionCuentasPagar from '../models/amortizacioncuentaspagar.model';
 import TipoDeuda from '../models/vtipodeuda.model';
-<<<<<<< HEAD
 import TipoReclamo from '../models/vtiporeclamo.model';
 import RangoDias from '../models/vrangodias.model';
 import DeudaPendienteResumen from '../models/deuda_pendiente_resumen.model';
 import DeudaPendienteRubro from '../models/vdeuda_pendiente_rubro.model';
 import DeudaPendienteList from '../models/deuda_pendiente_list.model';
 import CuentasPagar from '../models/cuentaspagar.model';
-=======
-import DeudaPendienteResumen from '../models/deuda_pendiente_resumen.model';
-import DeudaPendienteRubro from '../models/vdeuda_pendiente_rubro.model';
-import DeudaPendienteList from '../models/deuda_pendiente_list.model';
->>>>>>> b66d3f4c019b7bf3c724332411f7314b86b05b4f
 export async function getFacturas(req, res) {
     const { p_proveedorid } = req.body;
     let sid = "''";
@@ -83,11 +77,7 @@ export async function getDocumentos(req, res) {
             xp_lineaid = "'" + p_lineaid.join(",") + "'";
         }
         if (p_tipo_documento != null) {
-<<<<<<< HEAD
             xp_tipo_documento = "'" + p_tipo_documento + "'";
-=======
-            xp_tipo_documento = "'" + p_tipo_documento.join(",") + "'";
->>>>>>> b66d3f4c019b7bf3c724332411f7314b86b05b4f
         }
         console.log(p_tipo_documento)
         console.log(xp_tipo_documento)
@@ -271,7 +261,6 @@ export async function getNumeroDocumentos(req, res) {
     }
 };
 
-<<<<<<< HEAD
 export async function getLiquidacionDocumentos(req, res) {
 
     const { p_proveedorid, p_tipo_documento, p_serie, p_numero } = req.body;
@@ -305,9 +294,6 @@ export async function getLiquidacionDocumentos(req, res) {
         });
     }
 }
-
-=======
->>>>>>> b66d3f4c019b7bf3c724332411f7314b86b05b4f
 export async function getAmortizacionCuentaPagar(req, res) {
     const { p_tipo_documento, p_serie, p_numero } = req.body;
     let sid = "''";
@@ -360,7 +346,6 @@ export async function getTipoDeudas(req, res) {
     }
 };
 
-<<<<<<< HEAD
 export async function getTipoReclamos(req, res) {
     try {
 
@@ -411,8 +396,6 @@ export async function getRangoDias(req, res) {
     }
 };
 
-=======
->>>>>>> b66d3f4c019b7bf3c724332411f7314b86b05b4f
 export async function getDeudaPendienteResumen(req, res) {
     const { p_proveedorid } = req.body;
     let sid = "''";
@@ -489,26 +472,16 @@ export async function getDeudaPendienteRubro(req, res) {
 };
 
 export async function getDeudaPendienteList(req, res) {
-<<<<<<< HEAD
     const { p_proveedorid, p_uninegid, p_tiporeclamoid, p_rangodiasid } = req.body;
     let xp_proveedorid = null;
     let xp_uninegid = null;
     let xp_tiporeclamoid = null;
     let xp_rangodiasid = null;
-=======
-    const { p_proveedorid, p_uninegid, p_tipodeudaid, p_rubroid } = req.body;
-    let sid = "''";
-    let xp_proveedorid = null;
-    let xp_uninegid = null;
-    let xp_tipodeudaid = null;
-    let xp_rubroid = null;
->>>>>>> b66d3f4c019b7bf3c724332411f7314b86b05b4f
     try {
         if (p_proveedorid != null) {
             xp_proveedorid = "'" + p_proveedorid + "'";
         }
         if (p_uninegid != null) {
-<<<<<<< HEAD
             xp_uninegid = "'" + p_uninegid.join(",") + "'";
         }
         if (p_tiporeclamoid != null) {
@@ -523,23 +496,6 @@ export async function getDeudaPendienteList(req, res) {
     try {
         let entidades = await DeudaPendienteList.sequelize.query(
             "SELECT * from fn_get_deuda_pendiente_list(" + xp_proveedorid + "," + xp_uninegid + "," + xp_tiporeclamoid + "," + xp_rangodiasid + ")", {
-=======
-            xp_uninegid = "'" + p_uninegid + "'";
-        }
-        if (p_tipodeudaid != null) {
-            xp_tipodeudaid = "'" + p_tipodeudaid + "'";
-        }
-        if (p_rubroid != null) {
-            xp_rubroid = "'" + p_rubroid + "'";
-        }
-    } catch (error) {
-        console.log(error.message)
-
-    }
-    try {
-        let entidades = await DeudaPendienteList.sequelize.query(
-            "SELECT * from fn_get_deuda_pendiente_list(" + xp_proveedorid + "," + xp_uninegid + "," + xp_tipodeudaid + "," + xp_rubroid + ")", {
->>>>>>> b66d3f4c019b7bf3c724332411f7314b86b05b4f
                 type: DeudaPendienteList.sequelize.QueryTypes.SELECT,
             });
 
@@ -558,7 +514,6 @@ export async function getDeudaPendienteList(req, res) {
             data: {}
         });
     }
-<<<<<<< HEAD
 };
 
 // export async function getDeudaPendienteList(req, res) {
@@ -607,6 +562,3 @@ export async function getDeudaPendienteList(req, res) {
 //         });
 //     }
 // };
-=======
-};
->>>>>>> b66d3f4c019b7bf3c724332411f7314b86b05b4f
