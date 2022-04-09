@@ -1,3 +1,6 @@
+const dotenv  = require('dotenv');
+dotenv.config();
+
 const express = require('express');
 const { json } = require('express');
 const morgan = require('morgan');
@@ -22,6 +25,8 @@ const zonaRoutes = require('./routes/zona.routes');
 const contactoproveedorRoutes = require('./routes/contacto_proveedor.routes');
 const contactodimexaRoutes = require('./routes/contacto_dimexa.routes');
 const estado_cuentaRoutes = require('./routes/estado_cuenta.routes');
+
+
 
 const app = express();
 app.use(morgan('dev'));
