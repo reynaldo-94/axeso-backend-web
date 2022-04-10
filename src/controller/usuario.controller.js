@@ -19,6 +19,7 @@ import Submenu from '../models/submenu.model';
 import Usuariolinea from '../models/usuario_weblinea.model';
 //import Linea from '../models/linea.model';
 import Linea from '../models/vlinea.model';
+import { JWT } from '../config/jwt';
 //const CryptoJS = require("../utils/aes");
 var CryptoJS = require("crypto-js");
 //declare var CryptoJS: any;

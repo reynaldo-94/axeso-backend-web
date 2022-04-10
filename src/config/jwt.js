@@ -1,3 +1,3 @@
 export const JWT = {
-  SIGNATURE: process.env.JWT_SIGNATURE || "",
+  SIGNATURE: process.env.TOKEN_KEY || "",
 };
