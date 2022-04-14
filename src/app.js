@@ -60,7 +60,7 @@ app.use('/indicadoresservicio', indicadoresservicioRoutes);
 const axios = require('axios')
 
 // Ejecutar Tarea Programada cada 1 hora
-const task = cron.schedule('*/1 * * * *', () =>  {
+const task = cron.schedule('0 */1 * * *', () =>  {
     console.log('Ejecutar Tarea') 
     axios.post(
         `http://190.116.51.178/web-backend/dashboard/postDashboardInsertar`)
