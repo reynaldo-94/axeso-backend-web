@@ -209,14 +209,15 @@ export async function getMonedas(req, res) {
 };
 
 export async function getSerieDocumentos(req, res) {
-    const { p_tipo_documento } = req.body;
-    let sid = "''";
-
+    const { p_proveedorid, p_tipo_documento  } = req.body;
     try {
+        if(p_proveedorid === null) {
+            return res.status(200).json("Valor de proveedorid es obligatorio");
+        }
         let entidades = await Serie.sequelize.query(
-            "SELECT * from fn_documento_serie('" + p_tipo_documento + "')", {
+            "SELECT * from fn_documento_serie('" + p_proveedorid + "','" + p_tipo_documento + "')", {
                 type: Serie.sequelize.QueryTypes.SELECT,
-            });
+            });            
 
         if (entidades) {
             return res.status(200).json({
