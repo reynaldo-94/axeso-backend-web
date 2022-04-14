@@ -5,6 +5,25 @@ import DashboardSellin from '../models/dashboard_sellin.model';
 import { Op } from 'sequelize';
 import DashboardSellinSelloutMensual from '../models/dashboard_sellint_sellout_mensual.model';
 
+export async function postJobDashboard(req, res) {
+    try {
+        console.log('a1')
+        let entidadesLotes = await DashboardDeudaPendiente.sequelize.query(
+            "select * from axeso.fn_dashboard_insertardatos();", {
+                type: DashboardDeudaPendiente.sequelize.QueryTypes.SELECT,
+            });
+        console.log('entidadesLotes', entidadesLotes)
+        return res.status(200).json({ 
+            data: {}
+        });
+    } catch (e) {
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+} 
+
 export async function getDashboard(req, res) {
     const {
         proveedorid,

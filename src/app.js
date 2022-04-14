@@ -1,3 +1,4 @@
+
 const dotenv  = require('dotenv');
 dotenv.config();
 
@@ -56,9 +57,26 @@ app.use('/estado_cuenta', estado_cuentaRoutes);
 app.use('/dashboard', dashboardRoutes);
 app.use('/indicadoresservicio', indicadoresservicioRoutes);
 
-// Tareas Programadas
-// cron.schedule("* * * * *", () => {
-    // console.log('Ejecutar Tarea') 
-// })
+const axios = require('axios')
+
+// Ejecutar Tarea Programada cada 1 hora
+const task = cron.schedule('*/1 * * * *', () =>  {
+    console.log('Ejecutar Tarea') 
+    axios.post(
+        `http://${process.env.DB_HOST}/dashboard/postDashboardInsertar`)
+          
+              // Print data
+              .then(response => {
+                  // console.log('response',response.data)
+              })
+          
+              // Print error message if occur
+              .catch(error => console.log(
+                    'Error to fetch data\n'))
+  }, {
+    scheduled: false
+  });
+  
+  task.start();
 
 module.exports = app;
