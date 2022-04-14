@@ -63,7 +63,7 @@ const axios = require('axios')
 const task = cron.schedule('*/1 * * * *', () =>  {
     console.log('Ejecutar Tarea') 
     axios.post(
-        `http://${process.env.DB_HOST}/dashboard/postDashboardInsertar`)
+        `http://${process.env.DB_HOST}/web-backend/dashboard/postDashboardInsertar`)
           
               // Print data
               .then(response => {
