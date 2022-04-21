@@ -1202,3 +1202,32 @@ async function checkEmail2(correox) {
     }
 };
 
+async function getLineasUsuarioSelect(req) {
+    const usuarioid = req;
+    try {
+        let lineas = await Linea.findAll({
+            attributes: [
+                ['lineaid', 'id'],
+                ['nombre', 'descripcion']
+            ],
+            include: [{
+                attributes: [],
+                model: Usuariolinea.scope(null),
+                as: 'usuariolinea',
+                required: true,
+                where: {
+                    usuarioid: usuarioid
+                }
+            }],
+        });
+
+        if (lineas) {
+            return lineas;
+        } else {
+            return {};
+        }
+    } catch (e) {
+        return {};
+    }
+};
+
