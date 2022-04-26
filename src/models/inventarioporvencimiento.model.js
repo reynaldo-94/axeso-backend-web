@@ -43,7 +43,10 @@ const Inventarioporvencimiento = sequelize.define('inventarioporvencimiento', {
     },
     diasstock: {
         type: Sequelize.FLOAT
-    }
+    },
+    nomestadoproducto: {
+        type: Sequelize.STRING
+    },
 }, {
     freezeTableName: true,
     timestamps: false

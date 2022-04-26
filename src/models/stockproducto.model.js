@@ -55,7 +55,10 @@ const Stockproducto = sequelize.define('stockproducto', {
     },
     octransito: {
         type: Sequelize.FLOAT
-    }
+    },
+    nomestadoproducto: {
+        type: Sequelize.STRING
+    },
 }, {
     freezeTableName: true,
     timestamps: false
