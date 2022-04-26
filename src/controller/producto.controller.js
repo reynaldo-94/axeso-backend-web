@@ -266,7 +266,7 @@ export async function getInventariovencimiento(req, res) {
         p_almacenes,
         p_lineas,
         p_sublineas,
-        p_vencimientos
+        p_vencimientoid
     } = req.body;
     try {
         let xp_proveedorid = null;
@@ -293,12 +293,12 @@ export async function getInventariovencimiento(req, res) {
         if (p_sublineas != null) {
             xp_sublineas = "'" + p_sublineas.join(",") + "'";
         }
-        let xp_vencimientos = null;
-        if (p_vencimientos != null) {
-            xp_vencimientos = "'" + p_vencimientos.join(",") + "'";
+        let xp_vencimientoid = null;
+        if (p_vencimientoid != null) {
+            xp_vencimientoid = "'" + p_vencimientoid.join(",") + "'";
         }
         let entidades = await Inventarioporvencimiento.sequelize.query(
-            "SELECT * from get_inventario_por_vencimiento(" + xp_proveedorid + "," + xp_divisiones + "," + xp_sedes + "," + xp_almacenes + "," + xp_lineas + "," + xp_sublineas + "," + xp_vencimientos + ")", {
+            "SELECT * from get_inventario_por_vencimiento(" + xp_proveedorid + "," + xp_divisiones + "," + xp_sedes + "," + xp_almacenes + "," + xp_lineas + "," + xp_sublineas + "," + xp_vencimientoid + ")", {
                 type: Inventarioporvencimiento.sequelize.QueryTypes.SELECT,
             });
         if (entidades) {
