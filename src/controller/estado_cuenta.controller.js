@@ -236,12 +236,11 @@ export async function getSerieDocumentos(req, res) {
     }
 };
 export async function getNumeroDocumentos(req, res) {
-    const { p_tipo_documento, p_serie } = req.body;
-    let sid = "''";
+    const { p_tipo_documento, p_serie, p_proveedorid } = req.body;
 
     try {
         let entidades = await Numero.sequelize.query(
-            "SELECT * from fn_documento_numero('" + p_tipo_documento + "','" + p_serie + "')", {
+            "SELECT * from fn_documento_numero('" + p_tipo_documento + "','" + p_serie + "','" + p_proveedorid + "')", {
                 type: Numero.sequelize.QueryTypes.SELECT,
             });
 
