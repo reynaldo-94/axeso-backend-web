@@ -1,5 +1,7 @@
 import IndicadoresServicioFillRate from "../models/indicadoresservicios_fillrate.model";
-import IndicadoresServicioLeadTime from "../models/indicadoresservicios_fillrate.model";
+import IndicadoresServicioLeadTime from "../models/indicadoresservicios_leadtime.model";
+import IndicadoresServicioDiasInventario from "../models/indicadoresservicios_diasinventario.model";
+import IndicadoresServicioInvFueraPlazo from "../models/indicadoresservicios_invfueraplazo.model";
 
 export async function getIndicadoresServicio(req, res) {
     const {
@@ -26,21 +28,38 @@ export async function getIndicadoresServicio(req, res) {
         
         console.log('entidadesFillRate', entidadesFillRate)
 
+        let entidadesDiasInventario = await IndicadoresServicioDiasInventario.sequelize.query(
+            "SELECT * FROM fn_get_indicadores_servicios_diasinventario('" + p_proveedorid + "','" + p_anioid + "')", {
+                type: IndicadoresServicioDiasInventario.sequelize.QueryTypes.SELECT,
+            });
+
         let entidadesLeadTime = await IndicadoresServicioLeadTime.sequelize.query(
             "SELECT * FROM fn_get_indicadores_servicios_leadtime('" + p_proveedorid + "','" + p_anioid + "')", {
                 type: IndicadoresServicioLeadTime.sequelize.QueryTypes.SELECT,
             });
         
-            console.log('entidadesLeadTime', entidadesLeadTime)       
+        let entidadesInvFueraPlazo = await IndicadoresServicioInvFueraPlazo.sequelize.query(
+            "SELECT * FROM fn_get_indicadores_servicios_inventariofueraplazo('" + p_proveedorid + "','" + p_anioid + "')", {
+                type: IndicadoresServicioInvFueraPlazo.sequelize.QueryTypes.SELECT,
+            });
+        
+        console.log('entidadesInvFueraPlazo', entidadesInvFueraPlazo)       
         
 
         const responseFormat = {
             fill_rate: {
                 table_fill_rate: entidadesFillRate
             },
+            dias_inventario: {
+                table_dias_inventario: entidadesDiasInventario
+            },
             lead_time: {
                 table_lead_time: entidadesLeadTime
             },
+            inventario_fueraplazo: {
+                table_inventario_fueraplazo: entidadesInvFueraPlazo
+            }
+
         }
 
         if (entidadesFillRate && entidadesLeadTime) {

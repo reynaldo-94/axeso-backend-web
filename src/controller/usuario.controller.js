@@ -855,8 +855,9 @@ export async function updateClaveEmail(req, res) {
         var mailOptions = {
             from: 'soporte.dimexa@gmail.com',
             to: correo,
-            subject: 'Servicio de recuperacion de contrasena',
-            html: 'La contrasena para el usuario con correo: <b>' + correo + '</b> ha sido modificada por <b>' + password + '</b>'
+            subject: 'Servicio de recuperacion de contraseña',
+            html: `Bienvenido a la Extranet de Dimexa! Tus credenciales son : usuario: <b>${correo}</b> contraseña: <b>${password}</b>`
+            // html: 'La contrasena para el usuario con correo: <b>' + correo + '</b> ha sido modificada por <b>' + password + '</b>'
         };
         mail.sendMail(mailOptions, function(error, info) {
             if (error) {
@@ -1164,8 +1165,8 @@ async function updateClaveEmailCreate(valuesToInsert) {
         var mailOptions = {
             from: 'soporte.dimexa@gmail.com',
             to: correo,
-            subject: 'Servicio de creacion de contrase�a',
-            html: 'La contrase�a para el usuario con usuario: <b>' + usuario + '</b> ha sido creada por <b>' + password + '</b>'
+            subject: 'Servicio de creacion de contraseña',
+            html: `Bienvenido a la Extranet de Dimexa! Tus credenciales son : usuario: <b>${correo}</b> contraseña: <b>${password}</b>`
         };
         mail.sendMail(mailOptions, function(error, info) {
             if (error) {
