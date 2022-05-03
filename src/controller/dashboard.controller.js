@@ -27,23 +27,27 @@ export async function getDashboard(req, res) {
         proveedorid,
         lineaid
     } = req.body;
+    let xp_lineaid = null;
+
     try {
 
         if(proveedorid === null) {
             return res.status(200).json("Valor de proveedorid es obligatorio");
         }
 
-        let entidadesSellCob = await DashboardSelloutCobertura.findAll({
-            where: {
-                [Op.and]: DashboardSelloutCobertura.sequelize.literal("idproveedor = '" + proveedorid + "' AND (idlinea = '" + lineaid + "' OR COALESCE (idlinea,'" + lineaid + "') = 'null')")                
-            }
-        });
+        if (lineaid != null) {
+            xp_lineaid = "'" + lineaid + "'";
+        }
 
-        let entidadesInv = await DashboardInventario.findAll({
-            where: {
-                [Op.and]: DashboardInventario.sequelize.literal("idproveedor = '" + proveedorid + "' AND (idlinea = '" + lineaid + "' OR COALESCE (idlinea,'" + lineaid + "') = 'null')")                
-            }
-        });
+        let entidadesSellCob = await DashboardSelloutCobertura.sequelize.query(
+            "SELECT * from fn_get_dashboard_sellout_cobertura('" + proveedorid + "'," + xp_lineaid + ")", {
+                type: DashboardSelloutCobertura.sequelize.QueryTypes.SELECT,
+            });
+
+        let entidadesInv = await DashboardInventario.sequelize.query(
+            "SELECT * from fn_get_dashboard_inventario('" + proveedorid + "'," + xp_lineaid + ")", {
+                type: DashboardInventario.sequelize.QueryTypes.SELECT,
+            });
 
         let entidadesDeudPend = await DashboardDeudaPendiente.findAll({
             where: {
@@ -57,15 +61,11 @@ export async function getDashboard(req, res) {
             }
         });
 
-        console.log('entidadesSellIn',entidadesSellIn)
-
         let entidadesSellinSelloutMensual = await DashboardSellinSelloutMensual.findAll({
             where: {
                 [Op.and]: DashboardSellinSelloutMensual.sequelize.literal("idproveedor = '" + proveedorid + "' AND (idlinea = '" + lineaid + "' OR COALESCE (idlinea,'" + lineaid + "') = 'null')")                
             }
         });
-
-        console.log('entidadesSellinSelloutMensual',entidadesSellinSelloutMensual)
 
         const responseFormat = {
             sell_out: {
