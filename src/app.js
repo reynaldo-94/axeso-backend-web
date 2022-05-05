@@ -31,6 +31,10 @@ const estado_cuentaRoutes = require('./routes/estado_cuenta.routes');
 const dashboardRoutes = require('./routes/dashboard.routes');
 const indicadoresservicioRoutes = require('./routes/indicadores_servicio.routes');
 
+// Jobs
+const { jobDashboard } = require('./jobs/dashboard.job');
+const { jobSellout } = require('./jobs/sellout.job');
+
 const app = express();
 app.use(morgan('dev'));
 app.use(json());
@@ -58,26 +62,15 @@ app.use('/estado_cuenta', estado_cuentaRoutes);
 app.use('/dashboard', dashboardRoutes);
 app.use('/indicadoresservicio', indicadoresservicioRoutes);
 
-const axios = require('axios')
+let isRunning = false
+const task = cron.schedule(process.env.CRON_TIME, async () => {
+  if (!isRunning) {
+    isRunning = true;
+    await jobSellout();
+    isRunning = false;
+  } else console.log('Already running');
+});
 
-// Ejecutar Tarea Programada cada 1 hora
-const task = cron.schedule('0 */1 * * *', () =>  {
-    console.log('Ejecutar Tarea') 
-    axios.post(
-        `http://190.116.51.178/web-backend/dashboard/postDashboardInsertar`)
-          
-              // Print data
-              .then(response => {
-                  // console.log('response',response.data)
-              })
-          
-              // Print error message if occur
-              .catch(error => console.log(
-                    'Error to fetch data\n'))
-  }, {
-    scheduled: false
-  });
-  
-  task.start();
+task.start();
 
 module.exports = app;
