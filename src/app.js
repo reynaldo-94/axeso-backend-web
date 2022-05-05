@@ -5,6 +5,7 @@ dotenv.config();
 const express = require('express');
 const { json } = require('express');
 const morgan = require('morgan');
+var cors = require('cors')
 const cron = require('node-cron');
 
 const sublineaRoutes = require('./routes/sublinea.routes');
@@ -33,7 +34,7 @@ const indicadoresservicioRoutes = require('./routes/indicadores_servicio.routes'
 const app = express();
 app.use(morgan('dev'));
 app.use(json());
- 
+app.use(cors())
 app.use('/sublineas', sublineaRoutes);
 app.use('/almacenes', almacenRoutes);
 app.use('/usuarios', usuarioRoutes);
