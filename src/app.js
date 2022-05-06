@@ -34,6 +34,8 @@ const indicadoresservicioRoutes = require('./routes/indicadores_servicio.routes'
 // Jobs
 const { jobDashboard } = require('./jobs/dashboard.job');
 const { jobSellout } = require('./jobs/sellout.job');
+const { jobComprasIngresos } = require('./jobs/compras_ingresos.job');
+
 
 const app = express();
 app.use(morgan('dev'));
@@ -62,15 +64,15 @@ app.use('/estado_cuenta', estado_cuentaRoutes);
 app.use('/dashboard', dashboardRoutes);
 app.use('/indicadoresservicio', indicadoresservicioRoutes);
 
-let isRunning = false
-const task = cron.schedule(process.env.CRON_TIME, async () => {
-  if (!isRunning) {
-    isRunning = true;
-    await jobSellout();
-    isRunning = false;
-  } else console.log('Already running');
-});
+// let isRunning = false
+// const task = cron.schedule(process.env.CRON_TIME, async () => {
+//   if (!isRunning) {
+//     isRunning = true;
+//     await jobComprasIngresos();
+//     isRunning = false;
+//   } else console.log('Already running');
+// });
 
-task.start();
+// task.start();
 
 module.exports = app;
