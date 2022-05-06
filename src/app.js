@@ -32,9 +32,9 @@ const dashboardRoutes = require('./routes/dashboard.routes');
 const indicadoresservicioRoutes = require('./routes/indicadores_servicio.routes');
 
 // Jobs
-const { jobDashboard } = require('./jobs/dashboard.job');
-const { jobSellout } = require('./jobs/sellout.job');
-const { jobComprasIngresos } = require('./jobs/compras_ingresos.job');
+// const { jobDashboard } = require('./jobs/dashboard.job');
+// const { jobSellout } = require('./jobs/sellout.job');
+// const { jobComprasIngresos } = require('./jobs/compras_ingresos.job');
 
 
 const app = express();
