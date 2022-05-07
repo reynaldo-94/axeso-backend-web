@@ -5,23 +5,6 @@ import DashboardSellin from '../models/dashboard_sellin.model';
 import { Op } from 'sequelize';
 import DashboardSellinSelloutMensual from '../models/dashboard_sellint_sellout_mensual.model';
 
-export async function postJobDashboard(req, res) {
-    try {
-        let entidadesLotes = await DashboardDeudaPendiente.sequelize.query(
-            "select * from axeso.fn_dashboard_insertardatos();", {
-                type: DashboardDeudaPendiente.sequelize.QueryTypes.SELECT,
-            });
-        return res.status(200).json({ 
-            data: {}
-        });
-    } catch (e) {
-        return res.status(500).json({
-            message: 'Algo salio mal',
-            data: {}
-        });
-    }
-} 
-
 export async function getDashboard(req, res) {
     const {
         proveedorid,
@@ -138,7 +121,7 @@ export async function getDashboard(req, res) {
                 serie_sell_out: [entidadesSellinSelloutMensual[0]?.sellout_mes_ant_01,entidadesSellinSelloutMensual[0]?.sellout_mes_ant_02, entidadesSellinSelloutMensual[0]?.sellout_mes_ant_03, entidadesSellinSelloutMensual[0]?.sellout_mes_ant_04, entidadesSellinSelloutMensual[0]?.sellout_mes_ant_05, entidadesSellinSelloutMensual[0]?.sellout_mes_ant_06, entidadesSellinSelloutMensual[0]?.sellout_mes_ant_07, entidadesSellinSelloutMensual[0]?.sellout_mes_ant_08, entidadesSellinSelloutMensual[0]?.sellout_mes_ant_09, entidadesSellinSelloutMensual[0]?.sellout_mes_ant_10, entidadesSellinSelloutMensual[0]?.sellout_mes_ant_11, entidadesSellinSelloutMensual[0]?.sellout_mes_ant_12],
             }
         }
-        if (entidadesSellCob && entidadesInv && entidadesDeudPend) {
+        if (entidadesSellCob && entidadesInv && entidadesDeudPend && entidadesSellIn && entidadesSellinSelloutMensual) {
             return res.status(200).json({ 
                 data: responseFormat
             });

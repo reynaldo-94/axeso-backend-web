@@ -61,7 +61,8 @@ const DashboardSellin = sequelize.define('dashboard_sellin', {
         type: Sequelize.STRING
     }
 }, {
-    freezeTableName: true,
+    // freezeTableName: true,
+    tableName: 'dashboard_sellin',
     timestamps: false
 });
 

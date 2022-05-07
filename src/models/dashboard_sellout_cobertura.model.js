@@ -67,8 +67,8 @@ const DashboardSelloutCobertura = sequelize.define('dashboard_sellout_cobertura'
         type: Sequelize.STRING
     }
 }, {
-    freezeTableName: true,
-    // tableName: 'dashboard_sellout_cobertura',
+    // freezeTableName: true,
+    tableName: 'dashboard_sellout_cobertura',
     timestamps: false
 });
 
