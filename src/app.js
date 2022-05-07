@@ -35,7 +35,9 @@ const indicadoresservicioRoutes = require('./routes/indicadores_servicio.routes'
 // const { jobDashboard } = require('./jobs/dashboard.job');
 // const { jobSellout } = require('./jobs/sellout.job');
 // const { jobComprasIngresos } = require('./jobs/compras_ingresos.job');
-
+// const { jobDeudaPendiente } = require('./jobs/deuda_pendiente.job');
+// const { jobDetalleVentas } = require('./jobs/detalle_ventas.job');
+// const { jobAntiguedadInventario } = require('./jobs/antiguedad_inventario.job');
 
 const app = express();
 app.use(morgan('dev'));
@@ -64,15 +66,65 @@ app.use('/estado_cuenta', estado_cuentaRoutes);
 app.use('/dashboard', dashboardRoutes);
 app.use('/indicadoresservicio', indicadoresservicioRoutes);
 
-// let isRunning = false
-// const task = cron.schedule(process.env.CRON_TIME, async () => {
-//   if (!isRunning) {
-//     isRunning = true;
-//     await jobComprasIngresos();
-//     isRunning = false;
-//   } else console.log('Already running');
+// let isRunningSL = false
+// const taskSellout = cron.schedule(process.env.CRON_TIME, async () => {
+//   if (!isRunningSL) {
+//     isRunningSL = true;
+//     await jobSellout();
+//     isRunningSL = false;
+//   } else console.log('Already running Sellout');
 // });
 
-// task.start();
+// let isRunningCI = false
+// const taskComprasIngresos = cron.schedule(process.env.CRON_TIME, async () => {
+//   if (!isRunningCI) {
+//     isRunningCI = true;
+//     await jobComprasIngresos();
+//     isRunningCI = false;
+//   } else console.log('Already running Compras Ingresos');
+// });
+
+// let isRunningDH = false
+// const taskDashboard = cron.schedule(process.env.CRON_TIME, async () => {
+//   if (!isRunningDH) {
+//     isRunningDH = true;
+//     await jobComprasIngresos();
+//     isRunningDH = false;
+//   } else console.log('Already running Dashboard');
+// });
+
+// let isRunningDP = false
+// const taskDeudaPendiente = cron.schedule(process.env.CRON_TIME, async () => {
+//   if (!isRunningDP) {
+//     isRunningDP = true;
+//     await jobDeudaPendiente();
+//     isRunningDP = false;
+//   } else console.log('Already running Deuda Pendiente');
+// });
+
+// let isRunningDV = false
+// const taskDetalleVentas = cron.schedule(process.env.CRON_TIME, async () => {
+//     if (!isRunningDV) {
+//       isRunningDV = true;
+//       await jobDetalleVentas();
+//       isRunningDV = false;
+//     } else console.log('Already running Detalle Ventas');
+//   });
+
+// let isRunningAI = false
+// const taskAntiguedadInventario = cron.schedule(process.env.CRON_TIME, async () => {
+//     if (!isRunningAI) {
+//       isRunningAI = true;
+//       await jobAntiguedadInventario();
+//       isRunningAI = false;
+//     } else console.log('Already running Antiguedad Inventario');
+//   });
+
+// taskSellout.start();
+// taskComprasIngresos.start();
+// taskDashboard.start();
+// taskDeudaPendiente.start();
+// taskDetalleVentas.start();
+// taskAntiguedadInventario.start();
 
 module.exports = app;
