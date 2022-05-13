@@ -3,6 +3,7 @@ import {
     json,
     where
 } from 'sequelize';
+import Sequelize from 'sequelize';
 var nodemailer = require('nodemailer');
 import sequelize from 'sequelize';
 import Usuario from '../models/usuario_web.model';
@@ -1231,4 +1232,24 @@ async function getLineasUsuarioSelect(req) {
         return {};
     }
 };
+
+export async function updateUsuarioId(req, res) {
+    try {
+        let updateUserId = await Usuario.sequelize.query(
+            "SELECT setval('axeso.usuario_web_seq', (SELECT MAX(usuarioid) FROM axeso.usuario_web))", {
+                type: Usuario.sequelize.QueryTypes.SELECT,
+            });
+        console.log('updateUserId', updateUserId)
+        if (updateUserId) {
+            return res.status(200).json({
+                data: 'Se actualzo usuario_web_seq al ultimo userId'
+            });
+        }
+    } catch (e) {
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+}
 
