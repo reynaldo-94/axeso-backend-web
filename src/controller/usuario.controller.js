@@ -1167,7 +1167,7 @@ async function updateClaveEmailCreate(valuesToInsert) {
             from: 'soporte.dimexa@gmail.com',
             to: correo,
             subject: 'Servicio de creacion de contraseña',
-            html: `Bienvenido a la Extranet de Dimexa! Tus credenciales son : usuario: <b>${correo}</b> contraseña: <b>${password}</b>`
+            html: `Bienvenido a la Extranet de Dimexa! Tus credenciales son : usuario: <b>${usuario}</b> contraseña: <b>${password}</b>`
         };
         mail.sendMail(mailOptions, function(error, info) {
             if (error) {
