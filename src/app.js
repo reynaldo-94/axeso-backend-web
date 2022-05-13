@@ -88,9 +88,9 @@ app.use('/indicadoresservicio', indicadoresservicioRoutes);
 // const taskDashboard = cron.schedule(process.env.CRON_TIME, async () => {
 //   if (!isRunningDH) {
 //     isRunningDH = true;
-//     await jobComprasIngresos();
+//     await jobDashboard();
 //     isRunningDH = false;
-//   } else console.log('Already running Dashboard');
+//   } else console.log('Already running Dashboard - Sellout - ComprasIngresos - DeudaPendiente');
 // });
 
 // let isRunningDP = false
