@@ -7,7 +7,7 @@ export async function jobDetalleVentas() {
     console.log('Executing load data Detalle Ventas')
     try {
         const data = await sequelize.query(
-            `select * from axeso.fn_cargar_detalle_ventas('463')`,
+            `select * from axeso.fn_cargar_detalle_ventas(null)`,
             { type: Sequelize.QueryTypes.SELECT }
         );
         console.log('Data Detalle Ventas', data)

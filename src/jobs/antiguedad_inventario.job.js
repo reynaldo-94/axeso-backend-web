@@ -7,7 +7,7 @@ export async function jobAntiguedadInventario() {
     console.log('Executing load data Antiguedad Inventario')
     try {
         const data = await sequelize.query(
-            `select * from axeso.fn_cargar_antiguedad_inventario('463')`,
+            `select * from axeso.fn_cargar_antiguedad_inventario(null)`,
             { type: Sequelize.QueryTypes.SELECT }
         );
         console.log('Data Antiguedad Inventario', data)
