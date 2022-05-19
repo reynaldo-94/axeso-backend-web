@@ -1,4 +1,6 @@
 FROM node:12.22.7-alpine3.14
+RUN apk add tzdata
+COPY /usr/share/zoneinfo/America/Lima /etc/localtime
 RUN mkdir -p /app
 WORKDIR /app
 COPY package.json /app
