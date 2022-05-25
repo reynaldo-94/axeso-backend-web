@@ -40,6 +40,13 @@ export async function jobs() {
             { type: Sequelize.QueryTypes.SELECT }
         );
         console.log('Done Job Antiguedad Inventario', dataAntigInv)
+
+        console.log('Executing load data Dashboard')
+        const dataDashboard = await sequelize.query(
+            `select * from axeso.fn_cargar_dashboard(null)`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Dashboard', dataDashboard)
     } catch (e) {
         console.log('Error in Jobs', e)
     }

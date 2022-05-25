@@ -20,30 +20,35 @@ export async function getDashboard(req, res) {
             xp_lineaid = "'" + lineaid + "'";
         }
 
-        let entidadesSellCob = await DashboardSelloutCobertura.sequelize.query(
-            "SELECT * from fn_get_dashboard_sellout_cobertura('" + proveedorid + "'," + xp_lineaid + ")", {
-                type: DashboardSelloutCobertura.sequelize.QueryTypes.SELECT,
-            });
+        let entidadesSellCob = await DashboardSelloutCobertura.findAll({
+            where: {
+                [Op.and]: DashboardSelloutCobertura.sequelize.literal("idproveedor = '" + proveedorid + "' AND (idlinea = '" + lineaid + "' OR COALESCE (idlinea,'" + lineaid + "') = 'null')")
+            }
+        });
+        
+        let entidadesInv = await DashboardInventario.findAll({
+            where: {
+                [Op.and]: DashboardInventario.sequelize.literal("idproveedor = '" + proveedorid + "' AND (idlinea = '" + lineaid + "' OR COALESCE (idlinea,'" + lineaid + "') = 'null')")
+            }
+        })
 
-        let entidadesInv = await DashboardInventario.sequelize.query(
-            "SELECT * from fn_get_dashboard_inventario('" + proveedorid + "'," + xp_lineaid + ")", {
-                type: DashboardInventario.sequelize.QueryTypes.SELECT,
-            });
+        let entidadesDeudPend = await DashboardDeudaPendiente.findAll({
+            where: {
+                [Op.and]: DashboardDeudaPendiente.sequelize.literal("idproveedor = '" + proveedorid + "'")                
+            }
+        })
 
-        let entidadesDeudPend = await DashboardDeudaPendiente.sequelize.query(
-            "SELECT * from fn_get_dashboard_deudapendiente('" + proveedorid + "')", {
-                type: DashboardDeudaPendiente.sequelize.QueryTypes.SELECT,
-            });
+        let entidadesSellIn = await DashboardSellin.findAll({
+            where: {
+                [Op.and]: DashboardSellin.sequelize.literal("idproveedor = '" + proveedorid + "' AND (idlinea = '" + lineaid + "' OR COALESCE (idlinea,'" + lineaid + "') = 'null')")                
+            }
+        });
 
-        let entidadesSellIn = await DashboardSellin.sequelize.query(
-            "SELECT * from fn_get_dashboard_sellin('" + proveedorid + "'," + xp_lineaid + ")", {
-                type: DashboardSellin.sequelize.QueryTypes.SELECT,
-            });
-
-        let entidadesSellinSelloutMensual = await DashboardSellinSelloutMensual.sequelize.query(
-            "SELECT * from fn_get_dashboard_sellin_sellout_mensual('" + proveedorid + "'," + xp_lineaid + ")", {
-                type: DashboardSellinSelloutMensual.sequelize.QueryTypes.SELECT,
-            });
+        let entidadesSellinSelloutMensual = await DashboardSellinSelloutMensual.findAll({
+            where: {
+                [Op.and]: DashboardSellinSelloutMensual.sequelize.literal("idproveedor = '" + proveedorid + "' AND (idlinea = '" + lineaid + "' OR COALESCE (idlinea,'" + lineaid + "') = 'null')")                
+            }
+        });
 
         const responseFormat = {
             sell_out: {
