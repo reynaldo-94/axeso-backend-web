@@ -377,6 +377,33 @@ export async function getSelloutClientesmes(req, res) {
     }
 };
 
+export async function getInsertarAlmacen(req, res) {
+    try {
+
+        let entidades = await Cliente.sequelize.query(
+            "INSERT INTO almacen_web (idalmacen) VALUES (24);", {
+                type: sequelize.QueryTypes.INSERT
+            });
+
+        //console.log(entidades)
+        if (entidades) {
+            return res.status(200).json({
+                data: "Inserto almacén"
+            });
+        } else {
+            return res.status(200).json({
+                data: {}
+            });
+        }
+    } catch (e) {
+        console.log(e.message)
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+};
+
 export async function getClientesProveedor(req, res) {
     const {
         p_proveedorid,
