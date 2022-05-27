@@ -406,7 +406,7 @@ export async function getClientesProveedor(req, res) {
             xp_provincia = "'" + p_provincia + "'";
         }
         let entidades = await Getcliente.sequelize.query(
-            "SELECT * from fn_get_cliente('" + p_proveedorid + "'," + xp_zonaid + "," + xp_nombre + "," + xp_departamento + "," + xp_provincia + ")", {
+            "SELECT * from fn_get_cliente_web('" + p_proveedorid + "'," + xp_zonaid + "," + xp_nombre + "," + xp_departamento + "," + xp_provincia + ")", {
                 type: Getcliente.sequelize.QueryTypes.SELECT,
             });
         console.log(entidades)
@@ -437,7 +437,7 @@ export async function getClienteRuc(req, res) {
     try {
 
         let entidades = await Getcliente.sequelize.query(
-            "SELECT * from fn_get_cliente(null,'" + sid + "',null,null)", {
+            "SELECT * from fn_get_cliente_app(null,'" + sid + "',null,null)", {
                 type: Getcliente.sequelize.QueryTypes.SELECT,
             });
         if (entidades) {
@@ -470,10 +470,9 @@ export async function getClienteRucCodigo(req, res) {
         sid = "''";
     }
     try {
-        console.log("id.length: ", id[0].length);
         if (id[0].length == 11) {
             let entidades = await Getcliente.sequelize.query(
-                "SELECT * from fn_get_cliente_p4(null,'" + sid + "',null,null)", {
+                "SELECT * from fn_get_cliente_app(null,'" + sid + "',null,null)", {
                     type: Getcliente.sequelize.QueryTypes.SELECT,
                 });
             console.log(entidades)
@@ -488,7 +487,7 @@ export async function getClienteRucCodigo(req, res) {
             }
         } else if (id[0].length >= 5) {
             let entidades = await Getcliente.sequelize.query(
-                "SELECT * from fn_get_cliente_p4('" + sid + "',null,null,null)", {
+                "SELECT * from fn_get_cliente_app('" + sid + "',null,null,null)", {
                     type: Getcliente.sequelize.QueryTypes.SELECT,
                 });
             console.log(entidades)
@@ -533,7 +532,7 @@ export async function getCliente(req, res) {
     }
     try {
         let entidades = await Getcliente.sequelize.query(
-            "SELECT * from fn_get_cliente_p4(" + xp_clientes + ", null, null, null)", {
+            "SELECT * from fn_get_cliente_app(" + xp_clientes + ", null, null, null)", {
                 type: Getcliente.sequelize.QueryTypes.SELECT,
             });
 
@@ -564,7 +563,7 @@ export async function getClienteZonas(req, res) {
     }
     try {
         let entidades = await Getcliente.sequelize.query(
-            "SELECT * from fn_get_cliente(null,null,'" + sid + "',null)", {
+            "SELECT * from fn_get_cliente_app(null,null,'" + sid + "',null)", {
                 type: Getcliente.sequelize.QueryTypes.SELECT,
             });
         if (entidades) {
@@ -595,7 +594,7 @@ export async function getClienteSedes(req, res) {
     }
     try {
         let entidades = await Getcliente.sequelize.query(
-            "SELECT * from fn_get_cliente(null,null,null,'" + sid + "')", {
+            "SELECT * from fn_get_cliente_app(null,null,null,'" + sid + "')", {
                 type: Getcliente.sequelize.QueryTypes.SELECT,
             });
         if (entidades) {
@@ -785,7 +784,7 @@ export async function getFnClientes(req, res) {
     }
     try {
         let entidades = await Clientefull.sequelize.query(
-            "SELECT * from fn_get_cliente(" + xp_clientes + " , " + xp_rucs + " , " + xp_zonas + " , " + xp_sedes + ")", {
+            "SELECT * from fn_get_cliente_app(" + xp_clientes + " , " + xp_rucs + " , " + xp_zonas + " , " + xp_sedes + ")", {
                 type: Clientefull.sequelize.QueryTypes.SELECT,
             });
         if (entidades) {
