@@ -6,6 +6,22 @@ import { Op } from 'sequelize';
 import DashboardSellinSelloutMensual from '../models/dashboard_sellint_sellout_mensual.model';
 import JobsDetalle from '../models/jobs_detalle.model';
 
+export async function getListJobs(req, res) {
+    try {
+        let jobs = await JobsDetalle.findAll();
+        if (jobs) {
+            return res.status(200).json({
+                data: jobs
+            });
+        }
+    } catch (e) {
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+};
+
 export async function getLastUpdateTime(req, res) {
     try {
         let data = await JobsDetalle.findAll({ 
