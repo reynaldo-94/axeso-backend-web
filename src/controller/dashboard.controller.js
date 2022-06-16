@@ -4,36 +4,77 @@ import DashboardSelloutCobertura from '../models/dashboard_sellout_cobertura.mod
 import DashboardSellin from '../models/dashboard_sellin.model';
 import { Op } from 'sequelize';
 import DashboardSellinSelloutMensual from '../models/dashboard_sellint_sellout_mensual.model';
+import JobsDetalle from '../models/jobs_detalle.model';
+
+export async function getListJobs(req, res) {
+    try {
+        let jobs = await JobsDetalle.findAll();
+        if (jobs) {
+            return res.status(200).json({
+                data: jobs
+            });
+        }
+    } catch (e) {
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+};
+
+export async function getLastUpdateTime(req, res) {
+    try {
+        let data = await JobsDetalle.findAll({ 
+            limit: 1,
+            order: [
+                ['fecha_registro', 'DESC'],
+            ]
+        });
+        if (data) {
+            return res.status(200).json({
+                data
+            });
+        }
+    } catch (e) {
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+};
 
 export async function getDashboard(req, res) {
     const {
         proveedorid,
         lineaid
     } = req.body;
-
+    let xp_lineaid = null;
     try {
 
         if(proveedorid === null) {
             return res.status(200).json("Valor de proveedorid es obligatorio");
         }
+        if (lineaid != null) {
+            xp_lineaid = "'" + lineaid + "'";
+        }
 
         let entidadesSellCob = await DashboardSelloutCobertura.findAll({
             where: {
-                [Op.and]: DashboardSelloutCobertura.sequelize.literal("idproveedor = '" + proveedorid + "' AND (idlinea = '" + lineaid + "' OR COALESCE (idlinea,'" + lineaid + "') = 'null')")                
+                [Op.and]: DashboardSelloutCobertura.sequelize.literal("idproveedor = '" + proveedorid + "' AND (idlinea = '" + lineaid + "' OR COALESCE (idlinea,'" + lineaid + "') = 'null')")
             }
         });
-
+        
         let entidadesInv = await DashboardInventario.findAll({
             where: {
-                [Op.and]: DashboardInventario.sequelize.literal("idproveedor = '" + proveedorid + "' AND (idlinea = '" + lineaid + "' OR COALESCE (idlinea,'" + lineaid + "') = 'null')")                
+                [Op.and]: DashboardInventario.sequelize.literal("idproveedor = '" + proveedorid + "' AND (idlinea = '" + lineaid + "' OR COALESCE (idlinea,'" + lineaid + "') = 'null')")
             }
-        });
+        })
 
         let entidadesDeudPend = await DashboardDeudaPendiente.findAll({
             where: {
                 [Op.and]: DashboardDeudaPendiente.sequelize.literal("idproveedor = '" + proveedorid + "'")                
             }
-        });
+        })
 
         let entidadesSellIn = await DashboardSellin.findAll({
             where: {

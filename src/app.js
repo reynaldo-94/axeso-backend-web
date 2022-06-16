@@ -32,9 +32,7 @@ const dashboardRoutes = require('./routes/dashboard.routes');
 const indicadoresservicioRoutes = require('./routes/indicadores_servicio.routes');
 
 // Jobs
-const { jobDashboard } = require('./jobs/dashboard.job');
-const { jobDetalleVentas } = require('./jobs/detalle_ventas.job');
-const { jobAntiguedadInventario } = require('./jobs/antiguedad_inventario.job');
+const { jobs } = require('./jobs/jobs.js');
 
 const app = express();
 app.use(morgan('dev'));
@@ -63,35 +61,18 @@ app.use('/estado_cuenta', estado_cuentaRoutes);
 app.use('/dashboard', dashboardRoutes);
 app.use('/indicadoresservicio', indicadoresservicioRoutes);
 
-let isRunningDH = false
-const taskDashboard = cron.schedule(process.env.CRON_TIME, async () => {
-  if (!isRunningDH) {
-    isRunningDH = true;
-    await jobDashboard();
-    isRunningDH = false;
-  } else console.log('Already running Dashboard - Sellout - ComprasIngresos - DeudaPendiente - Dashboard');
+let isRunningJobs = false
+const taskJobs = cron.schedule(process.env.CRON_TIME, async () => {
+  if (!isRunningJobs) {
+    isRunningJobs = true;
+    await jobs();
+    isRunningJobs = false;
+  } else console.log('Already running Jobs');
+}, {
+    scheduled: true,
+    timezone: "America/Lima"
 });
 
-let isRunningDV = false
-const taskDetalleVentas = cron.schedule(process.env.CRON_TIME, async () => {
-    if (!isRunningDV) {
-      isRunningDV = true;
-      await jobDetalleVentas();
-      isRunningDV = false;
-    } else console.log('Already running Detalle Ventas');
-  });
-
-let isRunningAI = false
-const taskAntiguedadInventario = cron.schedule(process.env.CRON_TIME, async () => {
-    if (!isRunningAI) {
-      isRunningAI = true;
-      await jobAntiguedadInventario();
-      isRunningAI = false;
-    } else console.log('Already running Antiguedad Inventario');
-  });
-
-taskDashboard.start();
-taskDetalleVentas.start();
-taskAntiguedadInventario.start();
+taskJobs.start();
 
 module.exports = app;
