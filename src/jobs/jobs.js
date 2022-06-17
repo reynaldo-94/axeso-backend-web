@@ -53,7 +53,7 @@ export async function jobs() {
         //     { type: Sequelize.QueryTypes.INSERT }
         // );
         await sequelize.query(
-            `INSERT INTO axeso.jobs_detalle(fecha_registro) VALUES (now())`,
+            `INSERT INTO axeso.jobs_detalle(fecha_registro) VALUES (now() at time zone 'America/Lima')`,
             { type: Sequelize.QueryTypes.INSERT }
         );
         console.log('Insert en la tabla jobs_detalle');
