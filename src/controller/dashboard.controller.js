@@ -27,7 +27,7 @@ export async function getLastUpdateTime(req, res) {
         let data = await JobsDetalle.findAll({ 
             limit: 1,
             order: [
-                ['fecha_registro', 'DESC'],
+                ['id', 'DESC'],
             ]
         });
         if (data) {
