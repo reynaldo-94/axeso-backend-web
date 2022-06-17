@@ -47,13 +47,9 @@ export async function jobs() {
         //     { type: Sequelize.QueryTypes.SELECT }
         // );
         // console.log('Done Job Dashboard', dataDashboard)
-
-        // await sequelize.query(
-        //     `INSERT INTO axeso.jobs_detalle(fecha_registro) VALUES (timezone('utc', now()))`,
-        //     { type: Sequelize.QueryTypes.INSERT }
-        // );
+        
         await sequelize.query(
-            `INSERT INTO axeso.jobs_detalle(fecha_registro) VALUES (timezone('utc', now()))`,
+            `INSERT INTO axeso.jobs_detalle(fecha_registro) VALUES (now())`,
             { type: Sequelize.QueryTypes.INSERT }
         );
         console.log('Insert en la tabla jobs_detalle');
