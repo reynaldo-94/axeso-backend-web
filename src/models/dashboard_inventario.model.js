@@ -24,6 +24,9 @@ const DashboardInventario = sequelize.define('dashboard_inventario', {
     sell_out_prom: {
         type: Sequelize.FLOAT
     },
+    sell_out_prom_costoventa: {
+        type: Sequelize.FLOAT
+    },
     dias_stock: {
         type: Sequelize.FLOAT
     },
