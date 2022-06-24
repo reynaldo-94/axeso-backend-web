@@ -514,7 +514,7 @@ export async function getClienteRucCodigo(req, res) {
         } else {
             if (id[0].length == 11) {
                 let entidades = await Getcliente.sequelize.query(
-                    "SELECT * from fn_get_cliente_app(null,'" + sid + "',null,null)", {
+                    "SELECT * from fn_get_cliente_app(null,'" + sid + "',null,null,null)", {
                         type: Getcliente.sequelize.QueryTypes.SELECT,
                     });
                 if (entidades) {
@@ -528,7 +528,7 @@ export async function getClienteRucCodigo(req, res) {
                 }
             } else if (id[0].length >= 5) {
                 let entidades = await Getcliente.sequelize.query(
-                    "SELECT * from fn_get_cliente_app('" + sid + "',null,null,null)", {
+                    "SELECT * from fn_get_cliente_app('" + sid + "',null,null,null,null)", {
                         type: Getcliente.sequelize.QueryTypes.SELECT,
                     });
                 if (entidades) {
