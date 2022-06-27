@@ -114,6 +114,31 @@ export async function getAlmacenUnidadNegocioSelect(req, res) {
     }
 };
 
+export async function getAlmacenUnidadNegocioSelectListByVenc(req, res) {
+    try {
+        const { id } = req.body;
+        let xid = null;
+        if (id != null) {
+            xid = "'" + id.join("','") + "'";
+        }
+        let almacen = await Almacen.sequelize.query(
+            "SELECT idalmacen as id, nomalmacen as descripcion FROM public.almacen WHERE bactivo = true and idunineg in (" + xid + ");", {
+                type: Almacen.sequelize.QueryTypes.SELECT,
+            });
+        if (almacen) {
+            return res.status(200).json({
+                data: almacen
+            });
+        }
+    } catch (e) {
+        console.log(e.message);
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+};
+
 export async function getAlmacenUnidadNegocioSelectList(req, res) {
     try {
         const { id } = req.body;
