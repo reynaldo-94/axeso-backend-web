@@ -12,7 +12,7 @@ const IndicadoresServicioInvFueraPlazo = sequelize.define('indicadoresservicios_
         type: Sequelize.STRING
     },
     target_fp: {
-        type: Sequelize.FLOAT
+        type: Sequelize.STRING
     },
     inventario_valorizado: {
         type: Sequelize.FLOAT
