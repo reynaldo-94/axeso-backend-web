@@ -7,8 +7,12 @@ export async function jobs() {
     console.log('Executing Jobs')
     try {
         console.log('Executing load data Sellout')
+        // const dataSellout = await sequelize.query(
+        //     `select * from axeso.fn_cargar_sellout(null)`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
         const dataSellout = await sequelize.query(
-            `select * from axeso.fn_cargar_sellout(null)`,
+            `select * from axeso.fn_cargar_sellout_por_periodo_actual()`,
             { type: Sequelize.QueryTypes.SELECT }
         );
         console.log('Done Job Sellout', dataSellout)
