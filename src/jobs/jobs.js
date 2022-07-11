@@ -4,16 +4,17 @@ import { sequelize } from '../database/database';
 export async function jobs() {
     console.log('Executing Jobs')
     try {
-        console.log('Executing load data Sellout')
-        const dataSellout = await sequelize.query(
-            `select * from axeso.fn_cargar_sellout(null)`,
-            { type: Sequelize.QueryTypes.SELECT }
-        );
+        // console.log('Executing load data Sellout')
         // const dataSellout = await sequelize.query(
-        //     `select * from axeso.fn_cargar_sellout_por_periodo_actual()`,
+        //     `select * from axeso.fn_cargar_sellout(null)`,
         //     { type: Sequelize.QueryTypes.SELECT }
         // );
-        console.log('Done Job Sellout', dataSellout)
+        console.log('Executing load data Sellout por Periodo')
+        const dataSellout = await sequelize.query(
+            `select * from axeso.fn_cargar_sellout_por_periodo_actual()`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Sellout por Periodo', dataSellout)
 
         console.log('Executing load data SellIn')
         const dataCompras = await sequelize.query(
