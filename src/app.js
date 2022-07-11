@@ -1,5 +1,5 @@
 
-const dotenv  = require('dotenv');
+const dotenv = require('dotenv');
 dotenv.config();
 
 const express = require('express');
@@ -32,7 +32,7 @@ const dashboardRoutes = require('./routes/dashboard.routes');
 const indicadoresservicioRoutes = require('./routes/indicadores_servicio.routes');
 
 // Jobs
-const { jobs } = require('./jobs/jobs.js');
+const { jobs, jobsSelloutToSelloutAnterior, jobsSelloutAnteriorToSelloutTodos } = require('./jobs/jobs.js');
 
 const app = express();
 app.use(morgan('dev'));
@@ -69,10 +69,17 @@ const taskJobs = cron.schedule(process.env.CRON_TIME, async () => {
     isRunningJobs = false;
   } else console.log('Already running Jobs');
 }, {
-    scheduled: true,
-    timezone: "America/Lima"
+  scheduled: true,
+  timezone: "America/Lima"
 });
-
 taskJobs.start();
+const taskJobsAnual = cron.schedule(process.env.CRON_TIME_ANUAL, async () => {
+  await jobsSelloutAnteriorToSelloutTodos();
+  await jobsSelloutToSelloutAnterior();
+}, {
+  scheduled: true,
+  timezone: "America/Lima"
+});
+taskJobsAnual.start();
 
 module.exports = app;

@@ -22,7 +22,7 @@ export const sequelize = new Sequelize(
       idle: 10000,
       setTimeout: 10000,
     },
-    //logging: true
+    logging: (m) => console.log(m),
   }
 );
 
