@@ -29,12 +29,17 @@ const saltRounds = 10;
 
 var jwt = require('jsonwebtoken');
 var mail = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: "soporte.dimexa@gmail.com",
-    pass: "S0p0rt3D1m3xa",
-  },
-});
+    // service: "gmail",
+    host: "outlook.office365.com",
+    port: 587,
+    secure: false,
+    auth: {
+      // user: "soporte.dimexa@gmail.com",
+      // pass: "S0p0rt3D1m3xa",
+      user: "contactadimexa@dimexa.com.pe", 
+      pass: "CCD+*963."
+    }
+  });
 
 
 function encryptData(data) {
@@ -854,7 +859,7 @@ export async function updateClaveEmail(req, res) {
             });
         });
         var mailOptions = {
-            from: 'soporte.dimexa@gmail.com',
+            from: 'contactadimexa@dimexa.com.pe',
             to: correo,
             subject: 'Servicio de recuperacion de contraseña',
             html: `Bienvenido a la Extranet de Dimexa! Tus credenciales son : usuario: <b>${correo}</b> contraseña: <b>${password}</b>`
@@ -1164,10 +1169,19 @@ async function updateClaveEmailCreate(valuesToInsert) {
             });
         });
         var mailOptions = {
-            from: 'soporte.dimexa@gmail.com',
+            from: 'contactadimexa@dimexa.com.pe',
             to: correo,
             subject: 'Servicio de creacion de contraseña',
-            html: `Bienvenido a la Extranet de Dimexa! Tus credenciales son : usuario: <b>${usuario}</b> contraseña: <b>${password}</b>`
+            html: `<div style="display:block;">
+                    <div><b>Bienvenido a la Extranet de Dimexa</b></div>
+                    <br />
+                    <div>Gracias por ser parte de nuestra plataforma, cuando inicies sesión recuerda que estas son tus credenciales para poder ingresar, si tienes alguna duda puedes comunicarte con nosotros.</div> 
+                    <br />
+                    <div>Usuario: <b>${usuario}</b> </div> 
+                    <div>Contraseña: <b>${password}</b></div>
+                    <br />
+                    <a href="http://190.116.51.178/autenticacion/login" style="color: #000;"><b>Ingresa a tu plataforma</b></a>
+                </div>`
         };
         mail.sendMail(mailOptions, function(error, info) {
             if (error) {
