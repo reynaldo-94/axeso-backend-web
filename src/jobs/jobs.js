@@ -4,68 +4,104 @@ import { sequelize } from '../database/database';
 export async function jobs() {
     console.log('Executing Jobs')
     try {
-        console.log('Executing load data Sellout 1')
-        const dataSellout441 = await sequelize.query(
-            `select * from axeso.fn_cargar_sellout_anterior('441')`,
-            { type: Sequelize.QueryTypes.SELECT }
-        );
-        console.log('Done Job Sellout 1 por Periodo', dataSellout441)
 
-        console.log('Executing load data Sellout 2')
-        const dataSellout442 = await sequelize.query(
-            `select * from axeso.fn_cargar_sellout_anterior('442')`,
-            { type: Sequelize.QueryTypes.SELECT }
+        console.log('Executing load Delete Data Dashboard Deuda Pendiente')
+        const dataDeudPend = await sequelize.query(
+            `delete from axeso.dashboard_deudapendiente`,
+            { type: Sequelize.QueryTypes.DELETE }
         );
-        console.log('Done Job Sellout 2 por Periodo', dataSellout442)
+        console.log('Done Job Delete Data Dashboard Deuda Pendiente', dataDeudPend)
 
-        console.log('Executing load data Sellout 3')
-        const dataSellout443 = await sequelize.query(
-            `select * from axeso.fn_cargar_sellout_anterior('443')`,
-            { type: Sequelize.QueryTypes.SELECT }
+        console.log('Executing load Delete Data Dashboard Inventario')
+        const dataInventario = await sequelize.query(
+            `delete from axeso.dashboard_inventario`,
+            { type: Sequelize.QueryTypes.DELETE }
         );
-        console.log('Done Job Sellout 3 por Periodo', dataSellout443)
+        console.log('Done Job Delete Data Dashboard Inventario', dataInventario)
 
-        console.log('Executing load data Sellout 4')
-        const dataSellout444 = await sequelize.query(
-            `select * from axeso.fn_cargar_sellout_anterior('444')`,
-            { type: Sequelize.QueryTypes.SELECT }
+        console.log('Executing load Delete Data Dashboard Sell In')
+        const dataSellIn = await sequelize.query(
+            `delete from axeso.dashboard_sellin`,
+            { type: Sequelize.QueryTypes.DELETE }
         );
-        console.log('Done Job Sellout 4 por Periodo', dataSellout444)
+        console.log('Done Job Delete Data Dashboard SellIn', dataSellIn)
 
-        console.log('Executing load data Sellout 5')
-        const dataSellout445 = await sequelize.query(
-            `select * from axeso.fn_cargar_sellout_anterior('445')`,
-            { type: Sequelize.QueryTypes.SELECT }
+        console.log('Executing load Delete Data Dashboard Sell In-out Mensual')
+        const dataSellio = await sequelize.query(
+            `delete from axeso.dashboard_sellin_sellout_mensual`,
+            { type: Sequelize.QueryTypes.DELETE }
         );
-        console.log('Done Job Sellout 5 por Periodo', dataSellout445)
+        console.log('Done Job Delete Data Dashboard Sell In-out Mensual', dataSellio)
 
-        console.log('Executing load data Sellout 6')
-        const dataSellout446 = await sequelize.query(
-            `select * from axeso.fn_cargar_sellout_anterior('446')`,
-            { type: Sequelize.QueryTypes.SELECT }
+        console.log('Executing load Delete Data Dashboard Sell Cobertura')
+        const dataSelloutCob = await sequelize.query(
+            `delete from axeso.dashboard_sellout_cobertura`,
+            { type: Sequelize.QueryTypes.DELETE }
         );
-        console.log('Done Job Sellout 6 por Periodo', dataSellout446)
+        console.log('Done Job Delete Data Dashboard Sell Cobertura', dataSelloutCob)
 
-        console.log('Executing load data Sellout 7')
-        const dataSellout447 = await sequelize.query(
-            `select * from axeso.fn_cargar_sellout_anterior('447')`,
-            { type: Sequelize.QueryTypes.SELECT }
-        );
-        console.log('Done Job Sellout 7 por Periodo', dataSellout447)
+        // console.log('Executing load data Sellout 1')
+        // const dataSellout441 = await sequelize.query(
+        //     `select * from axeso.fn_cargar_sellout_anterior('441')`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Sellout 1 por Periodo', dataSellout441)
 
-        console.log('Executing load data Sellout 8')
-        const dataSellout448 = await sequelize.query(
-            `select * from axeso.fn_cargar_sellout_anterior('448')`,
-            { type: Sequelize.QueryTypes.SELECT }
-        );
-        console.log('Done Job Sellout 8 por Periodo', dataSellout448)
+        // console.log('Executing load data Sellout 2')
+        // const dataSellout442 = await sequelize.query(
+        //     `select * from axeso.fn_cargar_sellout_anterior('442')`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Sellout 2 por Periodo', dataSellout442)
 
-        console.log('Executing load data Sellout 9')
-        const dataSellout449 = await sequelize.query(
-            `select * from axeso.fn_cargar_sellout_anterior('449')`,
-            { type: Sequelize.QueryTypes.SELECT }
-        );
-        console.log('Done Job Sellout 9 por Periodo', dataSellout449)
+        // console.log('Executing load data Sellout 3')
+        // const dataSellout443 = await sequelize.query(
+        //     `select * from axeso.fn_cargar_sellout_anterior('443')`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Sellout 3 por Periodo', dataSellout443)
+
+        // console.log('Executing load data Sellout 4')
+        // const dataSellout444 = await sequelize.query(
+        //     `select * from axeso.fn_cargar_sellout_anterior('444')`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Sellout 4 por Periodo', dataSellout444)
+
+        // console.log('Executing load data Sellout 5')
+        // const dataSellout445 = await sequelize.query(
+        //     `select * from axeso.fn_cargar_sellout_anterior('445')`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Sellout 5 por Periodo', dataSellout445)
+
+        // console.log('Executing load data Sellout 6')
+        // const dataSellout446 = await sequelize.query(
+        //     `select * from axeso.fn_cargar_sellout_anterior('446')`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Sellout 6 por Periodo', dataSellout446)
+
+        // console.log('Executing load data Sellout 7')
+        // const dataSellout447 = await sequelize.query(
+        //     `select * from axeso.fn_cargar_sellout_anterior('447')`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Sellout 7 por Periodo', dataSellout447)
+
+        // console.log('Executing load data Sellout 8')
+        // const dataSellout448 = await sequelize.query(
+        //     `select * from axeso.fn_cargar_sellout_anterior('448')`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Sellout 8 por Periodo', dataSellout448)
+
+        // console.log('Executing load data Sellout 9')
+        // const dataSellout449 = await sequelize.query(
+        //     `select * from axeso.fn_cargar_sellout_anterior('449')`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Sellout 9 por Periodo', dataSellout449)
 
         // console.log('Executing load data Sellout 10')
         // const dataSellout4410 = await sequelize.query(
