@@ -1172,16 +1172,87 @@ async function updateClaveEmailCreate(valuesToInsert) {
             from: 'contactadimexa@dimexa.com.pe',
             to: correo,
             subject: 'Servicio de creacion de contraseña',
-            html: `<div style="display:block;">
-                    <div><b>Bienvenido a la Extranet de Dimexa</b></div>
-                    <br />
-                    <div>Gracias por ser parte de nuestra plataforma, cuando inicies sesión recuerda que estas son tus credenciales para poder ingresar, si tienes alguna duda puedes comunicarte con nosotros.</div> 
-                    <br />
-                    <div>Usuario: <b>${usuario}</b> </div> 
-                    <div>Contraseña: <b>${password}</b></div>
-                    <br />
-                    <a href="http://190.116.51.178/autenticacion/login" style="color: #000;"><b>Ingresa a tu plataforma</b></a>
-                </div>`
+            attachments: [
+                {
+                    filename: 'logo-dimexa.jpeg',
+                    path: __dirname + '\\logo-dimexa.jpeg',
+                    cid: 'logo-dimexa.jpeg' //same cid value as in the html img src
+                },
+                {
+                    filename: 'fondo-dimexa.jpeg',
+                    path: __dirname + '\\fondo-dimexa.jpeg',
+                    cid: 'fondo-dimexa.jpeg' //same cid value as in the html img src
+                },
+    
+            ],
+            html: `
+        <table
+            style="width: 1024px;background-image: url('cid:fondo-dimexa.jpeg');height: 775px;padding-left: 18px;background-position: center;">
+            <tr>
+                <td>
+                    <table style="width:500px;padding: 35px;border-radius: 20px; background-color: #FFFFFF;">
+                        <tr>
+                            <td style="text-align: center;">
+                                <img height="100px" src="cid:logo-dimexa.jpeg" alt="">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <hr style="height: 2px;width: 500px;background: #5484b5; border: 0;" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 30px;color: #8aaf4e;">
+                                Bienvenido a la:
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 30px;color: #5484b5; font-weight: bold;">
+                                EXTRANET
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 30px;color: #444444; font-weight: bold;">
+                                DIMEXA
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center; padding: 40px 0px;">
+                                Gracias por ser parte de nuestra plataforma. Cuando inicies sesion recuerda que estas son tus
+                                credenciales
+                                para poder ingresar si tienes alguna duda puedes comunicarte con nosotros
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <td style="font-size: 20px;font-weight: bold;color: #8cad51;">USUARIOS:</td>
+                                        <td style="font-size: 18px;font-weight: bold;color: #5484b5; text-align: center;">
+                                        :email</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 20px;font-weight: bold;color: #8cad51;">CONTRASEÑA:</td>
+                                        <td style="font-size: 18px;font-weight: bold;color: #5484b5; text-align: center;">
+                                        :password</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="padding-top: 60px;text-align: center;">
+                                            <a style="text-decoration: none;background-color: #5484b5;color: #FFFFFF;padding: 15px 30px;border-radius: 15px;font-size: 20px;font-weight: bold;"
+                                                href=":url">Ingresa a tu plataforma</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        `
+            .replaceAll(':email', correo)
+            .replaceAll(':password', password)
+            .replaceAll(':url', `http://${process.env.DB_HOST_FRONT}/autenticacion/login`),
         };
         mail.sendMail(mailOptions, function(error, info) {
             if (error) {
