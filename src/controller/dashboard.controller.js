@@ -9,7 +9,12 @@ import SelloutAnterior from '../models/sellout_anterior.model';
 
 export async function getCountSelloutAnterior(req, res) {
     try {
-        const countSelloutAnterior = await SelloutAnterior.count();
+        const countSelloutAnterior = await SelloutAnterior.findAll({
+            limit: 100,
+            order: [
+                ['id', 'DESC'],
+            ]
+        });
         if (countSelloutAnterior) {
             return res.status(200).json({
                 data: countSelloutAnterior
