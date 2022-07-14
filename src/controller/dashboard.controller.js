@@ -5,6 +5,23 @@ import DashboardSellin from '../models/dashboard_sellin.model';
 import { Op } from 'sequelize';
 import DashboardSellinSelloutMensual from '../models/dashboard_sellint_sellout_mensual.model';
 import JobsDetalle from '../models/jobs_detalle.model';
+import SelloutAnterior from '../models/sellout_anterior.model';
+
+export async function getCountSelloutAnterior(req, res) {
+    try {
+        const countSelloutAnterior = await SelloutAnterior.count();
+        if (countSelloutAnterior) {
+            return res.status(200).json({
+                data: countSelloutAnterior
+            });
+        }
+    } catch (e) {
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
+        });
+    }
+};
 
 export async function getListJobs(req, res) {
     try {
