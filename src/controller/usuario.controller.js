@@ -1152,12 +1152,12 @@ export async function testSendEmail(req, res) {
             attachments: [
                 {
                     filename: 'logo-dimexa.jpeg',
-                    path: __dirname + '\\logo-dimexa.jpeg',
+                    path: __dirname + '/logo-dimexa.jpeg',
                     cid: 'logo-dimexa.jpeg' //same cid value as in the html img src
                 },
                 {
                     filename: 'fondo-dimexa.jpeg',
-                    path: __dirname + '\\fondo-dimexa.jpeg',
+                    path: __dirname + '/fondo-dimexa.jpeg',
                     cid: 'fondo-dimexa.jpeg' //same cid value as in the html img src
                 },
     
