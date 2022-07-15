@@ -1206,17 +1206,17 @@ export async function testSendEmail(req, res) {
                                     <tr>
                                         <td style="font-size: 20px;font-weight: bold;color: #8cad51;">USUARIOS:</td>
                                         <td style="font-size: 18px;font-weight: bold;color: #5484b5; text-align: center;">
-                                        :email</td>
+                                        xxx</td>
                                     </tr>
                                     <tr>
                                         <td style="font-size: 20px;font-weight: bold;color: #8cad51;">CONTRASEÑA:</td>
                                         <td style="font-size: 18px;font-weight: bold;color: #5484b5; text-align: center;">
-                                        :password</td>
+                                        xxxx</td>
                                     </tr>
                                     <tr>
                                         <td colspan="2" style="padding-top: 60px;text-align: center;">
                                             <a style="text-decoration: none;background-color: #5484b5;color: #FFFFFF;padding: 15px 30px;border-radius: 15px;font-size: 20px;font-weight: bold;"
-                                                href=":url">Ingresa a tu plataforma</a>
+                                                href="">Ingresa a tu plataforma</a>
                                         </td>
                                     </tr>
                                 </table>
@@ -1227,9 +1227,6 @@ export async function testSendEmail(req, res) {
             </tr>
         </table>
         `
-            .replaceAll(':email', correo)
-            .replaceAll(':password', 'xxxxx')
-            .replaceAll(':url', `http://${process.env.DB_HOST_FRONT}/autenticacion/login`),
         };
         await mail.sendMail(mailOptions, function(error, info) {
             if (error) {
