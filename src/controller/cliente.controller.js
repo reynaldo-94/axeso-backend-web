@@ -574,7 +574,7 @@ export async function getCliente(req, res) {
     }
     try {
         let entidades = await Getcliente.sequelize.query(
-            "SELECT * from fn_get_cliente_app(" + xp_clientes + ", null, null, null)", {
+            "SELECT * from fn_get_cliente_app(" + xp_clientes + ", null, null, null, null)", {
                 type: Getcliente.sequelize.QueryTypes.SELECT,
             });
 
