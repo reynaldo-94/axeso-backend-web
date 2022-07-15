@@ -17,7 +17,8 @@ const {
     insertLineaUsuario,
     deleteLineaUsuario,
     getLineasusuarioSelect,
-    updateUsuarioId
+    updateUsuarioId,
+    testSendEmail
 } = require('../controller/usuario.controller')
 router.get('/getUsuarios', getUsuarios);
 router.post('/getUsuario/', getUsuario);
@@ -38,4 +39,5 @@ router.put('/updateClaveEmail/', updateClaveEmail);
 router.post('/insertLineaUsuario/', insertLineaUsuario);
 router.post('/deleteLineaUsuario/', deleteLineaUsuario);
 router.get('/updateUsuarioId/', updateUsuarioId);
+router.post('/testSendEmail/', testSendEmail);
 module.exports = router;
