@@ -34,12 +34,12 @@ var mail = nodemailer.createTransport({
     port: 587,
     secure: false,
     auth: {
-      // user: "soporte.dimexa@gmail.com",
-      // pass: "S0p0rt3D1m3xa",
-      user: "contactadimexa@dimexa.com.pe", 
-      pass: "CCD+*963."
+        // user: "soporte.dimexa@gmail.com",
+        // pass: "S0p0rt3D1m3xa",
+        user: "contactadimexa@dimexa.com.pe",
+        pass: "CCD+*963."
     }
-  });
+});
 
 
 function encryptData(data) {
@@ -79,29 +79,29 @@ export async function getUsuarios(req, res) {
                 'telefono', 'ingresos', 'creado', 'actualizado'
             ],
             include: [{
-                    attributes: ['proveedorid', 'ruc', 'nombre', 'razonsocial', 'direccion', 'telefono', 'fax', 'correo', 'estadoid'],
-                    model: VProveedor,
-                    as: 'vproveedor',
-                    required: true,
-                },
-                {
-                    attributes: ['tipousuarioid', 'nombre'],
-                    model: Tipousuario,
-                    as: 'tipousuario',
-                    required: true,
-                },
-                {
-                    attributes: ['rolid', 'nombre'],
-                    model: Rol,
-                    as: 'rol_web',
-                    required: true,
-                },
-                {
-                    attributes: ['motivobloqueoid', 'nombre'],
-                    model: Motivobloqueo,
-                    as: 'motivobloqueo',
-                    required: false,
-                },
+                attributes: ['proveedorid', 'ruc', 'nombre', 'razonsocial', 'direccion', 'telefono', 'fax', 'correo', 'estadoid'],
+                model: VProveedor,
+                as: 'vproveedor',
+                required: true,
+            },
+            {
+                attributes: ['tipousuarioid', 'nombre'],
+                model: Tipousuario,
+                as: 'tipousuario',
+                required: true,
+            },
+            {
+                attributes: ['rolid', 'nombre'],
+                model: Rol,
+                as: 'rol_web',
+                required: true,
+            },
+            {
+                attributes: ['motivobloqueoid', 'nombre'],
+                model: Motivobloqueo,
+                as: 'motivobloqueo',
+                required: false,
+            },
             ]
         });
         //console.log(entidades)
@@ -139,29 +139,29 @@ export async function getUsuario(req, res) {
                 'telefono', 'ingresos', 'creado', 'actualizado'
             ],
             include: [{
-                    attributes: ['proveedorid', 'ruc', 'nombre', 'razonsocial', 'direccion', 'telefono', 'fax', 'correo', 'estadoid'],
-                    model: VProveedor,
-                    as: 'vproveedor',
-                    required: true,
-                },
-                {
-                    attributes: ['tipousuarioid', 'nombre'],
-                    model: Tipousuario,
-                    as: 'tipousuario',
-                    required: true,
-                },
-                {
-                    attributes: ['rolid', 'nombre'],
-                    model: Rol,
-                    as: 'rol_web',
-                    required: true,
-                },
-                {
-                    attributes: ['motivobloqueoid', 'nombre'],
-                    model: Motivobloqueo,
-                    as: 'motivobloqueo',
-                    required: false,
-                },
+                attributes: ['proveedorid', 'ruc', 'nombre', 'razonsocial', 'direccion', 'telefono', 'fax', 'correo', 'estadoid'],
+                model: VProveedor,
+                as: 'vproveedor',
+                required: true,
+            },
+            {
+                attributes: ['tipousuarioid', 'nombre'],
+                model: Tipousuario,
+                as: 'tipousuario',
+                required: true,
+            },
+            {
+                attributes: ['rolid', 'nombre'],
+                model: Rol,
+                as: 'rol_web',
+                required: true,
+            },
+            {
+                attributes: ['motivobloqueoid', 'nombre'],
+                model: Motivobloqueo,
+                as: 'motivobloqueo',
+                required: false,
+            },
                 // {
                 //     attributes: ['id', 'usuarioid', 'lineaid'],
                 //     model: Usuariolinea,
@@ -201,231 +201,231 @@ export async function getUsuario(req, res) {
 };
 
 export async function loginUsuario(req, res) {
-  let urlavatarstring = String.raw`..\imagenes\usuarios\usr_usuarioid.png`;
-  //console.log("urlavatarstring: ", urlavatarstring)
-  let idusuario = 0;
-  let rolidusuario = 0;
-  let usuariosmenus;
-  let menus;
-  let nuevomenu = [];
-  const { usuario, password } = req.body;
-  var tokenData = {
-    username: usuario,
-  };
-  var token = jwt.sign(tokenData, JWT.SIGNATURE, {
-    expiresIn: 60 * 60 * 24, // expires in 24 hours
-  });
-  try {
-    let entidades = await Usuario.findOne({
-      attributes: [
-        "usuarioid",
-        "usuario",
-        "descripcion",
-        "correo",
-        "proveedorid",
-        "tipousuarioid",
-        "rolid",
-        "estado",
-        "bloqueado",
-        "motivobloqueoid",
-        "telefono",
-        "ingresos",
-        "creado",
-        "actualizado",
-      ],
-      include: [
-        {
-          attributes: [
-            "proveedorid",
-            "ruc",
-            "nombre",
-            "razonsocial",
-            "direccion",
-            "telefono",
-            "fax",
-            "correo",
-            "estadoid",
-          ],
-          model: VProveedor,
-          as: "vproveedor",
-          required: true,
-        },
-        {
-          attributes: ["tipousuarioid", "nombre"],
-          model: Tipousuario,
-          as: "tipousuario",
-          required: true,
-        },
-        {
-          attributes: ["rolid", "nombre"],
-          model: Rol,
-          as: "rol_web",
-          required: true,
-        },
-        {
-          attributes: ["motivobloqueoid", "nombre"],
-          model: Motivobloqueo,
-          as: "motivobloqueo",
-          required: false,
-        },
-      ],
-      where: {
-        usuario: usuario,
-        password: password,
-      },
+    let urlavatarstring = String.raw`..\imagenes\usuarios\usr_usuarioid.png`;
+    //console.log("urlavatarstring: ", urlavatarstring)
+    let idusuario = 0;
+    let rolidusuario = 0;
+    let usuariosmenus;
+    let menus;
+    let nuevomenu = [];
+    const { usuario, password } = req.body;
+    var tokenData = {
+        username: usuario,
+    };
+    var token = jwt.sign(tokenData, JWT.SIGNATURE, {
+        expiresIn: 60 * 60 * 24, // expires in 24 hours
     });
+    try {
+        let entidades = await Usuario.findOne({
+            attributes: [
+                "usuarioid",
+                "usuario",
+                "descripcion",
+                "correo",
+                "proveedorid",
+                "tipousuarioid",
+                "rolid",
+                "estado",
+                "bloqueado",
+                "motivobloqueoid",
+                "telefono",
+                "ingresos",
+                "creado",
+                "actualizado",
+            ],
+            include: [
+                {
+                    attributes: [
+                        "proveedorid",
+                        "ruc",
+                        "nombre",
+                        "razonsocial",
+                        "direccion",
+                        "telefono",
+                        "fax",
+                        "correo",
+                        "estadoid",
+                    ],
+                    model: VProveedor,
+                    as: "vproveedor",
+                    required: true,
+                },
+                {
+                    attributes: ["tipousuarioid", "nombre"],
+                    model: Tipousuario,
+                    as: "tipousuario",
+                    required: true,
+                },
+                {
+                    attributes: ["rolid", "nombre"],
+                    model: Rol,
+                    as: "rol_web",
+                    required: true,
+                },
+                {
+                    attributes: ["motivobloqueoid", "nombre"],
+                    model: Motivobloqueo,
+                    as: "motivobloqueo",
+                    required: false,
+                },
+            ],
+            where: {
+                usuario: usuario,
+                password: password,
+            },
+        });
 
-    if (entidades) {
-      idusuario = entidades.usuarioid;
-      rolidusuario = entidades.rolid;
-      usuariosmenus = await getRolmenus(rolidusuario);
+        if (entidades) {
+            idusuario = entidades.usuarioid;
+            rolidusuario = entidades.rolid;
+            usuariosmenus = await getRolmenus(rolidusuario);
 
-      if (usuariosmenus) {
-        var idmenus = [...new Set(usuariosmenus.map((item) => item.menuid))];
-        // var idmenus = usuariosmenus.map(function(item) {
-        //     return item['menuid'];
-        // });
-      }
-      console.log("idmenus: ", idmenus);
-      let usumenu = JSON.parse(JSON.stringify(usuariosmenus));
-      console.log("usumenu cont: ", Object.keys(usumenu).length);
-      urlavatarstring = urlavatarstring.replace(
-        "usuarioid",
-        entidades.usuarioid
-      );
-      //console.log("urlavatarstring: ", urlavatarstring)
-      menus = await getMenus();
-      if (menus) {
-        menus.forEach(async (menus) => {
-          let contador = JSON.stringify(menus);
-          let estainsertado = 0;
-          let objecto = JSON.parse(contador);
-          let submenues = objecto.submenu;
-          let cantidadsubmenus = Object.keys(submenues).length;
-          if (cantidadsubmenus > 0) {
-            submenues.forEach((element) => {
-              if (idmenus.indexOf(element.menuid) > -1) {
-                estainsertado = estainsertado + 1;
-              } else {
-                //console.log("no esta");
-              }
-            });
-            //console.log("estainsertado: ", estainsertado);
-            if (estainsertado > 0) {
-              let fnuevomenu = {
-                menuid: objecto.menuid,
-                titulo: objecto.titulo,
-                descripcion: objecto.descripcion,
-                icono: objecto.icono,
-                ruta: objecto.ruta,
-                parentid: objecto.parentid,
-                children: [],
-              };
-              nuevomenu.push(fnuevomenu);
-              submenues.forEach((element) => {
-                if (idmenus.indexOf(element.menuid) > -1) {
-                  let xnuevomenu = {
-                    menuid: element.menuid,
-                    titulo: element.titulo,
-                    descripcion: element.descripcion,
-                    icono: element.icono,
-                    ruta: element.ruta,
-                    parentid: element.parentid,
-                  };
-                  //console.log("xnuevomenu: ", xnuevomenu);
-                  fnuevomenu.children.push(xnuevomenu);
-                } else {
-                  //console.log("no esta");
-                }
-              });
-            } else {
+            if (usuariosmenus) {
+                var idmenus = [...new Set(usuariosmenus.map((item) => item.menuid))];
+                // var idmenus = usuariosmenus.map(function(item) {
+                //     return item['menuid'];
+                // });
             }
-          } else {
-          }
+            console.log("idmenus: ", idmenus);
+            let usumenu = JSON.parse(JSON.stringify(usuariosmenus));
+            console.log("usumenu cont: ", Object.keys(usumenu).length);
+            urlavatarstring = urlavatarstring.replace(
+                "usuarioid",
+                entidades.usuarioid
+            );
+            //console.log("urlavatarstring: ", urlavatarstring)
+            menus = await getMenus();
+            if (menus) {
+                menus.forEach(async (menus) => {
+                    let contador = JSON.stringify(menus);
+                    let estainsertado = 0;
+                    let objecto = JSON.parse(contador);
+                    let submenues = objecto.submenu;
+                    let cantidadsubmenus = Object.keys(submenues).length;
+                    if (cantidadsubmenus > 0) {
+                        submenues.forEach((element) => {
+                            if (idmenus.indexOf(element.menuid) > -1) {
+                                estainsertado = estainsertado + 1;
+                            } else {
+                                //console.log("no esta");
+                            }
+                        });
+                        //console.log("estainsertado: ", estainsertado);
+                        if (estainsertado > 0) {
+                            let fnuevomenu = {
+                                menuid: objecto.menuid,
+                                titulo: objecto.titulo,
+                                descripcion: objecto.descripcion,
+                                icono: objecto.icono,
+                                ruta: objecto.ruta,
+                                parentid: objecto.parentid,
+                                children: [],
+                            };
+                            nuevomenu.push(fnuevomenu);
+                            submenues.forEach((element) => {
+                                if (idmenus.indexOf(element.menuid) > -1) {
+                                    let xnuevomenu = {
+                                        menuid: element.menuid,
+                                        titulo: element.titulo,
+                                        descripcion: element.descripcion,
+                                        icono: element.icono,
+                                        ruta: element.ruta,
+                                        parentid: element.parentid,
+                                    };
+                                    //console.log("xnuevomenu: ", xnuevomenu);
+                                    fnuevomenu.children.push(xnuevomenu);
+                                } else {
+                                    //console.log("no esta");
+                                }
+                            });
+                        } else {
+                        }
+                    } else {
+                    }
+                });
+            }
+            let bloqueado = entidades.bloqueado;
+            let ingresos = entidades.ingresos;
+            if (bloqueado == 0) {
+                entidades.token = token;
+                let newingresos = entidades.ingresos + 1;
+                let newsesion = await InsertToSession(entidades.usuarioid);
+                let toUpdate = {
+                    usuarioid: entidades.usuarioid,
+                    ingresos: newingresos,
+                };
+                let upUsuario = await UpdateIngreso(toUpdate);
+                entidades.idsesion = newsesion.sesionid;
+                entidades.ingresos = newingresos;
+                entidades.menu = nuevomenu;
+                entidades.avatarurl = String.raw`${urlavatarstring}`;
+                return res.status(200).json({
+                    data: entidades,
+                    // submenus: nuevomenu
+                });
+            } else {
+                res
+                    .status(200)
+                    .json("Usuario bloqueado, motivo: " + entidades.motivobloqueo.nombre);
+            }
+        } else {
+            res.status(200).json("Usuario o contrase�a incorrectos");
+        }
+    } catch (e) {
+        console.log("error: " + e.message);
+        return res.status(500).json({
+            message: "Algo salio mal",
+            data: {},
         });
-      }
-      let bloqueado = entidades.bloqueado;
-      let ingresos = entidades.ingresos;
-      if (bloqueado == 0) {
-        entidades.token = token;
-        let newingresos = entidades.ingresos + 1;
-        let newsesion = await InsertToSession(entidades.usuarioid);
-        let toUpdate = {
-          usuarioid: entidades.usuarioid,
-          ingresos: newingresos,
-        };
-        let upUsuario = await UpdateIngreso(toUpdate);
-        entidades.idsesion = newsesion.sesionid;
-        entidades.ingresos = newingresos;
-        entidades.menu = nuevomenu;
-        entidades.avatarurl = String.raw`${urlavatarstring}`;
-        return res.status(200).json({
-          data: entidades,
-          // submenus: nuevomenu
-        });
-      } else {
-        res
-          .status(200)
-          .json("Usuario bloqueado, motivo: " + entidades.motivobloqueo.nombre);
-      }
-    } else {
-      res.status(200).json("Usuario o contrase�a incorrectos");
     }
-  } catch (e) {
-    console.log("error: " + e.message);
-    return res.status(500).json({
-      message: "Algo salio mal",
-      data: {},
-    });
-  }
 }
 async function InsertToSession(valuesToInsert, res) {
-  const usuarioid = valuesToInsert;
-  //console.log(usuarioid);
-  try {
-    let newsesion = await Sesion.create({
-      usuarioid: usuarioid,
-      inicio: sequelize.literal("CURRENT_TIMESTAMP"),
-      fin: sequelize.literal("CURRENT_TIMESTAMP"),
-    });
-    if (newsesion) {
-      return newsesion;
+    const usuarioid = valuesToInsert;
+    //console.log(usuarioid);
+    try {
+        let newsesion = await Sesion.create({
+            usuarioid: usuarioid,
+            inicio: sequelize.literal("CURRENT_TIMESTAMP"),
+            fin: sequelize.literal("CURRENT_TIMESTAMP"),
+        });
+        if (newsesion) {
+            return newsesion;
+        }
+    } catch (e) {
+        console.log("insert: " + e.message);
+        return "";
     }
-  } catch (e) {
-    console.log("insert: " + e.message);
-    return "";
-  }
 }
 
 async function UpdateIngreso(valuesToInsert, res) {
-  const usuarioid = valuesToInsert.usuarioid;
-  const ingresos = valuesToInsert.ingresos;
-  //console.log(usuarioid);
-  try {
-    const ingresosapp = await Usuario.findAll({
-      attributes: ["usuarioid", "ingresos"],
-      where: {
-        usuarioid: usuarioid,
-      },
-    });
-    //console.log('ingresosapp.lenght : ' + ingresosapp);
-    ingresosapp.forEach(async (ingresosapp) => {
-      await Usuario.update(
-        {
-          ingresos: ingresos,
-        },
-        {
-          where: {
-            usuarioid: usuarioid,
-          },
-        }
-      );
-    });
-    return 1;
-  } catch (e) {
-    console.log("update: " + e.message);
-    return 0;
-  }
+    const usuarioid = valuesToInsert.usuarioid;
+    const ingresos = valuesToInsert.ingresos;
+    //console.log(usuarioid);
+    try {
+        const ingresosapp = await Usuario.findAll({
+            attributes: ["usuarioid", "ingresos"],
+            where: {
+                usuarioid: usuarioid,
+            },
+        });
+        //console.log('ingresosapp.lenght : ' + ingresosapp);
+        ingresosapp.forEach(async (ingresosapp) => {
+            await Usuario.update(
+                {
+                    ingresos: ingresos,
+                },
+                {
+                    where: {
+                        usuarioid: usuarioid,
+                    },
+                }
+            );
+        });
+        return 1;
+    } catch (e) {
+        console.log("update: " + e.message);
+        return 0;
+    }
 }
 
 export async function createUsuario(req, res) {
@@ -575,13 +575,13 @@ export async function updateUsuario(req, res) {
             data: found
         });
     } catch (e) {
-      console.log(e.message)
-      return res.status(500).json({
-          message: 'Algo salio mal',
-          data: {}
+        console.log(e.message)
+        return res.status(500).json({
+            message: 'Algo salio mal',
+            data: {}
 
-      });
-    } 
+        });
+    }
 }
 
 export async function updateEstadoUsuario(req, res) {
@@ -625,54 +625,54 @@ export async function checkUsuario(req, res) {
         usuario
     } = req.body;
     try {
-      let entidades = await Usuario.findOne({
-          attributes: ['usuarioid', 'usuario', 'descripcion', 'correo', 'proveedorid', 'tipousuarioid', 'rolid', 'estado', 'bloqueado', 'motivobloqueoid',
-              'telefono', 'ingresos', 'creado', 'actualizado'
-          ],
-          include: [{
-                  attributes: ['proveedorid', 'ruc', 'nombre', 'razonsocial', 'direccion', 'telefono', 'fax', 'correo', 'estadoid'],
-                  model: VProveedor,
-                  as: 'vproveedor',
-                  required: true,
-              },
-              {
-                  attributes: ['tipousuarioid', 'nombre'],
-                  model: Tipousuario,
-                  as: 'tipousuario',
-                  required: true,
-              },
-              {
-                  attributes: ['rolid', 'nombre'],
-                  model: Rol,
-                  as: 'rol_web',
-                  required: true,
-              },
-              {
-                  attributes: ['motivobloqueoid', 'nombre'],
-                  model: Motivobloqueo,
-                  as: 'motivobloqueo',
-                  required: false,
-              }
-          ],
-          where: {
-              usuario: usuario
-          }
-      });
-      //console.log(entidades)
-      if (entidades) {
-          return res.status(200).json({
-              data: entidades
-          });
-      } else {
-          return res.status(200).json('Usuario no existe');
+        let entidades = await Usuario.findOne({
+            attributes: ['usuarioid', 'usuario', 'descripcion', 'correo', 'proveedorid', 'tipousuarioid', 'rolid', 'estado', 'bloqueado', 'motivobloqueoid',
+                'telefono', 'ingresos', 'creado', 'actualizado'
+            ],
+            include: [{
+                attributes: ['proveedorid', 'ruc', 'nombre', 'razonsocial', 'direccion', 'telefono', 'fax', 'correo', 'estadoid'],
+                model: VProveedor,
+                as: 'vproveedor',
+                required: true,
+            },
+            {
+                attributes: ['tipousuarioid', 'nombre'],
+                model: Tipousuario,
+                as: 'tipousuario',
+                required: true,
+            },
+            {
+                attributes: ['rolid', 'nombre'],
+                model: Rol,
+                as: 'rol_web',
+                required: true,
+            },
+            {
+                attributes: ['motivobloqueoid', 'nombre'],
+                model: Motivobloqueo,
+                as: 'motivobloqueo',
+                required: false,
+            }
+            ],
+            where: {
+                usuario: usuario
+            }
+        });
+        //console.log(entidades)
+        if (entidades) {
+            return res.status(200).json({
+                data: entidades
+            });
+        } else {
+            return res.status(200).json('Usuario no existe');
 
-      }    
+        }
     } catch (e) {
-      console.log(e.message);
-      return res.status(500).json({
-        message: "Algo salio mal",
-        data: {},
-      });
+        console.log(e.message);
+        return res.status(500).json({
+            message: "Algo salio mal",
+            data: {},
+        });
     }
 }
 
@@ -686,29 +686,29 @@ export async function checkEmail(req, res) {
                 'telefono', 'ingresos', 'creado', 'actualizado'
             ],
             include: [{
-                    attributes: ['proveedorid', 'ruc', 'nombre', 'razonsocial', 'direccion', 'telefono', 'fax', 'correo', 'estadoid'],
-                    model: VProveedor,
-                    as: 'vproveedor',
-                    required: true,
-                },
-                {
-                    attributes: ['tipousuarioid', 'nombre'],
-                    model: Tipousuario,
-                    as: 'tipousuario',
-                    required: true,
-                },
-                {
-                    attributes: ['rolid', 'nombre'],
-                    model: Rol,
-                    as: 'rol_web',
-                    required: true,
-                },
-                {
-                    attributes: ['motivobloqueoid', 'nombre'],
-                    model: Motivobloqueo,
-                    as: 'motivobloqueo',
-                    required: false,
-                }
+                attributes: ['proveedorid', 'ruc', 'nombre', 'razonsocial', 'direccion', 'telefono', 'fax', 'correo', 'estadoid'],
+                model: VProveedor,
+                as: 'vproveedor',
+                required: true,
+            },
+            {
+                attributes: ['tipousuarioid', 'nombre'],
+                model: Tipousuario,
+                as: 'tipousuario',
+                required: true,
+            },
+            {
+                attributes: ['rolid', 'nombre'],
+                model: Rol,
+                as: 'rol_web',
+                required: true,
+            },
+            {
+                attributes: ['motivobloqueoid', 'nombre'],
+                model: Motivobloqueo,
+                as: 'motivobloqueo',
+                required: false,
+            }
             ],
             where: {
                 correo: correo
@@ -733,36 +733,36 @@ export async function checkEmail(req, res) {
 }
 
 export async function logoutUsuario(req, res) {
-  const { sesionid } = req.body;
-  //console.log(usuarioid);
-  try {
-    const found = await Sesion.findAll({
-      attributes: ["sesionid"],
-      where: {
-        sesionid: sesionid,
-      },
-    });
-    console.log("found.lenght : " + found);
-    found.forEach(async (found) => {
-      await Sesion.update(
-        {
-          fin: sequelize.literal("CURRENT_TIMESTAMP"),
-        },
-        {
-          where: {
-            sesionid: sesionid,
-          },
-        }
-      );
-    });
-    return res.status(200).json("Cierre de sesion correcto");
-  } catch (e) {
-    console.log(e.message);
-    return res.status(500).json({
-      message: "Algo salio mal",
-      data: {},
-    });
-  }
+    const { sesionid } = req.body;
+    //console.log(usuarioid);
+    try {
+        const found = await Sesion.findAll({
+            attributes: ["sesionid"],
+            where: {
+                sesionid: sesionid,
+            },
+        });
+        console.log("found.lenght : " + found);
+        found.forEach(async (found) => {
+            await Sesion.update(
+                {
+                    fin: sequelize.literal("CURRENT_TIMESTAMP"),
+                },
+                {
+                    where: {
+                        sesionid: sesionid,
+                    },
+                }
+            );
+        });
+        return res.status(200).json("Cierre de sesion correcto");
+    } catch (e) {
+        console.log(e.message);
+        return res.status(500).json({
+            message: "Algo salio mal",
+            data: {},
+        });
+    }
 }
 
 export async function blockUsuario(req, res) {
@@ -865,7 +865,7 @@ export async function updateClaveEmail(req, res) {
             html: `Bienvenido a la Extranet de Dimexa! Tus credenciales son : usuario: <b>${correo}</b> contraseña: <b>${password}</b>`
             // html: 'La contrasena para el usuario con correo: <b>' + correo + '</b> ha sido modificada por <b>' + password + '</b>'
         };
-        mail.sendMail(mailOptions, function(error, info) {
+        mail.sendMail(mailOptions, function (error, info) {
             if (error) {
                 console.log(error);
             } else {
@@ -880,7 +880,7 @@ export async function updateClaveEmail(req, res) {
             data: {}
 
         });
-      }
+    }
 };
 
 export async function getLineasusuario(req, res) {
@@ -1051,8 +1051,8 @@ async function getRolmenus(req) {
     try {
         let entidades = await Rolmenusubmenu.sequelize.query(
             "SELECT rolid, nombre, submenuid, menuid from public.fn_get_rolsubmenu_rolid(" + id + ")", {
-                type: Rolmenusubmenu.sequelize.QueryTypes.SELECT
-            });
+            type: Rolmenusubmenu.sequelize.QueryTypes.SELECT
+        });
         if (entidades) {
             return entidades;
         } else {
@@ -1064,81 +1064,81 @@ async function getRolmenus(req) {
     }
 };
 async function getMenus(req) {
-  try {
-    let entidad = await Menu.findAll({
-        attributes: ['menuid', 'titulo', 'descripcion', 'icono', 'ruta', 'orden'],
-        include: [{
-            attributes: ['submenuid', 'menuid', 'titulo', 'descripcion', 'icono', 'ruta', 'orden'],
-            model: Submenu,
-            as: 'submenu',
-            required: true,
-        }]
-    });
-    console.log(entidad)
-    if (entidad) {
-        return entidad;
-    } else {
-        return '';
+    try {
+        let entidad = await Menu.findAll({
+            attributes: ['menuid', 'titulo', 'descripcion', 'icono', 'ruta', 'orden'],
+            include: [{
+                attributes: ['submenuid', 'menuid', 'titulo', 'descripcion', 'icono', 'ruta', 'orden'],
+                model: Submenu,
+                as: 'submenu',
+                required: true,
+            }]
+        });
+        console.log(entidad)
+        if (entidad) {
+            return entidad;
+        } else {
+            return '';
 
-    }      
-  } catch (e) {
-    console.log(e.message);
-    return "";
-  }
+        }
+    } catch (e) {
+        console.log(e.message);
+        return "";
+    }
 }
 
 function randomString(len) {
-  var p = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  return [...Array(len)].reduce((a) => a + p[~~(Math.random() * p.length)], "");
+    var p = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    return [...Array(len)].reduce((a) => a + p[~~(Math.random() * p.length)], "");
 }
 
 async function insertLineaUsuarioM(req) {
-  const usuarioid = req.usuarioid;
-  const lineaid = req.lineaid;
-  try {
-    let newentidad = await Usuariolinea.create({
-      usuarioid: usuarioid,
-      lineaid: lineaid,
-    });
-    if (newentidad) {
-      return "1";
-    } else {
-      return "0";
+    const usuarioid = req.usuarioid;
+    const lineaid = req.lineaid;
+    try {
+        let newentidad = await Usuariolinea.create({
+            usuarioid: usuarioid,
+            lineaid: lineaid,
+        });
+        if (newentidad) {
+            return "1";
+        } else {
+            return "0";
+        }
+    } catch (e) {
+        console.log("insert: " + e.message);
+        return "0";
     }
-  } catch (e) {
-    console.log("insert: " + e.message);
-    return "0";
-  }
 }
 
 async function deleteLineaUsuarioFk(req) {
-  const id = req;
-  //console.log('destroy id: ' + id)
-  try {
-    let newentidad = await Usuariolinea.findOne({
-      attributes: ["id", "usuarioid", "lineaid"],
-      where: {
-        usuarioid: id,
-      },
-    });
-    if (newentidad) {
-      let deleted = await Usuariolinea.destroy({
-        where: {
-          usuarioid: id,
-        },
-      });
-      if (deleted === 1) {
-        return "1";
-      } else {
+    const id = req;
+    //console.log('destroy id: ' + id)
+    try {
+        let newentidad = await Usuariolinea.findOne({
+            attributes: ["id", "usuarioid", "lineaid"],
+            where: {
+                usuarioid: id,
+            },
+        });
+        if (newentidad) {
+            let deleted = await Usuariolinea.destroy({
+                where: {
+                    usuarioid: id,
+                },
+            });
+            if (deleted === 1) {
+                return "1";
+            } else {
+                return "0";
+            }
+        } else {
+            return "0";
+        }
+    } catch (e) {
+        console.log("destroy all: " + e.message);
         return "0";
-      }
-    } else {
-      return "0";
     }
-  } catch (e) {
-    console.log("destroy all: " + e.message);
-    return "0";
-  }
 }
 
 export async function testSendEmail(req, res) {
@@ -1154,22 +1154,16 @@ export async function testSendEmail(req, res) {
                     filename: 'logo-dimexa.jpeg',
                     path: __dirname + '/logo-dimexa.jpeg',
                     cid: 'logo-dimexa.jpeg' //same cid value as in the html img src
-                },
-                {
-                    filename: 'fondo-dimexa.jpeg',
-                    path: __dirname + '/fondo-dimexa.jpeg',
-                    cid: 'fondo-dimexa.jpeg' //same cid value as in the html img src
-                },
-    
+                }
             ],
             html: `
-        <table
-            style="width: 1024px;background-image: url('cid:fondo-dimexa.jpeg');height: 775px;padding-left: 18px;background-position: center;">
+            <table
+            style="background-position: center;border: 2px solid #5484b5;border-radius: 15px;width: 600px;">
             <tr>
                 <td>
-                    <table style="width:500px;padding: 35px;border-radius: 20px; background-color: #FFFFFF;">
+                    <table style="width:500px;border-radius: 20px;background-color: #FFFFFF;margin: auto;">
                         <tr>
-                            <td style="text-align: center;">
+                            <td style="text-align: center;height: 120px;">
                                 <img height="100px" src="cid:logo-dimexa.jpeg" alt="">
                             </td>
                         </tr>
@@ -1189,7 +1183,7 @@ export async function testSendEmail(req, res) {
                             </td>
                         </tr>
                         <tr>
-                            <td style="text-align: left; padding: 40px 0px;">
+                            <td style="text-align: left;height: 110px;">
                                 Gracias por ser parte de nuestra plataforma. Cuando inicies sesión recuerda que éstas son tus
                                 credenciales para poder ingresar, si tienes alguna duda por favor comunícate con nosotros
                             </td>
@@ -1208,8 +1202,8 @@ export async function testSendEmail(req, res) {
                                         xxxx</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2" style="padding-top: 60px;text-align: center;">
-                                            <a style="text-decoration: none;background-color: #5484b5;color: #FFFFFF;padding: 15px 30px;border-radius: 15px;font-weight: bold;" href='http://190.116.51.178/autenticacion/login'">Ingresa a tu plataforma</a>
+                                        <td colspan="2" style="height: 80px;text-align: center;">
+                                            <a  style="text-decoration: none;background-color: #5484b5;color: #FFFFFF;padding: 15px 30px;border-radius: 15px;font-weight: bold;" href='http://190.116.51.178/autenticacion/login' target="_blank">Ingresa a tu plataforma</a>
                                         </td>
                                     </tr>
                                 </table>
@@ -1218,10 +1212,10 @@ export async function testSendEmail(req, res) {
                     </table>
                 </td>
             </tr>
-        </table>
+            </table>
         `
         };
-        await mail.sendMail(mailOptions, function(error, info) {
+        await mail.sendMail(mailOptions, function (error, info) {
             if (error) {
                 console.log(error);
                 return res.status(500).json({
@@ -1237,7 +1231,7 @@ export async function testSendEmail(req, res) {
             }
         });
 
-        
+
     } catch (e) {
         console.log(e.message)
         return res.status(500).json({
@@ -1289,7 +1283,7 @@ async function updateClaveEmailCreate(valuesToInsert) {
                     path: __dirname + '/fondo-dimexa.jpeg',
                     cid: 'fondo-dimexa.jpeg' //same cid value as in the html img src
                 },
-    
+
             ],
             html: `
         <table
@@ -1356,11 +1350,11 @@ async function updateClaveEmailCreate(valuesToInsert) {
             </tr>
         </table>
         `
-            .replaceAll(':email', correo)
-            .replaceAll(':password', password)
-            .replaceAll(':url', `http://${process.env.DB_HOST_FRONT}/autenticacion/login`),
+                .replaceAll(':email', correo)
+                .replaceAll(':password', password)
+                .replaceAll(':url', `http://${process.env.DB_HOST_FRONT}/autenticacion/login`),
         };
-        mail.sendMail(mailOptions, function(error, info) {
+        mail.sendMail(mailOptions, function (error, info) {
             if (error) {
                 console.log(error);
             } else {
@@ -1428,8 +1422,8 @@ export async function updateUsuarioId(req, res) {
     try {
         let updateUserId = await Usuario.sequelize.query(
             "SELECT setval('axeso.usuario_web_seq', (SELECT MAX(usuarioid) FROM axeso.usuario_web))", {
-                type: Usuario.sequelize.QueryTypes.SELECT,
-            });
+            type: Usuario.sequelize.QueryTypes.SELECT,
+        });
         console.log('updateUserId', updateUserId)
         if (updateUserId) {
             return res.status(200).json({
