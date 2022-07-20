@@ -1148,7 +1148,7 @@ export async function testSendEmail(req, res) {
         var mailOptions = {
             from: 'contactadimexa@dimexa.com.pe',
             to: correo,
-            subject: 'Servicio de creacion de contraseña',
+            subject: 'Extranet Dimexa - Servicio de creacion de contraseña',
             attachments: [
                 {
                     filename: 'logo-dimexa.jpeg',
@@ -1179,44 +1179,37 @@ export async function testSendEmail(req, res) {
                             </td>
                         </tr>
                         <tr>
-                            <td style="font-size: 30px;color: #8aaf4e;">
+                            <td style="font-size: 30px;color: #8aaf4e; text-align: center;">
                                 Bienvenido a la:
                             </td>
                         </tr>
                         <tr>
-                            <td style="font-size: 30px;color: #5484b5; font-weight: bold;">
-                                EXTRANET
+                            <td style="font-size: 30px;color: #5484b5; font-weight: bold; text-align: center;">
+                                EXTRANET DIMEXA
                             </td>
                         </tr>
                         <tr>
-                            <td style="font-size: 30px;color: #444444; font-weight: bold;">
-                                DIMEXA
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; padding: 40px 0px;">
-                                Gracias por ser parte de nuestra plataforma. Cuando inicies sesion recuerda que estas son tus
-                                credenciales
-                                para poder ingresar si tienes alguna duda puedes comunicarte con nosotros
+                            <td style="text-align: left; padding: 40px 0px;">
+                                Gracias por ser parte de nuestra plataforma. Cuando inicies sesión recuerda que éstas son tus
+                                credenciales para poder ingresar, si tienes alguna duda por favor comunícate con nosotros
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <table style="width: 100%;">
                                     <tr>
-                                        <td style="font-size: 20px;font-weight: bold;color: #8cad51;">USUARIOS:</td>
-                                        <td style="font-size: 18px;font-weight: bold;color: #5484b5; text-align: center;">
+                                        <td style="font-size: 20px;font-weight: bold;color: #8cad51;">USUARIO:</td>
+                                        <td style="font-size: 18px;font-weight: bold;text-align: center;">
                                         xxx</td>
                                     </tr>
                                     <tr>
                                         <td style="font-size: 20px;font-weight: bold;color: #8cad51;">CONTRASEÑA:</td>
-                                        <td style="font-size: 18px;font-weight: bold;color: #5484b5; text-align: center;">
+                                        <td style="font-size: 18px;font-weight: bold;text-align: center;">
                                         xxxx</td>
                                     </tr>
                                     <tr>
                                         <td colspan="2" style="padding-top: 60px;text-align: center;">
-                                            <a style="text-decoration: none;background-color: #5484b5;color: #FFFFFF;padding: 15px 30px;border-radius: 15px;font-size: 20px;font-weight: bold;"
-                                                href="">Ingresa a tu plataforma</a>
+                                            <a style="text-decoration: none;background-color: #5484b5;color: #FFFFFF;padding: 15px 30px;border-radius: 15px;font-weight: bold;" href='http://190.116.51.178/autenticacion/login'">Ingresa a tu plataforma</a>
                                         </td>
                                     </tr>
                                 </table>
