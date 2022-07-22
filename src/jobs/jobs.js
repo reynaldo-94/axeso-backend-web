@@ -5,52 +5,73 @@ export async function jobs() {
     console.log('Executing Jobs')
     try {
 
-        console.log('Executing load data Sellout por Periodo')
-        const dataSellout = await sequelize.query(
-            `select * from axeso.fn_cargar_sellout_por_periodo_actual()`,
-            { type: Sequelize.QueryTypes.SELECT }
+        console.log('Executing delete Sesion Usuario')
+        const deleteUsuarioSesion = await sequelize.query(
+            `DELETE FROM axeso.sesion WHERE usuarioid NOT IN (2877, 2876, 1148)`,
+            { type: Sequelize.QueryTypes.DELETE }
         );
-        console.log('Done Job Sellout por Periodo', dataSellout)
+        console.log('Done Job delete Sesion Usuario', deleteUsuarioSesion)
 
-        console.log('Executing load data SellIn')
-        const dataCompras = await sequelize.query(
-            `select * from axeso.fn_cargar_comprasingresos(null)`,
-            { type: Sequelize.QueryTypes.SELECT }
+        console.log('Executing delete Usuarios Lineas')
+        const deleteUsuarioLineas = await sequelize.query(
+            `DELETE FROM usuario_web WHERE usuarioid NOT IN (2877, 2876, 1148)`,
+            { type: Sequelize.QueryTypes.DELETE }
         );
-        console.log('Done Job Sellin', dataCompras)
+        console.log('Done Job delete Usuarios Lineas', deleteUsuarioLineas)
 
-        console.log('Executing load data Deuda Pendiente')
-        const dataDeudaPend = await sequelize.query(
-            `select * from axeso.fn_cargar_deuda_pendiente(null)`,
-            { type: Sequelize.QueryTypes.SELECT }
+        console.log('Executing delete Usuarios')
+        const deleteUsuario = await sequelize.query(
+            `DELETE FROM usuario_web WHERE usuarioid NOT IN (2877, 2876, 1148)`,
+            { type: Sequelize.QueryTypes.DELETE }
         );
-        console.log('Done Job Deuda Pendiente', dataDeudaPend)
+        console.log('Done Job delete Usuarios', deleteUsuario)        
 
-        console.log('Executing load data Detalle Ventas')
-        const dataDetalleVent = await sequelize.query(
-            `select * from axeso.fn_cargar_detalle_ventas(null)`,
-            { type: Sequelize.QueryTypes.SELECT }
-        );
-        console.log('Done Job Detalle Ventas', dataDetalleVent)
+        // console.log('Executing load data Sellout por Periodo')
+        // const dataSellout = await sequelize.query(
+        //     `select * from axeso.fn_cargar_sellout_por_periodo_actual()`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Sellout por Periodo', dataSellout)
 
-        console.log('Executing load data Antiguedad Inventario')
-        const dataAntigInv = await sequelize.query(
-            `select * from axeso.fn_cargar_antiguedad_inventario(null)`,
-            { type: Sequelize.QueryTypes.SELECT }
-        );
-        console.log('Done Job Antiguedad Inventario', dataAntigInv)
+        // console.log('Executing load data SellIn')
+        // const dataCompras = await sequelize.query(
+        //     `select * from axeso.fn_cargar_comprasingresos(null)`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Sellin', dataCompras)
 
-        console.log('Executing load data Dashboard')
-        const dataDashboard = await sequelize.query(
-            `select * from axeso.fn_cargar_dashboard(null)`,
-            { type: Sequelize.QueryTypes.SELECT }
-        );
-        console.log('Done Job Dashboard', dataDashboard)
+        // console.log('Executing load data Deuda Pendiente')
+        // const dataDeudaPend = await sequelize.query(
+        //     `select * from axeso.fn_cargar_deuda_pendiente(null)`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Deuda Pendiente', dataDeudaPend)
+
+        // console.log('Executing load data Detalle Ventas')
+        // const dataDetalleVent = await sequelize.query(
+        //     `select * from axeso.fn_cargar_detalle_ventas(null)`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Detalle Ventas', dataDetalleVent)
+
+        // console.log('Executing load data Antiguedad Inventario')
+        // const dataAntigInv = await sequelize.query(
+        //     `select * from axeso.fn_cargar_antiguedad_inventario(null)`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Antiguedad Inventario', dataAntigInv)
+
+        // console.log('Executing load data Dashboard')
+        // const dataDashboard = await sequelize.query(
+        //     `select * from axeso.fn_cargar_dashboard(null)`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Dashboard', dataDashboard)
         
-        await sequelize.query(
-            `INSERT INTO axeso.jobs_detalle(fecha_registro) VALUES (now() - interval '10 hour')`,
-            { type: Sequelize.QueryTypes.INSERT }
-        );
+        // await sequelize.query(
+        //     `INSERT INTO axeso.jobs_detalle(fecha_registro) VALUES (now() - interval '10 hour')`,
+        //     { type: Sequelize.QueryTypes.INSERT }
+        // );
         console.log('Insert en la tabla jobs_detalle');
     } catch (e) {
         console.log('Error in Jobs', e)
