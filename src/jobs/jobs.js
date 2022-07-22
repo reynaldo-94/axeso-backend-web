@@ -3,7 +3,7 @@ import { sequelize } from '../database/database';
 
 export async function jobs() {
     console.log('Executing Jobs')
-    try {
+    try {      
 
         console.log('Executing load data Sellout por Periodo')
         const dataSellout = await sequelize.query(
