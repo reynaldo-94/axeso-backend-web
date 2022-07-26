@@ -1241,6 +1241,7 @@ async function updateClaveEmailCreate(valuesToInsert) {
     console.log('correo: ', correo);
     console.log('passwordencrip: ', passwordencrip);
     console.log('password: ', password);
+    console.log('usuario: ', usuario);
     try {
         const found = await Usuario.findAll({
             attributes: ['usuarioid'],
@@ -1294,7 +1295,7 @@ async function updateClaveEmailCreate(valuesToInsert) {
                                         <tr>
                                             <td style="font-size: 20px;font-weight: bold;color: #8cad51;">USUARIO:</td>
                                             <td style="font-size: 18px;font-weight: bold;text-align: center;">
-                                            :email</td>
+                                            :usuario</td>
                                         </tr>
                                         <tr>
                                             <td style="font-size: 20px;font-weight: bold;color: #8cad51;">CONTRASEÑA:</td>
@@ -1316,7 +1317,7 @@ async function updateClaveEmailCreate(valuesToInsert) {
                 </tr>
             </table>
         `
-                .replaceAll(':email', correo)
+                .replaceAll(':usuario', usuario)
                 .replaceAll(':password', password)
                 .replaceAll(':url', `http://${process.env.DB_HOST_FRONT}/autenticacion/login`),
         };
