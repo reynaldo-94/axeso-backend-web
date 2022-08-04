@@ -39,13 +39,20 @@ export async function jobs() {
             { type: Sequelize.QueryTypes.DELETE }
         );
         console.log('Done Job delete Dashboard SellIn Sellout Mensual', deleteSellinout)
+
+        console.log('Executing load data Sellout Periodo Julio')
+        const dataSellout07 = await sequelize.query(
+            `select * from axeso.fn_cargar_sellout_por_periodo_actual(467,'07')`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Sellout Periodo Julio', dataSellout07)
         
-        console.log('Executing load data Sellout por Periodo')
+        console.log('Executing load data Sellout Periodo Actual')
         const dataSellout = await sequelize.query(
             `select * from axeso.fn_cargar_sellout_por_periodo_actual()`,
             { type: Sequelize.QueryTypes.SELECT }
         );
-        console.log('Done Job Sellout por Periodo', dataSellout)
+        console.log('Done Job Sellout Periodo Actual', dataSellout)
 
         console.log('Executing load data SellIn')
         const dataCompras = await sequelize.query(
