@@ -39,13 +39,6 @@ export async function jobs() {
             { type: Sequelize.QueryTypes.DELETE }
         );
         console.log('Done Job delete Dashboard SellIn Sellout Mensual', deleteSellinout)
-
-        console.log('Executing load data Sellout Periodo Julio')
-        const dataSellout07 = await sequelize.query(
-            `select * from axeso.fn_cargar_sellout_por_periodo_actual(467,'07')`,
-            { type: Sequelize.QueryTypes.SELECT }
-        );
-        console.log('Done Job Sellout Periodo Julio', dataSellout07)
         
         console.log('Executing load data Sellout Periodo Actual')
         const dataSellout = await sequelize.query(
@@ -68,19 +61,19 @@ export async function jobs() {
         );
         console.log('Done Job Deuda Pendiente', dataDeudaPend)
 
-        console.log('Executing load data Detalle Ventas')
-        const dataDetalleVent = await sequelize.query(
-            `select * from axeso.fn_cargar_detalle_ventas(null)`,
-            { type: Sequelize.QueryTypes.SELECT }
-        );
-        console.log('Done Job Detalle Ventas', dataDetalleVent)
+        // console.log('Executing load data Detalle Ventas')
+        // const dataDetalleVent = await sequelize.query(
+        //     `select * from axeso.fn_cargar_detalle_ventas(null)`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Detalle Ventas', dataDetalleVent)
 
-        console.log('Executing load data Antiguedad Inventario')
-        const dataAntigInv = await sequelize.query(
-            `select * from axeso.fn_cargar_antiguedad_inventario(null)`,
-            { type: Sequelize.QueryTypes.SELECT }
-        );
-        console.log('Done Job Antiguedad Inventario', dataAntigInv)
+        // console.log('Executing load data Antiguedad Inventario')
+        // const dataAntigInv = await sequelize.query(
+        //     `select * from axeso.fn_cargar_antiguedad_inventario(null)`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Antiguedad Inventario', dataAntigInv)
 
         console.log('Executing load data Dashboard')
         const dataDashboard = await sequelize.query(
