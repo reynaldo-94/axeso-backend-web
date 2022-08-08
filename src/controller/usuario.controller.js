@@ -1150,7 +1150,7 @@ export async function testSendEmail(req, res) {
             to: correo,
             subject: 'Extranet Dimexa - Servicio de creacion de contraseña',
             html: `
-            <table style="background-position: center;border: 2px solid #5484b5;border-radius: 15px;width: 600px; margin: auto;">
+            <table style="background-position: center;border: 2px solid #5484b5;border-radius: 15px;width: 600px;">
                 <tr>
                     <td>
                         <table style="width:500px;border-radius: 20px;background-color: #FFFFFF;margin: auto;">
@@ -1190,9 +1190,12 @@ export async function testSendEmail(req, res) {
                                         </tr>
                                         <tr>
                                             <td colspan="2" style="height: 80px;text-align: center;">
-                                                <a style="text-decoration: none;background-color: #5484b5;color: #FFFFFF;padding: 15px 30px;border-radius: 15px;font-weight: bold;"
-                                                    href='http://190.116.51.178/autenticacion/login' target="_blank">Ingresa a tu
-                                                    plataforma</a>
+                                                <a style="text-decoration: none;background-color: #5484b5;color: #FFFFFF;font-weight: bold;padding: 10px;"
+                                                    href='http://190.116.51.178/autenticacion/login' target="_blank">
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                                    Ingresa a tuplataforma
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                                </a>
                                             </td>
                                         </tr>
                                     </table>
