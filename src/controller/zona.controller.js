@@ -10,7 +10,7 @@ export async function getZonaBySedeSelect(req, res) {
         let xunidadnegocioid = null;
         if (unidadnegocioid == '') {
             let entidades = await Zona.sequelize.query(
-                "SELECT zonaid as id, nombre as descripcion FROM vzona WHERE activo;", {
+                "SELECT zonaid as id, nombre as descripcion FROM vzona WHERE bactivo = true;", {
                     type: Zona.sequelize.QueryTypes.SELECT,
                 });
 
@@ -26,7 +26,7 @@ export async function getZonaBySedeSelect(req, res) {
         } else if ((unidadnegocioid != null) || (unidadnegocioid != undefined)) {
             xunidadnegocioid = "'" + unidadnegocioid + "'";
             let entidades = await Zona.sequelize.query(
-                "SELECT zonaid as id, nombre as descripcion FROM vzona WHERE unidadnegocioid = " + xunidadnegocioid + " AND activo;", {
+                "SELECT zonaid as id, nombre as descripcion FROM vzona WHERE unidadnegocioid = " + xunidadnegocioid + " AND bactivo = true;", {
                     type: Zona.sequelize.QueryTypes.SELECT,
                 });
             if (entidades) {
@@ -40,7 +40,7 @@ export async function getZonaBySedeSelect(req, res) {
             }
         } else {
             let entidades = await Zona.sequelize.query(
-                "SELECT zonaid as id, nombre as descripcion FROM vzona WHERE activo;", {
+                "SELECT zonaid as id, nombre as descripcion FROM vzona WHERE bactivo = true;", {
                     type: Zona.sequelize.QueryTypes.SELECT,
                 });
 
