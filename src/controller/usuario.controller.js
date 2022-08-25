@@ -1149,63 +1149,75 @@ export async function testSendEmail(req, res) {
             from: 'contactadimexa@dimexa.com.pe',
             to: correo,
             subject: 'Extranet Dimexa - Servicio de creacion de contraseña',
-            html: `
-            <table style="background-position: center;border: 2px solid #5484b5;border-radius: 15px;width: 600px;">
-                <tr>
-                    <td>
-                        <table style="width:500px;border-radius: 20px;background-color: #FFFFFF;margin: auto;">
+            html: 
+            `<div>
+            <div style="background:#ffffff;background-color:#ffffff;margin:0px auto;max-width:600px;">
+              <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#ffffff;background-color:#ffffff;width:100%;">
+                <tbody>
+                  <tr>
+                    <td style="direction:ltr;font-size:0px;padding:20px 0px 20px 0px;text-align:center;"><!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:600px;" ><![endif]-->
+                      <div class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                          <tbody>
                             <tr>
-                                <td style="font-size: 30px;color: #8aaf4e; text-align: center;">
-                                    Bienvenido a la:
-                                </td>
+                              <td align="left" style="font-size:0px;padding:0px 25px 0px 25px;padding-top:0px;padding-bottom:0px;word-break:break-word;">
+                                <div style="font-family:Arial, sans-serif;font-size:14px;letter-spacing:normal;line-height:1;text-align:left;color:#000000;">
+                                  <p class="text-build-content" style="text-align: center; margin: 10px 0; margin-top: 10px;">
+                                    <span style="color:#8aaf4e;font-family:Arial, sans-serif;font-size:26px;">Bienvenido a la:</span>
+                                  </p>
+                                  <p class="text-build-content" style="text-align: center; margin: 10px 0;"><span style="color:#5484b5;font-family:Arial, sans-serif;font-size:26px;"><b>EXTRANET DIMEXA</b></span></p>
+                                  <p class="text-build-content" style="margin: 10px 0;"><span style="color:#55575d;font-family:Arial;font-size:14px;line-height:22px;"><hr /></span>
+                                  </p>
+                                  <p class="text-build-content" style="text-align: justify; margin: 10px 0;">
+                                    <span style="color:#55575d;font-family:Arial;font-size:15px;line-height:22px;">Gracias por ser parte de nuestra plataforma. Cuando inicies sesión recuerda que estas son tus credenciales para poder ingresar, si tienes alguna duda por favor comunicate con nosotros.</span>
+                                  </p>
+                                  <p class="text-build-content" style="margin: 10px 0;">&nbsp;</p>
+                                  <p class="text-build-content" style="margin: 10px 0;"><span style="color:#8aaf4e;font-family:Arial;font-size:15px;line-height:22px;"><b>USUARIO</b></span><span style="color:#55575d;font-family:Arial;font-size:15px;line-height:22px;">: <b>XXXXXXXX</b></span></p>
+                                  <p class="text-build-content" style="margin: 10px 0;"><span style="color:#8aaf4e;font-family:Arial;font-size:15px;line-height:22px;"><b>CONTRASEÑA</b></span><span style="color:#55575d;font-family:Arial;font-size:15px;line-height:22px;">: <b>XXXXXXXXXX</b></span></p>
+                                  <p class="text-build-content" style="margin: 10px 0; margin-bottom: 10px;">&nbsp;</p>
+                                </div>
+                              </td>
                             </tr>
-                            <tr>
-                                <td style="font-size: 30px;color: #5484b5; font-weight: bold; text-align: center;">
-                                    EXTRANET DIMEXA
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <hr style="height: 2px;width: 500px;background: #5484b5; border: 0;" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="text-align: left;height: 110px;">
-                                    Gracias por ser parte de nuestra plataforma. Cuando inicies sesión recuerda que éstas son tus
-                                    credenciales para poder ingresar, si tienes alguna duda por favor comunícate con nosotros
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <table style="width: 100%;">
-                                        <tr>
-                                            <td style="font-size: 20px;font-weight: bold;color: #8cad51;">USUARIO:</td>
-                                            <td style="font-size: 18px;font-weight: bold;text-align: center;">
-                                                xxx</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="font-size: 20px;font-weight: bold;color: #8cad51;">CONTRASEÑA:</td>
-                                            <td style="font-size: 18px;font-weight: bold;text-align: center;">
-                                                xxxx</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2" style="height: 80px;text-align: center;">
-                                                <a style="text-decoration: none;background-color: #5484b5;color: #FFFFFF;font-weight: bold;padding: 10px;"
-                                                    href='http://190.116.51.178/autenticacion/login' target="_blank">
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                                    Ingresa a tuplataforma
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
+                          </tbody>
                         </table>
+                      </div><!--[if mso | IE]></td></tr></table><![endif]-->
                     </td>
-                </tr>
-            </table>
-        `
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div style="background:#ffffff;background-color:#ffffff;margin:0px auto;max-width:600px;">
+              <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#ffffff;background-color:#ffffff;width:100%;">
+                <tbody>
+                  <tr>
+                    <td style="direction:ltr;font-size:0px;padding:20px 0;padding-bottom:0px;padding-top:0px;text-align:center;"><!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:600px;" ><![endif]-->
+                      <div class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                          <tbody>
+                            <tr>
+                              <td align="center" vertical-align="middle" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;line-height:100%;">
+                                  <tbody>
+                                    <tr>
+                                      <td align="center" bgcolor="#5484b5" role="presentation" style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:10px 25px;background:#5484b5;" valign="middle">
+                                        <a href="http://190.116.51.178/autenticacion/login" style="display:inline-block;background:#5484b5;color:#ffffff;font-family:Arial, sans-serif;font-size:15px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px;mso-padding-alt:0px;border-radius:3px;text-decoration: none;" target="_blank"><span style="font-size:15px;">Ingresa a tu plataforma</span>
+                                        </a>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div><!--[if mso | IE]></td></tr></table><![endif]-->
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+            `
         };
         await mail.sendMail(mailOptions, function (error, info) {
             if (error) {
@@ -1232,7 +1244,6 @@ export async function testSendEmail(req, res) {
         });
     }
 }
-
 
 async function updateClaveEmailCreate(valuesToInsert) {
 
@@ -1266,58 +1277,73 @@ async function updateClaveEmailCreate(valuesToInsert) {
             to: correo,
             subject: 'Servicio de creacion de contraseña',
             html: `
-        <table style="background-position: center;border: 2px solid #5484b5;border-radius: 15px;width: 600px; margin: auto;">
-                <tr>
-                    <td>
-                        <table style="width:500px;border-radius: 20px;background-color: #FFFFFF;margin: auto;">
+            <div>
+            <div style="background:#ffffff;background-color:#ffffff;margin:0px auto;max-width:600px;">
+              <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#ffffff;background-color:#ffffff;width:100%;">
+                <tbody>
+                  <tr>
+                    <td style="direction:ltr;font-size:0px;padding:20px 0px 20px 0px;text-align:center;"><!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:600px;" ><![endif]-->
+                      <div class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                          <tbody>
                             <tr>
-                                <td style="font-size: 30px;color: #8aaf4e; text-align: center;">
-                                    Bienvenido a la:
-                                </td>
+                              <td align="left" style="font-size:0px;padding:0px 25px 0px 25px;padding-top:0px;padding-bottom:0px;word-break:break-word;">
+                                <div style="font-family:Arial, sans-serif;font-size:14px;letter-spacing:normal;line-height:1;text-align:left;color:#000000;">
+                                  <p class="text-build-content" style="text-align: center; margin: 10px 0; margin-top: 10px;">
+                                    <span style="color:#8aaf4e;font-family:Arial, sans-serif;font-size:26px;">Bienvenido a la:</span>
+                                  </p>
+                                  <p class="text-build-content" style="text-align: center; margin: 10px 0;"><span style="color:#5484b5;font-family:Arial, sans-serif;font-size:26px;"><b>EXTRANET DIMEXA</b></span></p>
+                                  <p class="text-build-content" style="margin: 10px 0;"><span style="color:#55575d;font-family:Arial;font-size:14px;line-height:22px;"><hr /></span>
+                                  </p>
+                                  <p class="text-build-content" style="text-align: justify; margin: 10px 0;">
+                                    <span style="color:#55575d;font-family:Arial;font-size:15px;line-height:22px;">Gracias por ser parte de nuestra plataforma. Cuando inicies sesión recuerda que estas son tus credenciales para poder ingresar, si tienes alguna duda por favor comunicate con nosotros.</span>
+                                  </p>
+                                  <p class="text-build-content" style="margin: 10px 0;">&nbsp;</p>
+                                  <p class="text-build-content" style="margin: 10px 0;"><span style="color:#8aaf4e;font-family:Arial;font-size:15px;line-height:22px;"><b>USUARIO</b></span><span style="color:#55575d;font-family:Arial;font-size:15px;line-height:22px;">: <b>:usuario</b></span></p>
+                                  <p class="text-build-content" style="margin: 10px 0;"><span style="color:#8aaf4e;font-family:Arial;font-size:15px;line-height:22px;"><b>CONTRASEÑA</b></span><span style="color:#55575d;font-family:Arial;font-size:15px;line-height:22px;">: <b>:password</b></span></p>
+                                  <p class="text-build-content" style="margin: 10px 0; margin-bottom: 10px;">&nbsp;</p>
+                                </div>
+                              </td>
                             </tr>
-                            <tr>
-                                <td style="font-size: 30px;color: #5484b5; font-weight: bold; text-align: center;">
-                                    EXTRANET DIMEXA
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <hr style="height: 2px;width: 500px;background: #5484b5; border: 0;" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="text-align: left;height: 110px;">
-                                    Gracias por ser parte de nuestra plataforma. Cuando inicies sesión recuerda que éstas son tus
-                                    credenciales para poder ingresar, si tienes alguna duda por favor comunícate con nosotros
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <table style="width: 100%;">
-                                        <tr>
-                                            <td style="font-size: 20px;font-weight: bold;color: #8cad51;">USUARIO:</td>
-                                            <td style="font-size: 18px;font-weight: bold;text-align: center;">
-                                            :usuario</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="font-size: 20px;font-weight: bold;color: #8cad51;">CONTRASEÑA:</td>
-                                            <td style="font-size: 18px;font-weight: bold;text-align: center;">
-                                            :password</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2" style="height: 80px;text-align: center;">
-                                                <a style="text-decoration: none;background-color: #5484b5;color: #FFFFFF;padding: 15px 30px;border-radius: 15px;font-weight: bold;"
-                                                    href=':url' target="_blank">Ingresa a tu
-                                                    plataforma</a>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
+                          </tbody>
                         </table>
+                      </div><!--[if mso | IE]></td></tr></table><![endif]-->
                     </td>
-                </tr>
-            </table>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div style="background:#ffffff;background-color:#ffffff;margin:0px auto;max-width:600px;">
+              <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#ffffff;background-color:#ffffff;width:100%;">
+                <tbody>
+                  <tr>
+                    <td style="direction:ltr;font-size:0px;padding:20px 0;padding-bottom:0px;padding-top:0px;text-align:center;"><!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:600px;" ><![endif]-->
+                      <div class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+                          <tbody>
+                            <tr>
+                              <td align="center" vertical-align="middle" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;line-height:100%;">
+                                  <tbody>
+                                    <tr>
+                                      <td align="center" bgcolor="#5484b5" role="presentation" style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:10px 25px;background:#5484b5;" valign="middle">
+                                        <a href=":url" style="display:inline-block;background:#5484b5;color:#ffffff;font-family:Arial, sans-serif;font-size:15px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px;mso-padding-alt:0px;border-radius:3px;text-decoration: none;" target="_blank"><span style="font-size:15px;">Ingresa a tu plataforma</span>
+                                        </a>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div><!--[if mso | IE]></td></tr></table><![endif]-->
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         `
                 .replaceAll(':usuario', usuario)
                 .replaceAll(':password', password)
