@@ -1,5 +1,5 @@
 import IndicadorServicioFillRate from "../models/indicadoresservicios_fillrate.model";
-// import IndicadorServicioLeadTime from "../models/indicadoresservicios_leadtime.model";
+import IndicadorServicioLeadTime from "../models/indicadoresservicios_leadtime.model";
 // import IndicadorServicioDiasInventario from "../models/indicadoresservicios_diasinventario.model";
 // import IndicadorServicioInvFueraPlazo from "../models/indicadoresservicios_invfueraplazo.model";
 import { Op } from 'sequelize';
