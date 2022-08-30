@@ -31,11 +31,11 @@ export async function getIndicadoresServicio(req, res) {
         //     }
         // });
 
-        // let entidadesLeadTime = await IndicadorServicioLeadTime.findAll({
-        //     where: {
-        //         [Op.and]: IndicadorServicioLeadTime.sequelize.literal("idproveedor = '" + p_proveedorid + "' AND anio = '" + p_anioid + "'")
-        //     }
-        // });
+        let entidadesLeadTime = await IndicadorServicioLeadTime.findAll({
+            where: {
+                [Op.and]: IndicadorServicioLeadTime.sequelize.literal("idproveedor = '" + p_proveedorid + "' AND anio = '" + p_anioid + "'")
+            }
+        });
 
         // let entidadesInvFueraPlazo = await IndicadorServicioInvFueraPlazo.findAll({
         //     where: {
@@ -51,7 +51,7 @@ export async function getIndicadoresServicio(req, res) {
                 table_dias_inventario: []
             },
             lead_time: {
-                table_lead_time: []
+                table_lead_time: entidadesLeadTime
             },
             inventario_fueraplazo: {
                 table_inventario_fueraplazo: []
@@ -59,7 +59,7 @@ export async function getIndicadoresServicio(req, res) {
 
         }
 
-        if (entidadesFillRate) {
+        if (entidadesFillRate && entidadesLeadTime) {
             return res.status(200).json({
                 data: responseFormat
             });
