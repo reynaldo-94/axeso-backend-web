@@ -1,6 +1,6 @@
 import IndicadorServicioFillRate from "../models/indicadoresservicios_fillrate.model";
 import IndicadorServicioLeadTime from "../models/indicadoresservicios_leadtime.model";
-// import IndicadorServicioDiasInventario from "../models/indicadoresservicios_diasinventario.model";
+import IndicadorServicioDiasInventario from "../models/indicadoresservicios_diasinventario.model";
 // import IndicadorServicioInvFueraPlazo from "../models/indicadoresservicios_invfueraplazo.model";
 import { Op } from 'sequelize';
 
@@ -25,11 +25,11 @@ export async function getIndicadoresServicio(req, res) {
             }
         }); 
 
-        // let entidadesDiasInventario = await IndicadorServicioDiasInventario.findAll({
-        //     where: {
-        //         [Op.and]: IndicadorServicioDiasInventario.sequelize.literal("idproveedor = '" + p_proveedorid + "' AND anio = '" + p_anioid + "'")
-        //     }
-        // });
+        let entidadesDiasInventario = await IndicadorServicioDiasInventario.findAll({
+            where: {
+                [Op.and]: IndicadorServicioDiasInventario.sequelize.literal("idproveedor = '" + p_proveedorid + "' AND anio = '" + p_anioid + "'")
+            }
+        });
 
         let entidadesLeadTime = await IndicadorServicioLeadTime.findAll({
             where: {
@@ -48,7 +48,7 @@ export async function getIndicadoresServicio(req, res) {
                 table_fill_rate: entidadesFillRate
             },
             dias_inventario: {
-                table_dias_inventario: []
+                table_dias_inventario: entidadesDiasInventario
             },
             lead_time: {
                 table_lead_time: entidadesLeadTime
@@ -59,7 +59,7 @@ export async function getIndicadoresServicio(req, res) {
 
         }
 
-        if (entidadesFillRate && entidadesLeadTime) {
+        if (entidadesFillRate && entidadesDiasInventario && entidadesLeadTime) {
             return res.status(200).json({
                 data: responseFormat
             });
