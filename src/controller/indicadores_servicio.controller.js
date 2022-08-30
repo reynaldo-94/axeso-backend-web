@@ -19,11 +19,11 @@ export async function getIndicadoresServicio(req, res) {
             return res.status(200).json("Valor de año es obligatorio");
         }
 
-        let entidadesFillRate = await IndicadorServicioFillRate.findAll({
-            where: {
-                [Op.and]: IndicadorServicioFillRate.sequelize.literal("idproveedor = '" + p_proveedorid + "' AND anio = '" + p_anioid + "'")
-            }
-        }); 
+        // let entidadesFillRate = await IndicadorServicioFillRate.findAll({
+        //     where: {
+        //         [Op.and]: IndicadorServicioFillRate.sequelize.literal("idproveedor = '" + p_proveedorid + "' AND anio = '" + p_anioid + "'")
+        //     }
+        // }); 
 
         let entidadesDiasInventario = await IndicadorServicioDiasInventario.findAll({
             where: {
@@ -31,35 +31,35 @@ export async function getIndicadoresServicio(req, res) {
             }
         });
 
-        let entidadesLeadTime = await IndicadorServicioLeadTime.findAll({
-            where: {
-                [Op.and]: IndicadorServicioLeadTime.sequelize.literal("idproveedor = '" + p_proveedorid + "' AND anio = '" + p_anioid + "'")
-            }
-        });
+        // let entidadesLeadTime = await IndicadorServicioLeadTime.findAll({
+        //     where: {
+        //         [Op.and]: IndicadorServicioLeadTime.sequelize.literal("idproveedor = '" + p_proveedorid + "' AND anio = '" + p_anioid + "'")
+        //     }
+        // });
 
-        let entidadesInvFueraPlazo = await IndicadorServicioInvFueraPlazo.findAll({
-            where: {
-                [Op.and]: IndicadorServicioInvFueraPlazo.sequelize.literal("idproveedor = '" + p_proveedorid + "' AND anio = '" + p_anioid + "'")
-            }
-        })        
+        // let entidadesInvFueraPlazo = await IndicadorServicioInvFueraPlazo.findAll({
+        //     where: {
+        //         [Op.and]: IndicadorServicioInvFueraPlazo.sequelize.literal("idproveedor = '" + p_proveedorid + "' AND anio = '" + p_anioid + "'")
+        //     }
+        // })        
 
         const responseFormat = {
             fill_rate: {
-                table_fill_rate: entidadesFillRate
+                table_fill_rate: []
             },
             dias_inventario: {
                 table_dias_inventario: entidadesDiasInventario
             },
             lead_time: {
-                table_lead_time: entidadesLeadTime
+                table_lead_time: []
             },
             inventario_fueraplazo: {
-                table_inventario_fueraplazo: entidadesInvFueraPlazo
+                table_inventario_fueraplazo: []
             }
 
         }
 
-        if (entidadesFillRate && entidadesDiasInventario && entidadesLeadTime && entidadesInvFueraPlazo) {
+        if (entidadesDiasInventario) {
             return res.status(200).json({
                 data: responseFormat
             });
