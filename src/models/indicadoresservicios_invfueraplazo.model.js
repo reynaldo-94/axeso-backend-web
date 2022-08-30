@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize';
 import { sequelize } from '../database/database-bi';
 
-const IndicadoresServicioInvFueraPlazo = sequelize.define('indicadoresservicios_invfueraplazo', {
+const IndicadorServicioInvFueraPlazo = sequelize.define('indicadorservicio_invfueraplazo', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true
@@ -31,9 +31,9 @@ const IndicadoresServicioInvFueraPlazo = sequelize.define('indicadoresservicios_
         type: Sequelize.STRING
     },
 }, {
-    tableName: 'indicadoresservicios_invfueraplazo',
+    tableName: 'indicadorservicio_invfueraplazo',
     freezeTableName: true,
     timestamps: false
 });
 
-export default IndicadoresServicioInvFueraPlazo
+export default IndicadorServicioInvFueraPlazo

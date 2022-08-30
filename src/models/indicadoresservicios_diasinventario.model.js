@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize';
 import { sequelize } from '../database/database-bi';
 
-const IndicadoresServicioDiasInventario = sequelize.define('indicadorservicio_diasinventario', {
+const IndicadorServicioDiasInventario = sequelize.define('indicadorservicio_diasinventario', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true
@@ -36,4 +36,4 @@ const IndicadoresServicioDiasInventario = sequelize.define('indicadorservicio_di
     timestamps: false
 });
 
-export default IndicadoresServicioDiasInventario
+export default IndicadorServicioDiasInventario

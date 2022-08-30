@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize';
 import { sequelize } from '../database/database';
 
-const IndicadoresServicioLeadTime = sequelize.define('indicadoresservicio_leadtime', {
+const IndicadorServicioLeadTime = sequelize.define('indicadorservicio_leadtime', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true
@@ -33,4 +33,4 @@ const IndicadoresServicioLeadTime = sequelize.define('indicadoresservicio_leadti
     timestamps: false
 });
 
-export default IndicadoresServicioLeadTime
+export default IndicadorServicioLeadTime

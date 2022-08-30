@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize';
 import { sequelize } from '../database/database';
 
-const IndicadoresServicioFillRate = sequelize.define('indicadoresservicio_fillrate', {
+const IndicadorServicioFillRate = sequelize.define('indicadorservicio_fillrate', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true
@@ -24,8 +24,9 @@ const IndicadoresServicioFillRate = sequelize.define('indicadoresservicio_fillra
     num_target: {
         type: Sequelize.STRING
     },
-    cantidad_pedida: {
-        type: Sequelize.FLOAT
+    cantidad_perdida: {
+        type: Sequelize.FLOAT,
+        field: "cantidad_pedida"
     },
     cantidad_ingresada: {
         type: Sequelize.FLOAT
@@ -39,4 +40,4 @@ const IndicadoresServicioFillRate = sequelize.define('indicadoresservicio_fillra
     timestamps: false
 });
 
-export default IndicadoresServicioFillRate
+export default IndicadorServicioFillRate

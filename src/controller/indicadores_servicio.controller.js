@@ -1,7 +1,8 @@
-import IndicadoresServicioFillRate from "../models/indicadoresservicios_fillrate.model";
-import IndicadoresServicioLeadTime from "../models/indicadoresservicios_leadtime.model";
-import IndicadoresServicioDiasInventario from "../models/indicadoresservicios_diasinventario.model";
-import IndicadoresServicioInvFueraPlazo from "../models/indicadoresservicios_invfueraplazo.model";
+import IndicadorServicioFillRate from "../models/indicadoresservicios_fillrate.model";
+import IndicadorServicioLeadTime from "../models/indicadoresservicios_leadtime.model";
+import IndicadorServicioDiasInventario from "../models/indicadoresservicios_diasinventario.model";
+import IndicadorServicioInvFueraPlazo from "../models/indicadoresservicios_invfueraplazo.model";
+import { Op } from 'sequelize';
 
 export async function getIndicadoresServicio(req, res) {
     const {
@@ -18,26 +19,29 @@ export async function getIndicadoresServicio(req, res) {
             return res.status(200).json("Valor de año es obligatorio");
         }
 
-        const entidadesFillRate = await IndicadoresServicioFillRate.sequelize.query(
-            `select * from axeso.indicadorservicio_fillrate where idproveedor = '${p_proveedorid}' AND anio = '${p_anioid}'`,
-            { type: IndicadoresServicioFillRate.sequelize.QueryTypes.SELECT }
-        );
+        let entidadesFillRate = await IndicadorServicioFillRate.findAll({
+            where: {
+                [Op.and]: IndicadorServicioFillRate.sequelize.literal("idproveedor = '" + p_proveedorid + "' AND anio = '" + p_anioid + "'")
+            }
+        }); 
 
-        const entidadesDiasInventario = await IndicadoresServicioDiasInventario.sequelize.query(
-            `select * from public.indicadorservicio_diasinventario where idproveedor = '${p_proveedorid}' AND anio = '${p_anioid}'`,
-            { type: IndicadoresServicioDiasInventario.sequelize.QueryTypes.SELECT }
-        );
+        let entidadesDiasInventario = await IndicadorServicioDiasInventario.findAll({
+            where: {
+                [Op.and]: IndicadorServicioDiasInventario.sequelize.literal("idproveedor = '" + p_proveedorid + "' AND anio = '" + p_anioid + "'")
+            }
+        });
 
-        let entidadesLeadTime = await IndicadoresServicioLeadTime.sequelize.query(
-            `select * from axeso.indicadorservicio_leadtime where idproveedor = '${p_proveedorid}' AND anio = '${p_anioid}'`,
-            { type: IndicadoresServicioLeadTime.sequelize.QueryTypes.SELECT }
-        );
-        
-        let entidadesInvFueraPlazo = await IndicadoresServicioInvFueraPlazo.sequelize.query(
-            `select * from public.indicadorservicio_invfueraplazo where idproveedor = '${p_proveedorid}' AND anio = '${p_anioid}'`,
-            { type: IndicadoresServicioInvFueraPlazo.sequelize.QueryTypes.SELECT }
-        );
-        
+        let entidadesLeadTime = await IndicadorServicioLeadTime.findAll({
+            where: {
+                [Op.and]: IndicadorServicioLeadTime.sequelize.literal("idproveedor = '" + p_proveedorid + "' AND anio = '" + p_anioid + "'")
+            }
+        });
+
+        let entidadesInvFueraPlazo = await IndicadorServicioInvFueraPlazo.findAll({
+            where: {
+                [Op.and]: IndicadorServicioInvFueraPlazo.sequelize.literal("idproveedor = '" + p_proveedorid + "' AND anio = '" + p_anioid + "'")
+            }
+        })        
 
         const responseFormat = {
             fill_rate: {
