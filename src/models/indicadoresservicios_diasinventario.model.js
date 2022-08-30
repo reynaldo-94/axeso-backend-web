@@ -1,14 +1,21 @@
 import Sequelize from 'sequelize';
-import { sequelize } from '../database/database';
+import { sequelize } from '../database/database-bi';
 
-const IndicadoresServicioDiasInventario = sequelize.define('indicadoresservicio_diasinventario', {
+const IndicadoresServicioDiasInventario = sequelize.define('indicadorservicio_diasinventario', {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true
+    },
+    idproveedor: {
+        type: Sequelize.STRING
+    },
     anio: {
         type: Sequelize.STRING
     },
-    mesid: {
+    idmes: {
         type: Sequelize.INTEGER
     },
-    mesnom: {
+    mes: {
         type: Sequelize.STRING
     },
     num_target: {
@@ -16,8 +23,7 @@ const IndicadoresServicioDiasInventario = sequelize.define('indicadoresservicio_
     },
     inventario_final: {
         type: Sequelize.FLOAT
-    },
-    
+    },    
     costo_venta: {
         type: Sequelize.FLOAT
     },
@@ -25,6 +31,7 @@ const IndicadoresServicioDiasInventario = sequelize.define('indicadoresservicio_
         type: Sequelize.INTEGER
     },
 }, {
+    tableName: 'indicadorservicio_diasinventario',
     freezeTableName: true,
     timestamps: false
 });

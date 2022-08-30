@@ -2,16 +2,29 @@ import Sequelize from 'sequelize';
 import { sequelize } from '../database/database';
 
 const IndicadoresServicioFillRate = sequelize.define('indicadoresservicio_fillrate', {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true
+    },
+    idproveedor: {
+        type: Sequelize.STRING
+    },
+    idperiodo: {
+        type: Sequelize.INTEGER 
+    },
     anio: {
         type: Sequelize.STRING
     },
-    mesid: {
+    idmes: {
         type: Sequelize.INTEGER
     },
-    mesnom: {
+    mes: {
         type: Sequelize.STRING
     },
-    cantidad_perdida: {
+    num_target: {
+        type: Sequelize.STRING
+    },
+    cantidad_pedida: {
         type: Sequelize.FLOAT
     },
     cantidad_ingresada: {
@@ -21,6 +34,7 @@ const IndicadoresServicioFillRate = sequelize.define('indicadoresservicio_fillra
         type: Sequelize.STRING
     },
 }, {
+    tableName: 'indicadorservicio_fillrate',
     freezeTableName: true,
     timestamps: false
 });

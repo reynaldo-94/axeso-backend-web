@@ -18,32 +18,25 @@ export async function getIndicadoresServicio(req, res) {
             return res.status(200).json("Valor de año es obligatorio");
         }
 
-        console.log('proveedorid', p_proveedorid)
-        console.log('anioid', p_anioid)
+        const entidadesFillRate = await IndicadoresServicioFillRate.sequelize.query(
+            `select * from axeso.indicadorservicio_fillrate where idproveedor = '${p_proveedorid}' AND anio = '${p_anioid}'`,
+            { type: IndicadoresServicioFillRate.sequelize.QueryTypes.SELECT }
+        );
 
-        let entidadesFillRate = await IndicadoresServicioFillRate.sequelize.query(
-            "SELECT * FROM fn_get_indicadores_servicios_fillrate('" + p_proveedorid + "','" + p_anioid + "')", {
-                type: IndicadoresServicioFillRate.sequelize.QueryTypes.SELECT,
-            });
-        
-        console.log('entidadesFillRate', entidadesFillRate)
-
-        let entidadesDiasInventario = await IndicadoresServicioDiasInventario.sequelize.query(
-            "SELECT * FROM fn_get_indicadores_servicios_diasinventario('" + p_proveedorid + "','" + p_anioid + "')", {
-                type: IndicadoresServicioDiasInventario.sequelize.QueryTypes.SELECT,
-            });
+        const entidadesDiasInventario = await IndicadoresServicioDiasInventario.sequelize.query(
+            `select * from public.indicadorservicio_diasinventario where idproveedor = '${p_proveedorid}' AND anio = '${p_anioid}'`,
+            { type: IndicadoresServicioDiasInventario.sequelize.QueryTypes.SELECT }
+        );
 
         let entidadesLeadTime = await IndicadoresServicioLeadTime.sequelize.query(
-            "SELECT * FROM fn_get_indicadores_servicios_leadtime('" + p_proveedorid + "','" + p_anioid + "')", {
-                type: IndicadoresServicioLeadTime.sequelize.QueryTypes.SELECT,
-            });
+            `select * from axeso.indicadorservicio_leadtime where idproveedor = '${p_proveedorid}' AND anio = '${p_anioid}'`,
+            { type: IndicadoresServicioLeadTime.sequelize.QueryTypes.SELECT }
+        );
         
         let entidadesInvFueraPlazo = await IndicadoresServicioInvFueraPlazo.sequelize.query(
-            "SELECT * FROM fn_get_indicadores_servicios_inventariofueraplazo('" + p_proveedorid + "','" + p_anioid + "')", {
-                type: IndicadoresServicioInvFueraPlazo.sequelize.QueryTypes.SELECT,
-            });
-        
-        console.log('entidadesInvFueraPlazo', entidadesInvFueraPlazo)       
+            `select * from public.indicadorservicio_invfueraplazo where idproveedor = '${p_proveedorid}' AND anio = '${p_anioid}'`,
+            { type: IndicadoresServicioInvFueraPlazo.sequelize.QueryTypes.SELECT }
+        );
         
 
         const responseFormat = {
@@ -62,7 +55,7 @@ export async function getIndicadoresServicio(req, res) {
 
         }
 
-        if (entidadesFillRate && entidadesLeadTime) {
+        if (entidadesFillRate && entidadesDiasInventario && entidadesLeadTime && entidadesInvFueraPlazo) {
             return res.status(200).json({
                 data: responseFormat
             });

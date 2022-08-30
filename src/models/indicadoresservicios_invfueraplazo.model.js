@@ -1,14 +1,21 @@
 import Sequelize from 'sequelize';
-import { sequelize } from '../database/database';
+import { sequelize } from '../database/database-bi';
 
 const IndicadoresServicioInvFueraPlazo = sequelize.define('indicadoresservicios_invfueraplazo', {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true
+    },
+    idproveedor: {
+        type: Sequelize.STRING
+    },
     anio: {
         type: Sequelize.STRING
     },
-    mesid: {
+    idmes: {
         type: Sequelize.INTEGER
     },
-    mesnom: {
+    mes: {
         type: Sequelize.STRING
     },
     target_fp: {
@@ -24,6 +31,7 @@ const IndicadoresServicioInvFueraPlazo = sequelize.define('indicadoresservicios_
         type: Sequelize.STRING
     },
 }, {
+    tableName: 'indicadoresservicios_invfueraplazo',
     freezeTableName: true,
     timestamps: false
 });
