@@ -1,7 +1,9 @@
 // import IndicadorServicioFillRate from "../models/indicadoresservicios_fillrate.model";
 // import IndicadorServicioLeadTime from "../models/indicadoresservicios_leadtime.model";
-import IndicadorServicioDiasInventario from "../models/indicadoresservicios_diasinventario.model";
+import Inventario from "../models/bi_inventario.model";
 // import IndicadorServicioInvFueraPlazo from "../models/indicadoresservicios_invfueraplazo.model";
+
+import IndicadorServicioDiasInventario from "../models/indicadoresservicios_diasinventario.model";
 import { Op } from 'sequelize';
 
 export async function getIndicadoresServicio(req, res) {
@@ -25,11 +27,17 @@ export async function getIndicadoresServicio(req, res) {
         //     }
         // }); 
 
-        let entidadesDiasInventario = await IndicadorServicioDiasInventario.findAll({
-            where: {
-                [Op.and]: IndicadorServicioDiasInventario.sequelize.literal("idproveedor = '" + p_proveedorid + "' AND anio = '" + p_anioid + "'")
-            }
-        });
+        let entidadesDiasInventario = await Inventario.sequelize.query(
+            "select * from public.inventario limit 3", {
+                type: Inventario.sequelize.QueryTypes.SELECT,
+            });
+        console.log('entidadesDiasInventario', entidadesDiasInventario)
+
+        // let entidadesDiasInventario = await IndicadorServicioDiasInventario.findAll({
+        //     where: {
+        //         [Op.and]: IndicadorServicioDiasInventario.sequelize.literal("idproveedor = '" + p_proveedorid + "' AND anio = '" + p_anioid + "'")
+        //     }
+        // });
 
         // let entidadesLeadTime = await IndicadorServicioLeadTime.findAll({
         //     where: {
