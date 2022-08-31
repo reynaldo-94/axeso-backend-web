@@ -32,6 +32,7 @@ const IndicadorServicioDiasInventario = sequelize.define('indicadorservicio_dias
     },
 }, {
     tableName: 'indicadorservicio_diasinventario',
+    schema: 'public',
     freezeTableName: true,
     timestamps: false
 });
