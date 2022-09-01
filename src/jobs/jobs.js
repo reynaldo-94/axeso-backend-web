@@ -5,6 +5,13 @@ export async function jobs() {
     console.log('Executing Jobs')
     try {
 
+        console.log('Executing load data Sellout Periodo Agosto 2022')
+        const dataSellout_07 = await sequelize.query(
+            `select * from axeso.fn_cargar_sellout_por_periodo_actual('468','08')`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Sellout Periodo Agosto 2022', dataSellout_07)
+
         console.log('Executing delete Dashboard Sellout Cobertura')
         const deleteSellCob = await sequelize.query(
             `delete from axeso.dashboard_sellout_cobertura`,
