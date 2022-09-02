@@ -96,7 +96,7 @@ export async function getAlmacenUnidadNegocioSelect(req, res) {
     try {
         const { id } = req.query;
         let almacen = await Almacen.sequelize.query(
-            "SELECT almacenid as id, nombre as descripcion FROM valmacen WHERE  para_web = true and unidadnegocioid = '" + id + "';", {
+            "SELECT almacenid as id, nombre as descripcion FROM valmacen WHERE para_web = true and unidadnegocioid = '" + id + "';", {
                 type: Almacen.sequelize.QueryTypes.SELECT,
             });
         console.log(almacen)
@@ -122,7 +122,7 @@ export async function getAlmacenUnidadNegocioSelectListByVenc(req, res) {
             xid = "'" + id.join("','") + "'";
         }
         let almacen = await Almacen.sequelize.query(
-            "SELECT idalmacen as id, nomalmacen as descripcion FROM public.almacen WHERE bactivo = true and idunineg in (" + xid + ");", {
+            "SELECT almacenid as id, nombre as descripcion FROM valmacen WHERE para_web = true and unidadnegocioid in (" + xid + ");", {
                 type: Almacen.sequelize.QueryTypes.SELECT,
             });
         if (almacen) {
@@ -150,7 +150,7 @@ export async function getAlmacenUnidadNegocioSelectList(req, res) {
 
 
         let almacen = await Almacen.sequelize.query(
-            "SELECT almacenid as id, nombre as descripcion FROM valmacen WHERE  para_web = true and unidadnegocioid in (" + xid + ");", {
+            "SELECT almacenid as id, nombre as descripcion FROM valmacen WHERE para_web = true and bventa = true and unidadnegocioid in (" + xid + ");", {
                 type: Almacen.sequelize.QueryTypes.SELECT,
             });
 
