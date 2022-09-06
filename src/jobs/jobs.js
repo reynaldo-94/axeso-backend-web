@@ -25,6 +25,20 @@ export async function jobs() {
             { type: Sequelize.QueryTypes.SELECT }
         );
         console.log('Done Job Dashboard', dataDashboard)
+
+        console.log('Executing load data Indicadores Servicios Axeso 2021')
+        const dataIndSrvAxeso2021 = await sequelize.query(
+            `select * from axeso.fn_cargar_indicadorservicio(null,'2021','SI')`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Indicadores Servicios Axeso 2021', dataIndSrvAxeso2021)
+
+        console.log('Executing load data Indicadores Servicios Axeso 2022')
+        const dataIndSrvAxeso2022 = await sequelize.query(
+            `select * from axeso.fn_cargar_indicadorservicio(null,'2022','SI')`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Indicadores Servicios Axeso 2022', dataIndSrvAxeso2022)
         
         await sequelize.query(
             `INSERT INTO axeso.jobs_detalle(fecha_registro) VALUES (now() - interval '10 hour')`,
