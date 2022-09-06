@@ -1,8 +1,6 @@
-// import IndicadorServicioFillRate from "../models/indicadoresservicios_fillrate.model";
-// import IndicadorServicioLeadTime from "../models/indicadoresservicios_leadtime.model";
-import Inventario from "../models/bi_inventario.model";
-// import IndicadorServicioInvFueraPlazo from "../models/indicadoresservicios_invfueraplazo.model";
-
+import IndicadorServicioFillRate from "../models/indicadoresservicios_fillrate.model";
+import IndicadorServicioLeadTime from "../models/indicadoresservicios_leadtime.model";
+import IndicadorServicioInvFueraPlazo from "../models/indicadoresservicios_invfueraplazo.model";
 import IndicadorServicioDiasInventario from "../models/indicadoresservicios_diasinventario.model";
 import { Op } from 'sequelize';
 
@@ -20,48 +18,42 @@ export async function getIndicadoresServicio(req, res) {
         return res.status(200).json("Valor de año es obligatorio");
     }
 
-    // let entidadesFillRate = await IndicadorServicioFillRate.findAll({
-    //     where: {
-    //         [Op.and]: IndicadorServicioFillRate.sequelize.literal("idproveedor = '" + p_proveedorid + "' AND anio = '" + p_anioid + "'")
-    //     }
-    // }); 
+    let entidadesFillRate = await IndicadorServicioFillRate.findAll({
+        where: {
+            [Op.and]: IndicadorServicioFillRate.sequelize.literal("idproveedor = '" + p_proveedorid + "' AND anio = '" + p_anioid + "'")
+        }
+    });
 
-    let entidadesDiasInventario = await Inventario.sequelize.query(
-        "select * from public.inventario limit 3", {
-            type: Inventario.sequelize.QueryTypes.SELECT,
-        });
-    console.log('entidadesDiasInventario', entidadesDiasInventario)
+    let entidadesDiasInventario = await IndicadorServicioDiasInventario.findAll({
+        where: {
+            [Op.and]: IndicadorServicioDiasInventario.sequelize.literal("idproveedor = '" + p_proveedorid + "' AND anio = '" + p_anioid + "'")
+        }
+    });
 
-    // let entidadesDiasInventario = await IndicadorServicioDiasInventario.findAll({
-    //     where: {
-    //         [Op.and]: IndicadorServicioDiasInventario.sequelize.literal("idproveedor = '" + p_proveedorid + "' AND anio = '" + p_anioid + "'")
-    //     }
-    // });
+    let entidadesLeadTime = await IndicadorServicioLeadTime.findAll({
+        where: {
+            [Op.and]: IndicadorServicioLeadTime.sequelize.literal("idproveedor = '" + p_proveedorid + "' AND anio = '" + p_anioid + "'")
+        }
+    });
 
-    // let entidadesLeadTime = await IndicadorServicioLeadTime.findAll({
-    //     where: {
-    //         [Op.and]: IndicadorServicioLeadTime.sequelize.literal("idproveedor = '" + p_proveedorid + "' AND anio = '" + p_anioid + "'")
-    //     }
-    // });
-
-    // let entidadesInvFueraPlazo = await IndicadorServicioInvFueraPlazo.findAll({
-    //     where: {
-    //         [Op.and]: IndicadorServicioInvFueraPlazo.sequelize.literal("idproveedor = '" + p_proveedorid + "' AND anio = '" + p_anioid + "'")
-    //     }
-    // })        
+    let entidadesInvFueraPlazo = await IndicadorServicioInvFueraPlazo.findAll({
+        where: {
+            [Op.and]: IndicadorServicioInvFueraPlazo.sequelize.literal("idproveedor = '" + p_proveedorid + "' AND anio = '" + p_anioid + "'")
+        }
+    })        
 
     const responseFormat = {
         fill_rate: {
-            table_fill_rate: []
+            table_fill_rate: entidadesFillRate
         },
         dias_inventario: {
             table_dias_inventario: entidadesDiasInventario
         },
         lead_time: {
-            table_lead_time: []
+            table_lead_time: entidadesLeadTime
         },
         inventario_fueraplazo: {
-            table_inventario_fueraplazo: []
+            table_inventario_fueraplazo: entidadesInvFueraPlazo
         }
 
     }
