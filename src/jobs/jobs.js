@@ -5,26 +5,26 @@ export async function jobs() {
     console.log('Executing Jobs')
     try {
         
-        console.log('Executing load data Sellout Periodo Actual')
-        const dataSellout = await sequelize.query(
-            `select * from axeso.fn_cargar_sellout_por_periodo_actual()`,
-            { type: Sequelize.QueryTypes.SELECT }
-        );
-        console.log('Done Job Sellout Periodo Actual', dataSellout)        
+        // console.log('Executing load data Sellout Periodo Actual')
+        // const dataSellout = await sequelize.query(
+        //     `select * from axeso.fn_cargar_sellout_por_periodo_actual()`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Sellout Periodo Actual', dataSellout)        
 
-        console.log('Executing load data Deuda Pendiente')
-        const dataDeudaPend = await sequelize.query(
-            `select * from axeso.fn_cargar_deuda_pendiente(null)`,
-            { type: Sequelize.QueryTypes.SELECT }
-        );
-        console.log('Done Job Deuda Pendiente', dataDeudaPend)        
+        // console.log('Executing load data Deuda Pendiente')
+        // const dataDeudaPend = await sequelize.query(
+        //     `select * from axeso.fn_cargar_deuda_pendiente(null)`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Deuda Pendiente', dataDeudaPend)        
 
-        console.log('Executing load data Dashboard')
-        const dataDashboard = await sequelize.query(
-            `select * from axeso.fn_cargar_dashboard(null)`,
-            { type: Sequelize.QueryTypes.SELECT }
-        );
-        console.log('Done Job Dashboard', dataDashboard)
+        // console.log('Executing load data Dashboard')
+        // const dataDashboard = await sequelize.query(
+        //     `select * from axeso.fn_cargar_dashboard(null)`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Dashboard', dataDashboard)
 
         console.log('Executing load data Indicadores Servicios Farm 2021')
         const dataIndSrvAxesoFarm1 = await sequelize.query(
@@ -98,11 +98,11 @@ export async function jobs() {
 
         
         
-        await sequelize.query(
-            `INSERT INTO axeso.jobs_detalle(fecha_registro) VALUES (now() - interval '10 hour')`,
-            { type: Sequelize.QueryTypes.INSERT }
-        );
-        console.log('Insert en la tabla jobs_detalle');
+        // await sequelize.query(
+        //     `INSERT INTO axeso.jobs_detalle(fecha_registro) VALUES (now() - interval '10 hour')`,
+        //     { type: Sequelize.QueryTypes.INSERT }
+        // );
+        // console.log('Insert en la tabla jobs_detalle');
     } catch (e) {
         console.log('Error in Jobs', e)
     }
