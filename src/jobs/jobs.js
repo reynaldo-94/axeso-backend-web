@@ -26,12 +26,26 @@ export async function jobs() {
         // );
         // console.log('Done Job Dashboard', dataDashboard)
 
-        console.log('Executing load data Indicadores Servicios Farm 2021')
-        const dataIndSrvAxesoFarm1 = await sequelize.query(
-            `select * from axeso.fn_cargar_indicadorservicio('P0719','2021','SI')`,
+        console.log('Executing load data Compras Periodo Julio')
+        const dataCompras1 = await sequelize.query(
+            `select * from axeso.fn_cargar_comprasingresos('467')`,
             { type: Sequelize.QueryTypes.SELECT }
         );
-        console.log('Done Job Indicadores Servicios Farm 2021', dataIndSrvAxesoFarm1)
+        console.log('Done Job Compras Periodo Julio', dataCompras1)
+
+        console.log('Executing load data Compras Periodo Agosto')
+        const dataCompras2 = await sequelize.query(
+            `select * from axeso.fn_cargar_comprasingresos('468')`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Compras Periodo Agosto', dataCompras2)
+
+        console.log('Executing load data Compras Periodo Actual')
+        const dataCompras3 = await sequelize.query(
+            `select * from axeso.fn_cargar_comprasingresos(null)`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Compras Periodo Actual', dataCompras3)
 
         console.log('Executing load data Indicadores Servicios Farm 2022')
         const dataIndSrvAxesoFarm2 = await sequelize.query(
@@ -40,26 +54,12 @@ export async function jobs() {
         );
         console.log('Done Job Indicadores Servicios Farm 2022', dataIndSrvAxesoFarm2)
 
-        console.log('Executing load data Indicadores Servicios Gsk 2021')
-        const dataIndSrvAxesoGsk1 = await sequelize.query(
-            `select * from axeso.fn_cargar_indicadorservicio('P0987','2021','SI')`,
-            { type: Sequelize.QueryTypes.SELECT }
-        );
-        console.log('Done Job Indicadores Servicios Gsk 2021', dataIndSrvAxesoGsk1)
-
         console.log('Executing load data Indicadores Servicios Gsk 2022')
         const dataIndSrvAxesoGsk2 = await sequelize.query(
             `select * from axeso.fn_cargar_indicadorservicio('P0987','2022','SI')`,
             { type: Sequelize.QueryTypes.SELECT }
         );
         console.log('Done Job Indicadores Servicios Gsk 2022', dataIndSrvAxesoGsk2)
-
-        console.log('Executing load data Indicadores Servicios Mol 2021')
-        const dataIndSrvAxesoMol1 = await sequelize.query(
-            `select * from axeso.fn_cargar_indicadorservicio('P044','2021','SI')`,
-            { type: Sequelize.QueryTypes.SELECT }
-        );
-        console.log('Done Job Indicadores Servicios Mol 2021', dataIndSrvAxesoMol1)
 
         console.log('Executing load data Indicadores Servicios Mol 2022')
         const dataIndSrvAxesoMol2 = await sequelize.query(
@@ -68,26 +68,12 @@ export async function jobs() {
         );
         console.log('Done Job Indicadores Servicios Mol 2022', dataIndSrvAxesoMol2)
 
-        console.log('Executing load data Indicadores Servicios Ali 2021')
-        const dataIndSrvAxesoAli1 = await sequelize.query(
-            `select * from axeso.fn_cargar_indicadorservicio('P103','2021','SI')`,
-            { type: Sequelize.QueryTypes.SELECT }
-        );
-        console.log('Done Job Indicadores Servicios Ali 2021', dataIndSrvAxesoAli1)
-
         console.log('Executing load data Indicadores Servicios Ali 2022')
         const dataIndSrvAxesoAli2 = await sequelize.query(
             `select * from axeso.fn_cargar_indicadorservicio('P103','2022','SI')`,
             { type: Sequelize.QueryTypes.SELECT }
         );
         console.log('Done Job Indicadores Servicios Ali 2022', dataIndSrvAxesoAli2)
-
-        console.log('Executing load data Indicadores Servicios Geno 2021')
-        const dataIndSrvAxesoGeno1 = await sequelize.query(
-            `select * from axeso.fn_cargar_indicadorservicio('P0730','2021','SI')`,
-            { type: Sequelize.QueryTypes.SELECT }
-        );
-        console.log('Done Job Indicadores Servicios Geno 2021', dataIndSrvAxesoGeno1)
 
         console.log('Executing load data Indicadores Servicios Geno 2022')
         const dataIndSrvAxesoGeno2 = await sequelize.query(
