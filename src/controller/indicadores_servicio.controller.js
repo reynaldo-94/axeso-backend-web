@@ -21,25 +21,37 @@ export async function getIndicadoresServicio(req, res) {
     let entidadesFillRate = await IndicadorServicioFillRate.findAll({
         where: {
             [Op.and]: IndicadorServicioFillRate.sequelize.literal("idproveedor = '" + p_proveedorid + "' AND anio = '" + p_anioid + "'")
-        }
+        },
+        order: [
+            ['idmes', 'ASC'],
+        ]       
     });
 
     let entidadesDiasInventario = await IndicadorServicioDiasInventario.findAll({
         where: {
             [Op.and]: IndicadorServicioDiasInventario.sequelize.literal("idproveedor = '" + p_proveedorid + "' AND anio = '" + p_anioid + "'")
-        }
+        },
+        order: [
+            ['idmes', 'ASC'],
+        ]
     });
 
     let entidadesLeadTime = await IndicadorServicioLeadTime.findAll({
         where: {
             [Op.and]: IndicadorServicioLeadTime.sequelize.literal("idproveedor = '" + p_proveedorid + "' AND anio = '" + p_anioid + "'")
-        }
+        },
+        order: [
+            ['idmes', 'ASC'],
+        ]
     });
 
     let entidadesInvFueraPlazo = await IndicadorServicioInvFueraPlazo.findAll({
         where: {
             [Op.and]: IndicadorServicioInvFueraPlazo.sequelize.literal("idproveedor = '" + p_proveedorid + "' AND anio = '" + p_anioid + "'")
-        }
+        },
+        order: [
+            ['idmes', 'ASC'],
+        ]
     })        
 
     const responseFormat = {
