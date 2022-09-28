@@ -5,15 +5,50 @@ export async function jobs() {
     console.log('Executing Jobs')
     try {
         console.log('Executing load data Compras Periodo Abril')
-        const dataCompras = await sequelize.query(
+        const dataCompras4 = await sequelize.query(
             `select * from axeso.fn_cargar_comprasingresos('464')`,
             { type: Sequelize.QueryTypes.SELECT }
         );
-        console.log('Done Job Compras Periodo Abril', dataCompras)
+        console.log('Done Job Compras Periodo Abril', dataCompras4)
+
+        console.log('Executing load data Compras Periodo Mayo')
+        const dataCompras5 = await sequelize.query(
+            `select * from axeso.fn_cargar_comprasingresos('465')`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Compras Periodo Mayo', dataCompras5)
+
+        console.log('Executing load data Compras Periodo Junio')
+        const dataCompras6 = await sequelize.query(
+            `select * from axeso.fn_cargar_comprasingresos('466')`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Compras Periodo Junio', dataCompras6)
+
+        console.log('Executing load data Compras Periodo Julio')
+        const dataCompras7 = await sequelize.query(
+            `select * from axeso.fn_cargar_comprasingresos('467')`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Compras Periodo Julio', dataCompras7)
+
+        console.log('Executing load data Compras Periodo Agosto')
+        const dataCompras8 = await sequelize.query(
+            `select * from axeso.fn_cargar_comprasingresos('468')`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Compras Periodo Agosto', dataCompras8)
+
+        console.log('Executing load data Compras Periodo Setiembre')
+        const dataCompras9 = await sequelize.query(
+            `select * from axeso.fn_cargar_comprasingresos(null)`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Compras Periodo Setiembre', dataCompras9)
 
         console.log('Executing load data Indicadores Servicios Farm 2022')
         const dataIndSrvAxesoFarm2 = await sequelize.query(
-            `select * from axeso.fn_cargar_indicadorservicio('P0719','2022','SI')`,
+            `select * from axeso.fn_cargar_indicadorservicio(null,'2022','SI')`,
             { type: Sequelize.QueryTypes.SELECT }
         );
         console.log('Done Job Indicadores Servicios Farm 2022', dataIndSrvAxesoFarm2)
