@@ -124,16 +124,16 @@ export async function jobsSelloutToSelloutAnterior() {
 
 }
 
-export async function jobsIndicadorServicio() {
-    try {
+// export async function jobsIndicadorServicio() {
+//     try {
         
-        console.log('Executing load data Indicador Servicio Mes Actual')
-        const dataSellout = await sequelize.query(
-            `select * from axeso.fn_cargar_()`,
-            { type: Sequelize.QueryTypes.SELECT }
-        );
-        console.log('Done Job Sellout Periodo Actual', dataSellout)
-    } catch (e) {
-        console.log('Error in Jobs', e)
-    }
-}
+//         console.log('Executing load data Indicador Servicio Mes Actual')
+//         const dataSellout = await sequelize.query(
+//             `select * from axeso.fn_cargar_()`,
+//             { type: Sequelize.QueryTypes.SELECT }
+//         );
+//         console.log('Done Job Sellout Periodo Actual', dataSellout)
+//     } catch (e) {
+//         console.log('Error in Jobs', e)
+//     }
+// }
