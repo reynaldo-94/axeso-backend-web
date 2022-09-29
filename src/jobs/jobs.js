@@ -3,40 +3,55 @@ import { sequelize } from '../database/database';
 
 export async function jobs() {
     console.log('Executing Jobs')
-    try {        
-        console.log('Executing load data Sellout Periodo Actual')
-        const dataSellout = await sequelize.query(
-            `select * from axeso.fn_cargar_sellout_por_periodo_actual()`,
-            { type: Sequelize.QueryTypes.SELECT }
-        );
-        console.log('Done Job Sellout Periodo Actual', dataSellout)
-        
-        console.log('Executing load data Compras Periodo Actual')
-        const dataCompras = await sequelize.query(
-            `select * from axeso.fn_cargar_comprasingresos(null)`,
-            { type: Sequelize.QueryTypes.SELECT }
-        );
-        console.log('Done Job Compras Periodo Actual', dataCompras)
+    try {
 
-        console.log('Executing load data Deuda Pendiente')
-        const dataDeudaPend = await sequelize.query(
-            `select * from axeso.fn_cargar_deuda_pendiente(null)`,
+        console.log('Executing load data Compras Periodo Agosto')
+        const dataCompras12 = await sequelize.query(
+            `select * from axeso.fn_cargar_comprasingresos('468')`,
             { type: Sequelize.QueryTypes.SELECT }
         );
-        console.log('Done Job Deuda Pendiente', dataDeudaPend)        
+        console.log('Done Job Compras Periodo Agosto', dataCompras12)
 
-        console.log('Executing load data Dashboard')
-        const dataDashboard = await sequelize.query(
-            `select * from axeso.fn_cargar_dashboard(null)`,
+        console.log('Executing load data Indicadores Servicios 2022')
+        const dataIndSrvAxesoFarm2 = await sequelize.query(
+            `select * from axeso.fn_cargar_indicadorservicio('P0719','2022','SI')`,
             { type: Sequelize.QueryTypes.SELECT }
         );
-        console.log('Done Job Dashboard', dataDashboard)
+        console.log('Done Job Indicadores Servicios 2022', dataIndSrvAxesoFarm2)
+
+        // console.log('Executing load data Sellout Periodo Actual')
+        // const dataSellout = await sequelize.query(
+        //     `select * from axeso.fn_cargar_sellout_por_periodo_actual()`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Sellout Periodo Actual', dataSellout)
         
-        await sequelize.query(
-            `INSERT INTO axeso.jobs_detalle(fecha_registro) VALUES (now() - interval '10 hour')`,
-            { type: Sequelize.QueryTypes.INSERT }
-        );
-        console.log('Insert en la tabla jobs_detalle');
+        // console.log('Executing load data Compras Periodo Actual')
+        // const dataCompras = await sequelize.query(
+        //     `select * from axeso.fn_cargar_comprasingresos(null)`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Compras Periodo Actual', dataCompras)
+
+        // console.log('Executing load data Deuda Pendiente')
+        // const dataDeudaPend = await sequelize.query(
+        //     `select * from axeso.fn_cargar_deuda_pendiente(null)`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Deuda Pendiente', dataDeudaPend)        
+
+        // console.log('Executing load data Dashboard')
+        // const dataDashboard = await sequelize.query(
+        //     `select * from axeso.fn_cargar_dashboard(null)`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Dashboard', dataDashboard)
+        
+        // await sequelize.query(
+        //     `INSERT INTO axeso.jobs_detalle(fecha_registro) VALUES (now() - interval '10 hour')`,
+        //     { type: Sequelize.QueryTypes.INSERT }
+        // );
+        // console.log('Insert en la tabla jobs_detalle');
     } catch (e) {
         console.log('Error in Jobs', e)
     }
@@ -109,18 +124,4 @@ export async function jobsSelloutToSelloutAnterior() {
     }
     console.timeEnd("jobsSelloutToSelloutAnterior")
 
-}
-
-export async function jobsIndicadorServicio() {
-    try {
-        
-        console.log('Executing load data Indicador Servicio Mes Actual')
-        const dataSellout = await sequelize.query(
-            `select * from axeso.fn_cargar_()`,
-            { type: Sequelize.QueryTypes.SELECT }
-        );
-        console.log('Done Job Sellout Periodo Actual', dataSellout)
-    } catch (e) {
-        console.log('Error in Jobs', e)
-    }
 }
