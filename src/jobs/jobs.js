@@ -3,40 +3,110 @@ import { sequelize } from '../database/database';
 
 export async function jobs() {
     console.log('Executing Jobs')
-    try {        
-        console.log('Executing load data Sellout Periodo Actual')
-        const dataSellout = await sequelize.query(
-            `select * from axeso.fn_cargar_sellout_por_periodo_actual()`,
+    try {
+
+        console.log('Executing load data Compras Periodo Enero')
+        const dataCompras1 = await sequelize.query(
+            `select * from axeso.fn_cargar_comprasingresos('461')`,
             { type: Sequelize.QueryTypes.SELECT }
         );
-        console.log('Done Job Sellout Periodo Actual', dataSellout)
-        
-        console.log('Executing load data Compras Periodo Actual')
-        const dataCompras = await sequelize.query(
+        console.log('Done Job Compras Periodo Enero', dataCompras1)
+
+        console.log('Executing load data Compras Periodo Febrero')
+        const dataCompras2 = await sequelize.query(
+            `select * from axeso.fn_cargar_comprasingresos('462')`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Compras Periodo Febrero', dataCompras2)
+
+        console.log('Executing load data Compras Periodo Marzo')
+        const dataCompras3 = await sequelize.query(
+            `select * from axeso.fn_cargar_comprasingresos('463')`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Compras Periodo Marzo', dataCompras3)
+
+        console.log('Executing load data Compras Periodo Abril')
+        const dataCompras4 = await sequelize.query(
+            `select * from axeso.fn_cargar_comprasingresos('464')`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Compras Periodo Abril', dataCompras4)
+
+        console.log('Executing load data Compras Periodo Mayo')
+        const dataCompras5 = await sequelize.query(
+            `select * from axeso.fn_cargar_comprasingresos('465')`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Compras Periodo Mayo', dataCompras5)
+
+        console.log('Executing load data Compras Periodo Junio')
+        const dataCompras6 = await sequelize.query(
+            `select * from axeso.fn_cargar_comprasingresos('466')`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Compras Periodo Junio', dataCompras6)
+
+        const dataCompras7 = await sequelize.query(
+            `select * from axeso.fn_cargar_comprasingresos('467')`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Compras Periodo Julio', dataCompras7)
+
+        console.log('Executing load data Compras Periodo Agosto')
+        const dataCompras8 = await sequelize.query(
+            `select * from axeso.fn_cargar_comprasingresos('468')`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Compras Periodo Agosto', dataCompras8)
+
+        console.log('Executing load data Compras Periodo Setiembre')
+        const dataCompras9 = await sequelize.query(
             `select * from axeso.fn_cargar_comprasingresos(null)`,
             { type: Sequelize.QueryTypes.SELECT }
         );
-        console.log('Done Job Compras Periodo Actual', dataCompras)
+        console.log('Done Job Compras Periodo Setiembre', dataCompras9)
 
-        console.log('Executing load data Deuda Pendiente')
-        const dataDeudaPend = await sequelize.query(
-            `select * from axeso.fn_cargar_deuda_pendiente(null)`,
+        console.log('Executing load data Indicadores Servicios 2022')
+        const dataIndSrvAxesoAli2 = await sequelize.query(
+            `select * from axeso.fn_cargar_indicadorservicio(null,'2022','SI')`,
             { type: Sequelize.QueryTypes.SELECT }
         );
-        console.log('Done Job Deuda Pendiente', dataDeudaPend)        
+        console.log('Done Job Indicadores Servicios 2022', dataIndSrvAxesoAli2)
 
-        console.log('Executing load data Dashboard')
-        const dataDashboard = await sequelize.query(
-            `select * from axeso.fn_cargar_dashboard(null)`,
-            { type: Sequelize.QueryTypes.SELECT }
-        );
-        console.log('Done Job Dashboard', dataDashboard)
+        // console.log('Executing load data Sellout Periodo Actual')
+        // const dataSellout = await sequelize.query(
+        //     `select * from axeso.fn_cargar_sellout_por_periodo_actual()`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Sellout Periodo Actual', dataSellout)
         
-        await sequelize.query(
-            `INSERT INTO axeso.jobs_detalle(fecha_registro) VALUES (now() - interval '10 hour')`,
-            { type: Sequelize.QueryTypes.INSERT }
-        );
-        console.log('Insert en la tabla jobs_detalle');
+        // console.log('Executing load data Compras Periodo Actual')
+        // const dataCompras = await sequelize.query(
+        //     `select * from axeso.fn_cargar_comprasingresos(null)`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Compras Periodo Actual', dataCompras)
+
+        // console.log('Executing load data Deuda Pendiente')
+        // const dataDeudaPend = await sequelize.query(
+        //     `select * from axeso.fn_cargar_deuda_pendiente(null)`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Deuda Pendiente', dataDeudaPend)        
+
+        // console.log('Executing load data Dashboard')
+        // const dataDashboard = await sequelize.query(
+        //     `select * from axeso.fn_cargar_dashboard(null)`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Dashboard', dataDashboard)
+        
+        // await sequelize.query(
+        //     `INSERT INTO axeso.jobs_detalle(fecha_registro) VALUES (now() - interval '10 hour')`,
+        //     { type: Sequelize.QueryTypes.INSERT }
+        // );
+        // console.log('Insert en la tabla jobs_detalle');
     } catch (e) {
         console.log('Error in Jobs', e)
     }
