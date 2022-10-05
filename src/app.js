@@ -32,7 +32,12 @@ const dashboardRoutes = require('./routes/dashboard.routes');
 const indicadoresservicioRoutes = require('./routes/indicadores_servicio.routes');
 
 // Jobs
-const { jobs, jobsSelloutToSelloutAnterior, jobsSelloutAnteriorToSelloutTodos } = require('./jobs/jobs.js');
+const { 
+  jobs, 
+  jobsSelloutToSelloutAnterior, 
+  jobsSelloutAnteriorToSelloutTodos, 
+  jobSelloutMesAnterior 
+} = require('./jobs/jobs.js');
 
 const app = express();
 app.use(morgan('dev'));
@@ -73,6 +78,7 @@ const taskJobs = cron.schedule(process.env.CRON_TIME, async () => {
   timezone: "America/Lima"
 });
 taskJobs.start();
+
 const taskJobsAnual = cron.schedule(process.env.CRON_TIME_ANUAL, async () => {
   await jobsSelloutAnteriorToSelloutTodos();
   await jobsSelloutToSelloutAnterior();
@@ -81,5 +87,13 @@ const taskJobsAnual = cron.schedule(process.env.CRON_TIME_ANUAL, async () => {
   timezone: "America/Lima"
 });
 taskJobsAnual.start();
+
+const taskJobSelloutMesAnterior = cron.schedule(process.env.CRON_TIME_SELLOUT_MES_ANTERIOR, async () => {
+  await jobSelloutMesAnterior();
+}, {
+  scheduled: true,
+  timezone: "America/Lima"
+});
+taskJobSelloutMesAnterior.start();
 
 module.exports = app;

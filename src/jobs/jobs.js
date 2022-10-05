@@ -110,3 +110,19 @@ export async function jobsSelloutToSelloutAnterior() {
     console.timeEnd("jobsSelloutToSelloutAnterior")
 
 }
+
+export async function jobSelloutMesAnterior() {
+    console.log('Executing Jobs')
+    try {        
+        console.log('Executing load data Sellout Periodo Anterior')
+        const dataSellout = await sequelize.query(
+            `select * from axeso.fn_cargar_sellout_por_periodo_anterior()`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Sellout Periodo Anterior', dataSellout)
+    } catch (e) {
+        console.log('Error in Jobs', e)
+    }
+
+    console.log('Done Jobs')
+}
