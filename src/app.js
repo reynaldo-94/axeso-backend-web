@@ -88,12 +88,12 @@ const taskJobsAnual = cron.schedule(process.env.CRON_TIME_ANUAL, async () => {
 });
 taskJobsAnual.start();
 
-const taskJobSelloutMesAnterior = cron.schedule(process.env.CRON_TIME_SELLOUT_MES_ANTERIOR, async () => {
-  await jobSelloutMesAnterior();
-}, {
-  scheduled: true,
-  timezone: "America/Lima"
-});
-taskJobSelloutMesAnterior.start();
+// const taskJobSelloutMesAnterior = cron.schedule(process.env.CRON_TIME_SELLOUT_MES_ANTERIOR, async () => {
+//   await jobSelloutMesAnterior();
+// }, {
+//   scheduled: true,
+//   timezone: "America/Lima"
+// });
+// taskJobSelloutMesAnterior.start();
 
 module.exports = app;
