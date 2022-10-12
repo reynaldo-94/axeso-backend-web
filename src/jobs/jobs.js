@@ -113,13 +113,85 @@ export async function jobsSelloutToSelloutAnterior() {
 
 export async function jobSelloutMesAnterior() {
     console.log('Executing Jobs')
-    try {        
+    try {
+        // Cargar el sellout anterior y todo el dashboard
         console.log('Executing load data Sellout Periodo Anterior')
-        const dataSellout = await sequelize.query(
+        const dataSelloutAnt = await sequelize.query(
             `select * from axeso.fn_cargar_sellout_por_periodo_anterior()`,
             { type: Sequelize.QueryTypes.SELECT }
         );
-        console.log('Done Job Sellout Periodo Anterior', dataSellout)
+        console.log('Done Job Sellout Periodo Anterior', dataSelloutAnt)
+
+        // Cargar dashboard completo
+        console.log('Executing delete Dashboard Sellout Cobertura')
+        const deleteSellCob = await sequelize.query(
+            `delete from axeso.dashboard_sellout_cobertura`,
+            { type: Sequelize.QueryTypes.DELETE }
+        );
+        console.log('Done Job delete Dashboard Sellout Cobertura', deleteSellCob)
+
+        console.log('Executing delete Dashboard Inventario')
+        const deleteInv = await sequelize.query(
+            `delete from axeso.dashboard_inventario`,
+            { type: Sequelize.QueryTypes.DELETE }
+        );
+        console.log('Done Job delete Dashboard Inventario', deleteInv)
+
+        console.log('Executing delete Dashboard Deuda Pendiente')
+        const deleteDeudPend = await sequelize.query(
+            `delete from axeso.dashboard_deudapendiente`,
+            { type: Sequelize.QueryTypes.DELETE }
+        );
+        console.log('Done Job delete Dashboard Deuda Pendiente', deleteDeudPend)
+
+        console.log('Executing delete Dashboard SellIn')
+        const deleteSellin = await sequelize.query(
+            `delete from axeso.dashboard_sellin`,
+            { type: Sequelize.QueryTypes.DELETE }
+        );
+        console.log('Done Job delete Dashboard SellIn', deleteSellin)
+
+        console.log('Executing delete Dashboard SellIn Sellout Mensual')
+        const deleteSellinout = await sequelize.query(
+            `delete from axeso.dashboard_sellin_sellout_mensual`,
+            { type: Sequelize.QueryTypes.DELETE }
+        );
+        console.log('Done Job delete Dashboard SellIn Sellout Mensual', deleteSellinout)
+        
+        console.log('Executing load data Sellout Periodo Actual')
+        const dataSellout = await sequelize.query(
+            `select * from axeso.fn_cargar_sellout_por_periodo_actual()`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Sellout Periodo Actual', dataSellout)
+
+        console.log('Executing load data SellIn')
+        const dataCompras = await sequelize.query(
+            `select * from axeso.fn_cargar_comprasingresos(null)`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Sellin', dataCompras)
+
+        console.log('Executing load data Deuda Pendiente')
+        const dataDeudaPend = await sequelize.query(
+            `select * from axeso.fn_cargar_deuda_pendiente(null)`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Deuda Pendiente', dataDeudaPend)
+
+        console.log('Executing load data Dashboard')
+        const dataDashboard = await sequelize.query(
+            `select * from axeso.fn_cargar_dashboard(null)`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Dashboard', dataDashboard)
+        
+        await sequelize.query(
+            `INSERT INTO axeso.jobs_detalle(fecha_registro) VALUES (now() - interval '10 hour')`,
+            { type: Sequelize.QueryTypes.INSERT }
+        );
+        console.log('Insert en la tabla jobs_detalle');
+
     } catch (e) {
         console.log('Error in Jobs', e)
     }
