@@ -3,7 +3,120 @@ import { sequelize } from '../database/database';
 
 export async function jobs() {
     console.log('Executing Jobs')
-    try {        
+    try {
+
+        console.log('Executing load data Sellout Periodo Enero')
+        const dataSellout_1 = await sequelize.query(
+            `select * from axeso.fn_cargar_sellout_por_periodo_actual('461','01')`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Sellout Periodo Enero', dataSellout_1)
+
+        console.log('Executing load data Sellout Periodo Febrero')
+        const dataSellout_2 = await sequelize.query(
+            `select * from axeso.fn_cargar_sellout_por_periodo_actual('462','02')`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Sellout Periodo Febrero', dataSellout_2)
+
+        console.log('Executing load data Sellout Periodo Marzo')
+        const dataSellout_3 = await sequelize.query(
+            `select * from axeso.fn_cargar_sellout_por_periodo_actual('463','03')`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Sellout Periodo Marzo', dataSellout_3)
+
+        console.log('Executing load data Sellout Periodo Abril')
+        const dataSellout_4 = await sequelize.query(
+            `select * from axeso.fn_cargar_sellout_por_periodo_actual('464','04')`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Sellout Periodo Abril', dataSellout_4)
+
+        console.log('Executing load data Sellout Periodo Mayo')
+        const dataSellout_5 = await sequelize.query(
+            `select * from axeso.fn_cargar_sellout_por_periodo_actual('465','05')`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Sellout Periodo Mayo', dataSellout_5)
+
+        console.log('Executing load data Sellout Periodo Junio')
+        const dataSellout_6 = await sequelize.query(
+            `select * from axeso.fn_cargar_sellout_por_periodo_actual('466','06')`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Sellout Periodo Abril', dataSellout_6)
+
+        console.log('Executing load data Sellout Periodo Julio')
+        const dataSellout_7 = await sequelize.query(
+            `select * from axeso.fn_cargar_sellout_por_periodo_actual('467','07')`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Sellout Periodo Julio', dataSellout_7)
+
+        console.log('Executing load data Sellout Periodo Agosto')
+        const dataSellout_8 = await sequelize.query(
+            `select * from axeso.fn_cargar_sellout_por_periodo_actual('468','08')`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Sellout Periodo Agosto', dataSellout_8)
+
+        console.log('Executing load data Sellout Periodo Setiembre')
+        const dataSellout_9 = await sequelize.query(
+            `select * from axeso.fn_cargar_sellout_por_periodo_actual('469','09')`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Sellout Periodo Setiembre', dataSellout_9)
+
+        console.log('Executing load data Sellout Periodo Octubre')
+        const dataSellout_10 = await sequelize.query(
+            `select * from axeso.fn_cargar_sellout_por_periodo_actual('470','10')`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Sellout Periodo Octubre', dataSellout_10)
+
+        console.log('Executing load data Sellout Periodo Noviembre')
+        const dataSellout_11 = await sequelize.query(
+            `select * from axeso.fn_cargar_sellout_por_periodo_actual('471','11')`,
+            { type: Sequelize.QueryTypes.SELECT }
+        );
+        console.log('Done Job Sellout Periodo Noviembre', dataSellout_11)
+
+        console.log('Executing delete Dashboard Sellout Cobertura')
+        const deleteSellCob = await sequelize.query(
+            `delete from axeso.dashboard_sellout_cobertura`,
+            { type: Sequelize.QueryTypes.DELETE }
+        );
+        console.log('Done Job delete Dashboard Sellout Cobertura', deleteSellCob)
+
+        console.log('Executing delete Dashboard Inventario')
+        const deleteInv = await sequelize.query(
+            `delete from axeso.dashboard_inventario`,
+            { type: Sequelize.QueryTypes.DELETE }
+        );
+        console.log('Done Job delete Dashboard Inventario', deleteInv)
+
+        console.log('Executing delete Dashboard Deuda Pendiente')
+        const deleteDeudPend = await sequelize.query(
+            `delete from axeso.dashboard_deudapendiente`,
+            { type: Sequelize.QueryTypes.DELETE }
+        );
+        console.log('Done Job delete Dashboard Deuda Pendiente', deleteDeudPend)
+
+        console.log('Executing delete Dashboard SellIn')
+        const deleteSellin = await sequelize.query(
+            `delete from axeso.dashboard_sellin`,
+            { type: Sequelize.QueryTypes.DELETE }
+        );
+        console.log('Done Job delete Dashboard SellIn', deleteSellin)
+
+        console.log('Executing delete Dashboard SellIn Sellout Mensual')
+        const deleteSellinout = await sequelize.query(
+            `delete from axeso.dashboard_sellin_sellout_mensual`,
+            { type: Sequelize.QueryTypes.DELETE }
+        );
+        console.log('Done Job delete Dashboard SellIn Sellout Mensual', deleteSellinout)
+
         console.log('Executing load data Sellout Periodo Actual')
         const dataSellout = await sequelize.query(
             `select * from axeso.fn_cargar_sellout_por_periodo_actual()`,
