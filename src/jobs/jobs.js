@@ -4,39 +4,47 @@ import { sequelize } from '../database/database';
 export async function jobs() {
     console.log('Executing Jobs')
     try {
-        console.log('Executing load data Sellout Periodo Actual')
+
+        console.log('Update inventariocritico')
         const dataSellout = await sequelize.query(
-            `select * from axeso.fn_cargar_sellout_por_periodo_actual()`,
-            { type: Sequelize.QueryTypes.SELECT }
+            `update axeso.inventariocritico set limite_ds = 60 where proveedorid = 'P350'`,
+            { type: Sequelize.QueryTypes.UPDATE }
         );
         console.log('Done Job Sellout Periodo Actual', dataSellout)
-        
-        console.log('Executing load data Compras Periodo Actual')
-        const dataCompras = await sequelize.query(
-            `select * from axeso.fn_cargar_comprasingresos(null)`,
-            { type: Sequelize.QueryTypes.SELECT }
-        );
-        console.log('Done Job Compras Periodo Actual', dataCompras)
 
-        console.log('Executing load data Deuda Pendiente')
-        const dataDeudaPend = await sequelize.query(
-            `select * from axeso.fn_cargar_deuda_pendiente(null)`,
-            { type: Sequelize.QueryTypes.SELECT }
-        );
-        console.log('Done Job Deuda Pendiente', dataDeudaPend)        
-
-        console.log('Executing load data Dashboard')
-        const dataDashboard = await sequelize.query(
-            `select * from axeso.fn_cargar_dashboard(null)`,
-            { type: Sequelize.QueryTypes.SELECT }
-        );
-        console.log('Done Job Dashboard', dataDashboard)
+        // console.log('Executing load data Sellout Periodo Actual')
+        // const dataSellout = await sequelize.query(
+        //     `select * from axeso.fn_cargar_sellout_por_periodo_actual()`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Sellout Periodo Actual', dataSellout)
         
-        await sequelize.query(
-            `INSERT INTO axeso.jobs_detalle(fecha_registro) VALUES (now() - interval '10 hour')`,
-            { type: Sequelize.QueryTypes.INSERT }
-        );
-        console.log('Insert en la tabla jobs_detalle');
+        // console.log('Executing load data Compras Periodo Actual')
+        // const dataCompras = await sequelize.query(
+        //     `select * from axeso.fn_cargar_comprasingresos(null)`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Compras Periodo Actual', dataCompras)
+
+        // console.log('Executing load data Deuda Pendiente')
+        // const dataDeudaPend = await sequelize.query(
+        //     `select * from axeso.fn_cargar_deuda_pendiente(null)`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Deuda Pendiente', dataDeudaPend)        
+
+        // console.log('Executing load data Dashboard')
+        // const dataDashboard = await sequelize.query(
+        //     `select * from axeso.fn_cargar_dashboard(null)`,
+        //     { type: Sequelize.QueryTypes.SELECT }
+        // );
+        // console.log('Done Job Dashboard', dataDashboard)
+        
+        // await sequelize.query(
+        //     `INSERT INTO axeso.jobs_detalle(fecha_registro) VALUES (now() - interval '10 hour')`,
+        //     { type: Sequelize.QueryTypes.INSERT }
+        // );
+        // console.log('Insert en la tabla jobs_detalle');
     } catch (e) {
         console.log('Error in Jobs', e)
     }
