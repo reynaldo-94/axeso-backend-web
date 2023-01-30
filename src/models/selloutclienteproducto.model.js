@@ -29,6 +29,9 @@ const Selloutclienteproducto = sequelize.define('selloutclienteproducto', {
     combrecomercial: {
         type: Sequelize.STRING
     },
+    ruc: {
+        type: Sequelize.STRING
+    },
     canal: {
         type: Sequelize.STRING
     },

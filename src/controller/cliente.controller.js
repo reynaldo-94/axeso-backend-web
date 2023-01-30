@@ -666,8 +666,7 @@ export async function getClienteSelloutDescarga(req, res) {
         p_ano,
         p_periodos
     } = req.body;
-
-
+    
     if (p_proveedorid == null) {
         return res.status(200).json("Valor de proveedorid es obligatorio");
     }
@@ -696,7 +695,7 @@ export async function getClienteSelloutDescarga(req, res) {
     if (p_periodos != null) {
         xp_periodos = "'" + p_periodos.join(",") + "'";
     }
-    console.log('xp_periodo', xp_periodos)
+    
     try {
         let entidades = await Selloutclienteproducto.sequelize.query(
             "SELECT * from fn_get_sellout_descarga('" +
