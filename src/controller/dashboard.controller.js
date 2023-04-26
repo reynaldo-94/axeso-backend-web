@@ -44,13 +44,17 @@ export async function getListJobs(req, res) {
     }
 };
 
-export async function getLastUpdateTime(req, res) {
+export async function getLastUpdateTime(req, res) {    
     try {
+        const { tipoid } = req.params;
         let data = await JobsDetalle.findAll({ 
             limit: 1,
             order: [
                 ['id', 'DESC'],
-            ]
+            ],
+            where: {
+                tipoid
+            }
         });
         if (data) {
             return res.status(200).json({
