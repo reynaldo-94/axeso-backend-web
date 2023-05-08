@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize';
-import { sequelize } from '../database/database-bi';
+import { sequelizeBi } from '../database/database-bi';
 
-const IndicadorServicioInvFueraPlazo = sequelize.define('indicadorservicio_invfueraplazo', {
+const IndicadorServicioInvFueraPlazo = sequelizeBi.define('indicadorservicio_invfueraplazo', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true

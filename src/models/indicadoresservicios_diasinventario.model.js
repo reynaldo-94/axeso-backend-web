@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize';
-import { sequelize } from '../database/database-bi';
+import { sequelizeBi } from '../database/database-bi';
 
-const IndicadorServicioDiasInventario = sequelize.define('indicadorservicio_diasinventario', {
+const IndicadorServicioDiasInventario = sequelizeBi.define('indicadorservicio_diasinventario', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true

@@ -34,7 +34,7 @@ export async function jobs() {
         console.log('Done Job Dashboard', dataDashboard)
         
         await sequelize.query(
-            `INSERT INTO axeso.jobs_detalle(fecha_registro) VALUES (now() - interval '10 hour')`,
+            `INSERT INTO axeso.jobs_detalle(fecha_registro, tipoid, descripcion) VALUES (now() - interval '10 hour', 1, 'Dashboard')`,
             { type: Sequelize.QueryTypes.INSERT }
         );
         console.log('Insert en la tabla jobs_detalle');

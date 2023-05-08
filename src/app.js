@@ -38,6 +38,7 @@ const {
   jobsSelloutAnteriorToSelloutTodos, 
   jobSelloutMesAnterior 
 } = require('./jobs/jobs.js');
+const { jobNivelServicioDosUltimosMeses } = require('./jobs/nivel-servicio.job');
 
 const app = express();
 app.use(morgan('dev'));
@@ -79,6 +80,7 @@ const taskJobs = cron.schedule(process.env.CRON_TIME, async () => {
 });
 taskJobs.start();
 
+
 const taskJobsAnual = cron.schedule(process.env.CRON_TIME_ANUAL, async () => {
   await jobsSelloutAnteriorToSelloutTodos();
   await jobsSelloutToSelloutAnterior();
@@ -95,5 +97,13 @@ const taskJobSelloutMesAnterior = cron.schedule(process.env.CRON_TIME_SELLOUT_ME
   timezone: "America/Lima"
 });
 taskJobSelloutMesAnterior.start();
+
+const taskJobNivelServicioDosUltimosMeses = cron.schedule(process.env.CRON_TIME_INDICADOR_DOS_ULTIMOS_MESES, async () => {
+  await jobNivelServicioDosUltimosMeses();
+}, {
+  scheduled: true,
+  timezone: "America/Lima"
+});
+taskJobNivelServicioDosUltimosMeses.start();
 
 module.exports = app;

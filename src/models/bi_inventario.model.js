@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize';
-import { sequelize } from '../database/database-bi';
+import { sequelizeBi } from '../database/database-bi';
 
-const Inventario = sequelize.define("inventario", {
+const Inventario = sequelizeBi.define("inventario", {
     idproducto: {
         type: Sequelize.STRING
     },
