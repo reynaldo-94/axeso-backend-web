@@ -11,14 +11,14 @@ export async function jobNivelServicioDosUltimosMeses() {
 
         console.log('Executing load Month 1 DatabaseDimexaGestion')
         const loadMonth1G = await sequelize.query(
-            `select * from axeso.fn_cargar_indicadorservicio('P007', '${year}', '${month}')`,
+            `select * from axeso.fn_cargar_indicadorservicio(null, '${year}', '${month}')`,
             { type: Sequelize.QueryTypes.SELECT }
         );
         console.log('Done Job Month 1 DatabaseDimexaGestion', loadMonth1G)
 
         console.log('Executing load Month 1 DatabaseDimexaBi')
         const loadMonth1B = await sequelizeBi.query(
-            `select * from public.f_axeso_cargar_indicadorservicio('P007', '${year}', '${month}')`,
+            `select * from public.f_axeso_cargar_indicadorservicio(null, '${year}', '${month}')`,
             { type: Sequelize.QueryTypes.SELECT }
         );
         console.log('Done Job Month 1 DatabaseDimexaBi', loadMonth1B)
@@ -26,14 +26,14 @@ export async function jobNivelServicioDosUltimosMeses() {
         if (month > 1 ) {
             console.log('Executing load Month 2 DatabaseDimexaGestion')
             const loadMonth2G = await sequelize.query(
-                `select * from axeso.fn_cargar_indicadorservicio('P007', '${year}', '${month - 1}')`,
+                `select * from axeso.fn_cargar_indicadorservicio(null, '${year}', '${month - 1}')`,
                 { type: Sequelize.QueryTypes.SELECT }
             );
             console.log('Done Job Month 2 DatabaseDimexaGestion', loadMonth2G)
 
             console.log('Executing load Month 2 DatabaseDimexaBi')
             const loadMonth2B = await sequelizeBi.query(
-                `select * from public.f_axeso_cargar_indicadorservicio('P007', '${year}', '${month - 1}')`,
+                `select * from public.f_axeso_cargar_indicadorservicio(null, '${year}', '${month - 1}')`,
                 { type: Sequelize.QueryTypes.SELECT }
             );
             console.log('Done Job Month 2 DatabaseDimexaBi', loadMonth2B)
