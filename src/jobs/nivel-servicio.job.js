@@ -7,7 +7,7 @@ export async function jobNivelServicioDosUltimosMeses() {
     try {        
         const today = new Date();
         const year = today.getFullYear()
-        const month = today.getMonth + 1
+        const month = today.getMonth() + 1
 
         console.log('Executing load Month 1 DatabaseDimexaGestion')
         const loadMonth1G = await sequelize.query(
