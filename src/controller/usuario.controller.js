@@ -37,7 +37,7 @@ var mail = nodemailer.createTransport({
         // user: "soporte.dimexa@gmail.com",
         // pass: "S0p0rt3D1m3xa",
         user: "contactadimexa@dimexa.com.pe",
-        pass: "CTDIM+7410"
+        pass: "Dimmkt232323"
     }
 });
 
